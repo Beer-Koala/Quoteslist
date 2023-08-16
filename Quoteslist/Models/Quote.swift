@@ -8,12 +8,14 @@
 import Foundation
 
 class Quote {
+    var name: String // TODO: Check we realy need it
     var stockSymbol: String
     var bidPrice: Float
     var askPrice: Float
     var lastPrice: Float
 
-    init(stockSymbol: String, bidPrice: Float, askPrice: Float, lastPrice: Float) {
+    init(name: String, stockSymbol: String, bidPrice: Float, askPrice: Float, lastPrice: Float) {
+        self.name = name
         self.stockSymbol = stockSymbol
         self.bidPrice = bidPrice
         self.askPrice = askPrice
