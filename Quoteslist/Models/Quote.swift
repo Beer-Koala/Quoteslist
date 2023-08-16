@@ -22,3 +22,14 @@ class Quote {
         self.lastPrice = lastPrice
     }
 }
+
+extension Quote: Hashable {
+
+    static func == (lhs: Quote, rhs: Quote) -> Bool {
+        lhs.stockSymbol == rhs.stockSymbol
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(stockSymbol)
+    }
+}
