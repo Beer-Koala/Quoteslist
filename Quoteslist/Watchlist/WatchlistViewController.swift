@@ -30,10 +30,20 @@ class WatchlistViewController: UIViewController, WatchlistView {
         super.viewDidLoad()
         presenter = WatchlistPresenter(view: self)
 
-        self.setup()
+        self.configureView()
+        self.setupTableView()
     }
 
-    private func setup() {
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        self.tableView?.setEditing(editing, animated: animated)
+    }
+
+    func configureView() {
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+
+    private func setupTableView() {
 
         guard let tableView = self.tableView else { return }
 
