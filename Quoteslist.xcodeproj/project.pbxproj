@@ -17,6 +17,7 @@
 		FDA702BC2A8BDA1A002E1DA1 /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA702BB2A8BDA1A002E1DA1 /* Watchlist.swift */; };
 		FDA702BF2A8CF220002E1DA1 /* WatchlistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA702BE2A8CF220002E1DA1 /* WatchlistPresenter.swift */; };
 		FDA702C12A8D78BA002E1DA1 /* QuoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA702C02A8D78BA002E1DA1 /* QuoteTableViewCell.swift */; };
+		FDA702C32A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA702C22A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		FDA702BB2A8BDA1A002E1DA1 /* Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist.swift; sourceTree = "<group>"; };
 		FDA702BE2A8CF220002E1DA1 /* WatchlistPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistPresenter.swift; sourceTree = "<group>"; };
 		FDA702C02A8D78BA002E1DA1 /* QuoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteTableViewCell.swift; sourceTree = "<group>"; };
+		FDA702C22A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEnabledDiffableDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				FD1F65F72A8BD943002893F7 /* WatchlistViewController.swift */,
 				FDA702BE2A8CF220002E1DA1 /* WatchlistPresenter.swift */,
 				FDA702C02A8D78BA002E1DA1 /* QuoteTableViewCell.swift */,
+				FDA702C22A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift */,
 			);
 			path = Watchlist;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				FDA702C12A8D78BA002E1DA1 /* QuoteTableViewCell.swift in Sources */,
 				FDA702BC2A8BDA1A002E1DA1 /* Watchlist.swift in Sources */,
 				FD1F65F62A8BD943002893F7 /* SceneDelegate.swift in Sources */,
+				FDA702C32A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

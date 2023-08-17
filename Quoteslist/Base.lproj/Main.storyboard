@@ -69,6 +69,8 @@
                                                 <constraint firstItem="phU-5h-gWc" firstAttribute="centerY" secondItem="htD-5h-02x" secondAttribute="centerY" constant="-10" id="IrA-Vv-mPx"/>
                                                 <constraint firstItem="0cE-Un-YeA" firstAttribute="leading" secondItem="ETQ-hc-2H1" secondAttribute="leading" id="RGH-T8-fkB"/>
                                                 <constraint firstItem="ETQ-hc-2H1" firstAttribute="centerY" secondItem="htD-5h-02x" secondAttribute="centerY" constant="-10" id="g4B-nV-p9h"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0cE-Un-YeA" secondAttribute="trailing" constant="20" id="phc-YU-9Ts"/>
+                                                <constraint firstItem="phU-5h-gWc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ETQ-hc-2H1" secondAttribute="trailing" constant="15" id="qfk-jC-sDM"/>
                                                 <constraint firstAttribute="trailing" secondItem="phU-5h-gWc" secondAttribute="trailing" constant="20" id="qmf-j7-3G4"/>
                                             </constraints>
                                         </tableViewCellContentView>

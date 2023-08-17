@@ -12,59 +12,55 @@ protocol WatchlistView: AnyObject {
 
 }
 
+enum QuotesSection: Hashable {
+    case main
+}
+
 class WatchlistViewController: UIViewController, WatchlistView {
 
     var presenter: WatchlistPresenter!
 
-    var diffableDataSource: UITableViewDiffableDataSource<Int, Quote>!
-    var currentDataSourceSnapshot: NSDiffableDataSourceSnapshot<Int, Quote>!
+    var tableViewDataSource: EditEnabledDiffableDataSource?
 
-    let cellIdentifier = "quoteTableViewCell"
+    static let cellIdentifier = "quoteTableViewCell" // TODO: make it with constants
 
     @IBOutlet weak var tableView: UITableView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = WatchlistPresenter(view: self)
-        setup()
+
+        self.setup()
     }
 
     private func setup() {
 
         guard let tableView = self.tableView else { return }
-        // Initialize Diffable data source
-        diffableDataSource = UITableViewDiffableDataSource<Int, Quote>(tableView: tableView, cellProvider: { (tableView, indexPath, value) -> UITableViewCell? in
-            let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as? QuoteTableViewCell
 
-            cell?.nameLabel?.text = value.name
-            cell?.stockSymbolLabel?.text = value.stockSymbol
-            cell?.bidPriceLabel?.text = String(value.bidPrice)
-            cell?.askPriceLabel?.text = String(value.askPrice)
-            cell?.lastPriceLabel?.text = String(value.lastPrice)
+        self.tableViewDataSource = EditEnabledDiffableDataSource(tableView: tableView) { [weak self] tableView, _, stockSymbol in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier) as? QuoteTableViewCell else {
+                return UITableViewCell()
+            }
+
+            if let quote = self?.presenter.watchlist.quotes.first(where: { $0.stockSymbol == stockSymbol }) {
+                cell.nameLabel?.text = quote.name
+                cell.stockSymbolLabel?.text = quote.stockSymbol
+                cell.bidPriceLabel?.text = String(quote.bidPrice)
+                cell.askPriceLabel?.text = String(quote.askPrice)
+                cell.lastPriceLabel?.text = String(quote.lastPrice)
+            }
 
             return cell
-        })
+        }
+        self.tableViewDataSource?.deleteClosure = { stockSymbol in
+            self.presenter.watchlist.quotes.removeAll(where: { $0.stockSymbol == stockSymbol})
+        }
 
-        // Instantiate the new snapshot and append the data to the datasource
-        addValuesToSnapshot(for: presenter.watchlist)
+        var snapshot = NSDiffableDataSourceSnapshot<QuotesSection, String>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(self.presenter.watchlist.quotes.map(\.stockSymbol))
+        tableViewDataSource?.apply(snapshot, animatingDifferences: false)
     }
-
-    private func addValuesToSnapshot(for value: WatchList) {
-        // Initialize Snapshot to apply to the data source
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Quote>()
-
-        // Append values to the snapshot
-        snapshot.appendSections([0])
-        snapshot.appendItems(value.quotes, toSection: 0)
-
-        // Save the current snapshot state
-        self.currentDataSourceSnapshot = snapshot
-        //dataSourceData = values
-
-        //tableViewDataSource.apply(snapshot, animatingDifferences: false)
-        self.diffableDataSource.apply(currentDataSourceSnapshot, animatingDifferences: true)
-    }
-
 
 }
 
