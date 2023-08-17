@@ -7,7 +7,7 @@
 
 import Foundation
 
-class WatchList {
+class Watchlist {
     var quotes: [Quote]
 
     init(quotes: [Quote]) {
@@ -16,7 +16,7 @@ class WatchList {
 
     // TODO Remove mocking, when will be fetching data
     // mock data
-    static var mock: WatchList = WatchList(quotes: [
+    static var mock: Watchlist = Watchlist(quotes: [
         Quote(name: "Alphabet", stockSymbol: "GOOG", bidPrice: 100, askPrice: 102, lastPrice: 101),
         Quote(name: "Microsoft", stockSymbol: "MSFT", bidPrice: 50, askPrice: 52, lastPrice: 51),
         Quote(name: "Apple", stockSymbol: "AAPL", bidPrice: 150, askPrice: 152, lastPrice: 151),

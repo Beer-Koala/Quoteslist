@@ -30,4 +30,5 @@ final class EditEnabledDiffableDataSource: UITableViewDiffableDataSource<QuotesS
 
         deleteClosure?(id)
     }
+
 }

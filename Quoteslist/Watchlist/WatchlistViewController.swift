@@ -18,11 +18,11 @@ enum QuotesSection: Hashable {
 
 class WatchlistViewController: UIViewController, WatchlistView {
 
-    var presenter: WatchlistPresenter!
+    var presenter: WatchlistPresenterProtocol!
 
     var tableViewDataSource: EditEnabledDiffableDataSource?
 
-    static let cellIdentifier = "quoteTableViewCell" // TODO: make it with constants
+    static let cellIdentifier = "quoteTableViewCell" // TODO: clear code - make it with constants
 
     @IBOutlet weak var tableView: UITableView?
     
@@ -37,12 +37,14 @@ class WatchlistViewController: UIViewController, WatchlistView {
 
         guard let tableView = self.tableView else { return }
 
+        tableView.delegate = self
+
         self.tableViewDataSource = EditEnabledDiffableDataSource(tableView: tableView) { [weak self] tableView, _, stockSymbol in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier) as? QuoteTableViewCell else {
                 return UITableViewCell()
             }
 
-            if let quote = self?.presenter.watchlist.quotes.first(where: { $0.stockSymbol == stockSymbol }) {
+            if let quote = self?.presenter.showingQuotes.first(where: { $0.stockSymbol == stockSymbol }) {
                 cell.nameLabel?.text = quote.name
                 cell.stockSymbolLabel?.text = quote.stockSymbol
                 cell.bidPriceLabel?.text = String(quote.bidPrice)
@@ -52,15 +54,30 @@ class WatchlistViewController: UIViewController, WatchlistView {
 
             return cell
         }
+
         self.tableViewDataSource?.deleteClosure = { stockSymbol in
-            self.presenter.watchlist.quotes.removeAll(where: { $0.stockSymbol == stockSymbol})
+            self.presenter.removeQuote(for: stockSymbol)
         }
 
         var snapshot = NSDiffableDataSourceSnapshot<QuotesSection, String>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(self.presenter.watchlist.quotes.map(\.stockSymbol))
+        snapshot.appendItems(self.presenter.showingQuotes.map(\.stockSymbol))
         tableViewDataSource?.apply(snapshot, animatingDifferences: false)
+
+        //TODO: maybe at last stages if can - make adapter with datasource to avoid using model from presenter here.
     }
+
+}
+
+extension WatchlistViewController: UITableViewDelegate {
+
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//
+//    }
+
+//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+//
+//    }
 
 }
 
