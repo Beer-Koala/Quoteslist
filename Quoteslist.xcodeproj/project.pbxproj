@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		066FE7E36B8DC0B41290881F /* Pods_Quoteslist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C141CFB240A937A651C034D /* Pods_Quoteslist.framework */; };
 		FD1F65F42A8BD943002893F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1F65F32A8BD943002893F7 /* AppDelegate.swift */; };
 		FD1F65F62A8BD943002893F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1F65F52A8BD943002893F7 /* SceneDelegate.swift */; };
 		FD1F65F82A8BD943002893F7 /* WatchlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1F65F72A8BD943002893F7 /* WatchlistViewController.swift */; };
@@ -21,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C4592189C7669343D4323B7 /* Pods-Quoteslist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quoteslist.release.xcconfig"; path = "Target Support Files/Pods-Quoteslist/Pods-Quoteslist.release.xcconfig"; sourceTree = "<group>"; };
+		4C141CFB240A937A651C034D /* Pods_Quoteslist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Quoteslist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3C9C56AB6D6EBB131DA22E5 /* Pods-Quoteslist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quoteslist.debug.xcconfig"; path = "Target Support Files/Pods-Quoteslist/Pods-Quoteslist.debug.xcconfig"; sourceTree = "<group>"; };
 		FD1F65F02A8BD943002893F7 /* Quoteslist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quoteslist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD1F65F32A8BD943002893F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD1F65F52A8BD943002893F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,17 +45,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				066FE7E36B8DC0B41290881F /* Pods_Quoteslist.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		92DD9EB6334B8C91B4477A40 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C141CFB240A937A651C034D /* Pods_Quoteslist.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D8EB7D0D65D4EAC175BBE5A7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A3C9C56AB6D6EBB131DA22E5 /* Pods-Quoteslist.debug.xcconfig */,
+				1C4592189C7669343D4323B7 /* Pods-Quoteslist.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		FD1F65E72A8BD943002893F7 = {
 			isa = PBXGroup;
 			children = (
 				FD1F65F22A8BD943002893F7 /* Quoteslist */,
 				FD1F65F12A8BD943002893F7 /* Products */,
+				D8EB7D0D65D4EAC175BBE5A7 /* Pods */,
+				92DD9EB6334B8C91B4477A40 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +129,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD1F66042A8BD944002893F7 /* Build configuration list for PBXNativeTarget "Quoteslist" */;
 			buildPhases = (
+				AC85C0E238B6B654B53B6F04 /* [CP] Check Pods Manifest.lock */,
 				FD1F65EC2A8BD943002893F7 /* Sources */,
 				FD1F65ED2A8BD943002893F7 /* Frameworks */,
 				FD1F65EE2A8BD943002893F7 /* Resources */,
@@ -163,6 +188,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AC85C0E238B6B654B53B6F04 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Quoteslist-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FD1F65EC2A8BD943002893F7 /* Sources */ = {
@@ -318,6 +368,7 @@
 		};
 		FD1F66052A8BD944002893F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3C9C56AB6D6EBB131DA22E5 /* Pods-Quoteslist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -331,6 +382,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -346,6 +398,7 @@
 		};
 		FD1F66062A8BD944002893F7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C4592189C7669343D4323B7 /* Pods-Quoteslist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -359,6 +412,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
