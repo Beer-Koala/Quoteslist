@@ -10,14 +10,17 @@ import Foundation
 protocol WatchlistPresenterProtocol {
 
     var showingQuotes: [Quote] { get }
-    func removeQuote(for stockSymbol: String) -> Void
+
+    func removeQuote(for stockSymbol: String)
+    func moveQuote(from sourceIndex: Int, to destinationIndex: Int)
+    func watchlistName() -> String
 }
 
 class WatchlistPresenter {
 
     private weak var view: WatchlistView?
 
-    private let watchlist: Watchlist
+    private var watchlist: Watchlist
 
     var showingQuotes: [Quote] {
         self.watchlist.quotes
@@ -32,8 +35,18 @@ class WatchlistPresenter {
 
 extension WatchlistPresenter: WatchlistPresenterProtocol {
 
-    func removeQuote(for stockSymbol: String) -> Void {
+    func removeQuote(for stockSymbol: String) {
         self.watchlist.quotes.removeAll(where: { $0.stockSymbol == stockSymbol})
         // TODO: DB - remove from DB
+    }
+
+    func moveQuote(from sourceIndex: Int, to destinationIndex: Int) {
+        let movedQuote = self.watchlist.quotes.remove(at: sourceIndex)
+        self.watchlist.quotes.insert(movedQuote, at: destinationIndex)
+        // TODO: DB - save changes to DB
+    }
+
+    func watchlistName() -> String {
+        self.watchlist.name
     }
 }

@@ -9,6 +9,63 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Watchlist Manager View Controller-->
+        <scene sceneID="ZLy-r2-JiN">
+            <objects>
+                <viewController id="UA9-gZ-oaq" customClass="WatchlistManagerViewController" customModule="Quoteslist" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aIa-l5-ix2">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manage Watchlists" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ywh-o6-4Fv">
+                                <rect key="frame" x="106.33333333333333" y="20" width="180.33333333333337" height="26.333333333333329"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create, rename, reorder and delete watchlists." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwi-Pc-gVP">
+                                <rect key="frame" x="75" y="54.333333333333336" width="243" height="13.333333333333336"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hv-Od-TnA">
+                                <rect key="frame" x="115" y="87.666666666666671" width="163" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="plus" catalog="system" title="New Watchlist" imagePadding="7"/>
+                                <connections>
+                                    <action selector="createWatchlistAction:" destination="UA9-gZ-oaq" eventType="touchUpInside" id="6XB-6s-Kci"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oFU-oU-voZ">
+                                <rect key="frame" x="20" y="142.66666666666669" width="353" height="679.33333333333326"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="lSv-ob-q1k"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ywh-o6-4Fv" firstAttribute="centerX" secondItem="lSv-ob-q1k" secondAttribute="centerX" id="5mq-gi-Rrt"/>
+                            <constraint firstItem="Ywh-o6-4Fv" firstAttribute="top" secondItem="lSv-ob-q1k" secondAttribute="top" constant="20" id="BCO-ak-tgz"/>
+                            <constraint firstItem="lSv-ob-q1k" firstAttribute="trailing" secondItem="oFU-oU-voZ" secondAttribute="trailing" constant="20" id="C6o-S6-yhi"/>
+                            <constraint firstItem="xwi-Pc-gVP" firstAttribute="centerX" secondItem="lSv-ob-q1k" secondAttribute="centerX" id="OnW-bB-RbM"/>
+                            <constraint firstItem="9hv-Od-TnA" firstAttribute="top" secondItem="xwi-Pc-gVP" secondAttribute="bottom" constant="20" id="QB0-AV-tWe"/>
+                            <constraint firstItem="9hv-Od-TnA" firstAttribute="centerX" secondItem="lSv-ob-q1k" secondAttribute="centerX" id="Rxo-q7-815"/>
+                            <constraint firstItem="lSv-ob-q1k" firstAttribute="bottom" secondItem="oFU-oU-voZ" secondAttribute="bottom" constant="20" id="Sho-Sn-TNE"/>
+                            <constraint firstItem="oFU-oU-voZ" firstAttribute="leading" secondItem="lSv-ob-q1k" secondAttribute="leading" constant="20" id="i5R-Bk-eO7"/>
+                            <constraint firstItem="oFU-oU-voZ" firstAttribute="top" secondItem="9hv-Od-TnA" secondAttribute="bottom" constant="20" id="sDp-6y-yRV"/>
+                            <constraint firstItem="xwi-Pc-gVP" firstAttribute="top" secondItem="Ywh-o6-4Fv" secondAttribute="bottom" constant="8" id="xOw-ye-3Dx"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="393" height="852"/>
+                    <connections>
+                        <outlet property="tableView" destination="oFU-oU-voZ" id="4Da-GF-l5n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9jC-du-M5g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1551.9083969465648" y="-458.45070422535213"/>
+        </scene>
         <!--Watchlist View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -17,8 +74,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T5w-je-foh">
+                                <rect key="frame" x="231" y="103" width="142" height="38"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="arrow.up.and.down.text.horizontal" catalog="system" imagePlacement="trailing" title="watchlist" imagePadding="7">
+                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle3"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="UA9-gZ-oaq" kind="showDetail" id="a6Z-pr-Ivy"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2Cp-3b-8nP">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <rect key="frame" x="0.0" y="141" width="393" height="677"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="quoteTableViewCell" id="Njl-kr-t6w" customClass="QuoteTableViewCell" customModule="Quoteslist" customModuleProvider="target">
@@ -94,13 +161,17 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2Cp-3b-8nP" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="3yp-Ar-vGZ"/>
-                            <constraint firstItem="2Cp-3b-8nP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="QRh-K2-RA2"/>
                             <constraint firstItem="2Cp-3b-8nP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Zcz-bz-v1g"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2Cp-3b-8nP" secondAttribute="trailing" id="aba-lX-DdA"/>
+                            <constraint firstItem="T5w-je-foh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="kmA-Gx-23N"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="T5w-je-foh" secondAttribute="trailing" constant="20" id="oUR-cR-XRE"/>
+                            <constraint firstItem="T5w-je-foh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ot2-fl-Rgt"/>
+                            <constraint firstItem="2Cp-3b-8nP" firstAttribute="top" secondItem="T5w-je-foh" secondAttribute="bottom" id="vhg-Lw-8St"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Iah-vX-ups"/>
                     <connections>
+                        <outlet property="showAllWatchlistsButton" destination="T5w-je-foh" id="RJZ-xD-C8a"/>
                         <outlet property="tableView" destination="2Cp-3b-8nP" id="e8h-M8-DQD"/>
                     </connections>
                 </viewController>
@@ -122,7 +193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="suI-9u-XJg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1579.3893129770993" y="-8.4507042253521139"/>
+            <point key="canvasLocation" x="1553" y="299"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tzk-qs-jbQ">
@@ -144,6 +215,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.up.and.down.text.horizontal" catalog="system" width="128" height="87"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

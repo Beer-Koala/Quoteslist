@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		066FE7E36B8DC0B41290881F /* Pods_Quoteslist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C141CFB240A937A651C034D /* Pods_Quoteslist.framework */; };
+		FD130C492A8E670A00235B0B /* WatchlistManagerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD130C482A8E670A00235B0B /* WatchlistManagerPresenter.swift */; };
 		FD1F65F42A8BD943002893F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1F65F32A8BD943002893F7 /* AppDelegate.swift */; };
 		FD1F65F62A8BD943002893F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1F65F52A8BD943002893F7 /* SceneDelegate.swift */; };
 		FD1F65F82A8BD943002893F7 /* WatchlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1F65F72A8BD943002893F7 /* WatchlistViewController.swift */; };
 		FD1F65FB2A8BD943002893F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65F92A8BD943002893F7 /* Main.storyboard */; };
 		FD1F65FD2A8BD944002893F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65FC2A8BD944002893F7 /* Assets.xcassets */; };
 		FD1F66002A8BD944002893F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65FE2A8BD944002893F7 /* LaunchScreen.storyboard */; };
+		FD6E9EAF2A8E809300812C53 /* WatchlistManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD130C472A8E66F800235B0B /* WatchlistManagerViewController.swift */; };
 		FDA702BA2A8BDA11002E1DA1 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA702B92A8BDA11002E1DA1 /* Quote.swift */; };
 		FDA702BC2A8BDA1A002E1DA1 /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA702BB2A8BDA1A002E1DA1 /* Watchlist.swift */; };
 		FDA702BF2A8CF220002E1DA1 /* WatchlistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA702BE2A8CF220002E1DA1 /* WatchlistPresenter.swift */; };
@@ -25,6 +27,8 @@
 		1C4592189C7669343D4323B7 /* Pods-Quoteslist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quoteslist.release.xcconfig"; path = "Target Support Files/Pods-Quoteslist/Pods-Quoteslist.release.xcconfig"; sourceTree = "<group>"; };
 		4C141CFB240A937A651C034D /* Pods_Quoteslist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Quoteslist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3C9C56AB6D6EBB131DA22E5 /* Pods-Quoteslist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quoteslist.debug.xcconfig"; path = "Target Support Files/Pods-Quoteslist/Pods-Quoteslist.debug.xcconfig"; sourceTree = "<group>"; };
+		FD130C472A8E66F800235B0B /* WatchlistManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistManagerViewController.swift; sourceTree = "<group>"; };
+		FD130C482A8E670A00235B0B /* WatchlistManagerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistManagerPresenter.swift; sourceTree = "<group>"; };
 		FD1F65F02A8BD943002893F7 /* Quoteslist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quoteslist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD1F65F32A8BD943002893F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD1F65F52A8BD943002893F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +73,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		FD130C452A8E635D00235B0B /* WatchlistManager */ = {
+			isa = PBXGroup;
+			children = (
+				FD130C472A8E66F800235B0B /* WatchlistManagerViewController.swift */,
+				FD130C482A8E670A00235B0B /* WatchlistManagerPresenter.swift */,
+			);
+			path = WatchlistManager;
+			sourceTree = "<group>";
+		};
+		FD130C462A8E637400235B0B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FDA702BD2A8CF208002E1DA1 /* Watchlist */,
+				FD130C452A8E635D00235B0B /* WatchlistManager */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		FD1F65E72A8BD943002893F7 = {
 			isa = PBXGroup;
 			children = (
@@ -91,9 +113,9 @@
 			isa = PBXGroup;
 			children = (
 				FD1F65F32A8BD943002893F7 /* AppDelegate.swift */,
-				FDA702B82A8BDA04002E1DA1 /* Models */,
 				FD1F65F52A8BD943002893F7 /* SceneDelegate.swift */,
-				FDA702BD2A8CF208002E1DA1 /* Watchlist */,
+				FDA702B82A8BDA04002E1DA1 /* Models */,
+				FD130C462A8E637400235B0B /* Views */,
 				FD1F65F92A8BD943002893F7 /* Main.storyboard */,
 				FD1F65FC2A8BD944002893F7 /* Assets.xcassets */,
 				FD1F65FE2A8BD944002893F7 /* LaunchScreen.storyboard */,
@@ -133,6 +155,7 @@
 				FD1F65EC2A8BD943002893F7 /* Sources */,
 				FD1F65ED2A8BD943002893F7 /* Frameworks */,
 				FD1F65EE2A8BD943002893F7 /* Resources */,
+				FD6E9EB02A8FA82800812C53 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -212,6 +235,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FD6E9EB02A8FA82800812C53 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -220,10 +261,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDA702BF2A8CF220002E1DA1 /* WatchlistPresenter.swift in Sources */,
+				FD130C492A8E670A00235B0B /* WatchlistManagerPresenter.swift in Sources */,
 				FDA702BA2A8BDA11002E1DA1 /* Quote.swift in Sources */,
 				FD1F65F82A8BD943002893F7 /* WatchlistViewController.swift in Sources */,
 				FD1F65F42A8BD943002893F7 /* AppDelegate.swift in Sources */,
 				FDA702C12A8D78BA002E1DA1 /* QuoteTableViewCell.swift in Sources */,
+				FD6E9EAF2A8E809300812C53 /* WatchlistManagerViewController.swift in Sources */,
 				FDA702BC2A8BDA1A002E1DA1 /* Watchlist.swift in Sources */,
 				FD1F65F62A8BD943002893F7 /* SceneDelegate.swift in Sources */,
 				FDA702C32A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift in Sources */,

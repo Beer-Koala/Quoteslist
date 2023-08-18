@@ -7,28 +7,27 @@
 
 import UIKit
 
-
 protocol WatchlistView: AnyObject {
 
 }
 
-enum QuotesSection: Hashable {
+enum SectionModel: Hashable {
     case main
 }
 
 class WatchlistViewController: UIViewController, WatchlistView {
 
     var presenter: WatchlistPresenterProtocol!
-
-    var tableViewDataSource: EditEnabledDiffableDataSource?
+    var tableViewDataSource: EditEnabledDiffableDataSource<String>?
 
     static let cellIdentifier = "quoteTableViewCell" // TODO: clear code - make it with constants
 
     @IBOutlet weak var tableView: UITableView?
-    
+    @IBOutlet weak var showAllWatchlistsButton: UIButton?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = WatchlistPresenter(view: self)
+        self.presenter = WatchlistPresenter(view: self)
 
         self.configureView()
         self.setupTableView()
@@ -40,26 +39,24 @@ class WatchlistViewController: UIViewController, WatchlistView {
     }
 
     func configureView() {
+        self.showAllWatchlistsButton?.titleLabel?.text = presenter.watchlistName()
+
         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     private func setupTableView() {
-
         guard let tableView = self.tableView else { return }
 
-        tableView.delegate = self
-
-        self.tableViewDataSource = EditEnabledDiffableDataSource(tableView: tableView) { [weak self] tableView, _, stockSymbol in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier) as? QuoteTableViewCell else {
+        self.tableViewDataSource = EditEnabledDiffableDataSource(
+            tableView: tableView
+        ) { [weak self] tableView, _, stockSymbol in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier) as? QuoteTableViewCell
+            else {
                 return UITableViewCell()
             }
 
             if let quote = self?.presenter.showingQuotes.first(where: { $0.stockSymbol == stockSymbol }) {
-                cell.nameLabel?.text = quote.name
-                cell.stockSymbolLabel?.text = quote.stockSymbol
-                cell.bidPriceLabel?.text = String(quote.bidPrice)
-                cell.askPriceLabel?.text = String(quote.askPrice)
-                cell.lastPriceLabel?.text = String(quote.lastPrice)
+                cell.fill(with: quote)
             }
 
             return cell
@@ -69,25 +66,16 @@ class WatchlistViewController: UIViewController, WatchlistView {
             self.presenter.removeQuote(for: stockSymbol)
         }
 
-        var snapshot = NSDiffableDataSourceSnapshot<QuotesSection, String>()
+        self.tableViewDataSource?.moveClosure = { sourceIndex, destinationIndex in
+            self.presenter.moveQuote(from: sourceIndex, to: destinationIndex)
+        }
+
+        var snapshot = NSDiffableDataSourceSnapshot<SectionModel, String>()
         snapshot.appendSections([.main])
         snapshot.appendItems(self.presenter.showingQuotes.map(\.stockSymbol))
         tableViewDataSource?.apply(snapshot, animatingDifferences: false)
 
-        //TODO: maybe at last stages if can - make adapter with datasource to avoid using model from presenter here.
+        // TODO: maybe at last stages if can - make adapter with datasource to avoid using model from presenter here.
     }
 
 }
-
-extension WatchlistViewController: UITableViewDelegate {
-
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//    }
-
-//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-//
-//    }
-
-}
-
