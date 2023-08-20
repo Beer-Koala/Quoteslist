@@ -30,7 +30,6 @@ class WatchlistPresenter {
         self.view = view
         self.watchlist = Watchlist.mock
     }
-
 }
 
 extension WatchlistPresenter: WatchlistPresenterProtocol {
@@ -41,9 +40,10 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
     }
 
     func moveQuote(from sourceIndex: Int, to destinationIndex: Int) {
-        let movedQuote = self.watchlist.quotes.remove(at: sourceIndex)
-        self.watchlist.quotes.insert(movedQuote, at: destinationIndex)
-        // TODO: DB - save changes to DB
+        if let movedQuote = self.watchlist.quotes.safeRemove(at: sourceIndex) {
+            self.watchlist.quotes.safeInsert(movedQuote, at: destinationIndex)
+            // TODO: DB - save changes to DB
+        }
     }
 
     func watchlistName() -> String {

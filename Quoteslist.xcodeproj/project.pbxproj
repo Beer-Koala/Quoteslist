@@ -15,6 +15,9 @@
 		FD1F65FB2A8BD943002893F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65F92A8BD943002893F7 /* Main.storyboard */; };
 		FD1F65FD2A8BD944002893F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65FC2A8BD944002893F7 /* Assets.xcassets */; };
 		FD1F66002A8BD944002893F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65FE2A8BD944002893F7 /* LaunchScreen.storyboard */; };
+		FD51D11A2A902F94005C34E7 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD51D1192A902F94005C34E7 /* UIAlertController+Extension.swift */; };
+		FD51D11F2A92CA18005C34E7 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD51D11E2A92CA18005C34E7 /* String+Extension.swift */; };
+		FD51D1212A92DD14005C34E7 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD51D1202A92DD14005C34E7 /* Array+Extension.swift */; };
 		FD6E9EAF2A8E809300812C53 /* WatchlistManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD130C472A8E66F800235B0B /* WatchlistManagerViewController.swift */; };
 		FDA702BA2A8BDA11002E1DA1 /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA702B92A8BDA11002E1DA1 /* Quote.swift */; };
 		FDA702BC2A8BDA1A002E1DA1 /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA702BB2A8BDA1A002E1DA1 /* Watchlist.swift */; };
@@ -37,6 +40,9 @@
 		FD1F65FC2A8BD944002893F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD1F65FF2A8BD944002893F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FD1F66012A8BD944002893F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD51D1192A902F94005C34E7 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
+		FD51D11E2A92CA18005C34E7 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		FD51D1202A92DD14005C34E7 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		FDA702B92A8BDA11002E1DA1 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		FDA702BB2A8BDA1A002E1DA1 /* Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist.swift; sourceTree = "<group>"; };
 		FDA702BE2A8CF220002E1DA1 /* WatchlistPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistPresenter.swift; sourceTree = "<group>"; };
@@ -114,6 +120,7 @@
 			children = (
 				FD1F65F32A8BD943002893F7 /* AppDelegate.swift */,
 				FD1F65F52A8BD943002893F7 /* SceneDelegate.swift */,
+				FD51D11D2A92CA02005C34E7 /* Extension */,
 				FDA702B82A8BDA04002E1DA1 /* Models */,
 				FD130C462A8E637400235B0B /* Views */,
 				FD1F65F92A8BD943002893F7 /* Main.storyboard */,
@@ -122,6 +129,16 @@
 				FD1F66012A8BD944002893F7 /* Info.plist */,
 			);
 			path = Quoteslist;
+			sourceTree = "<group>";
+		};
+		FD51D11D2A92CA02005C34E7 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FD51D11E2A92CA18005C34E7 /* String+Extension.swift */,
+				FD51D1202A92DD14005C34E7 /* Array+Extension.swift */,
+				FD51D1192A902F94005C34E7 /* UIAlertController+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		FDA702B82A8BDA04002E1DA1 /* Models */ = {
@@ -264,11 +281,14 @@
 				FD130C492A8E670A00235B0B /* WatchlistManagerPresenter.swift in Sources */,
 				FDA702BA2A8BDA11002E1DA1 /* Quote.swift in Sources */,
 				FD1F65F82A8BD943002893F7 /* WatchlistViewController.swift in Sources */,
+				FD51D11F2A92CA18005C34E7 /* String+Extension.swift in Sources */,
 				FD1F65F42A8BD943002893F7 /* AppDelegate.swift in Sources */,
 				FDA702C12A8D78BA002E1DA1 /* QuoteTableViewCell.swift in Sources */,
 				FD6E9EAF2A8E809300812C53 /* WatchlistManagerViewController.swift in Sources */,
+				FD51D11A2A902F94005C34E7 /* UIAlertController+Extension.swift in Sources */,
 				FDA702BC2A8BDA1A002E1DA1 /* Watchlist.swift in Sources */,
 				FD1F65F62A8BD943002893F7 /* SceneDelegate.swift in Sources */,
+				FD51D1212A92DD14005C34E7 /* Array+Extension.swift in Sources */,
 				FDA702C32A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
