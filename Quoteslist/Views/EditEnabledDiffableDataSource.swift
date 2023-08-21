@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum SectionModel: Hashable {
+    case main
+}
+
 final class EditEnabledDiffableDataSource<MyType>: UITableViewDiffableDataSource<SectionModel, MyType>
 where MyType: Hashable {
 

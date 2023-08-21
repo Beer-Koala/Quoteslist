@@ -33,13 +33,13 @@ class Watchlist {
     static var mockWatchlists: [Watchlist] = [
         Watchlist.mock,
         Watchlist(name: "Defaults1", quotes: [
-            Quote(name: "Alphabet", stockSymbol: "GOOG1", bidPrice: 100, askPrice: 102, lastPrice: 101),
-            Quote(name: "Microsoft", stockSymbol: "MSFT1", bidPrice: 50, askPrice: 52, lastPrice: 51),
-            Quote(name: "Apple", stockSymbol: "AAPL1", bidPrice: 150, askPrice: 152, lastPrice: 151),
-            Quote(name: "TastyTrade", stockSymbol: "TT1", bidPrice: 900, askPrice: 999.99, lastPrice: 998),
-            Quote(name: "Meta", stockSymbol: "IDK1", bidPrice: 5, askPrice: 7, lastPrice: 6),
-            Quote(name: "Mycompany", stockSymbol: "MC1", bidPrice: 0.23, askPrice: 0.78, lastPrice: 0.55),
-            Quote(name: "Anothercompany", stockSymbol: "ABC1", bidPrice: 0.12, askPrice: 1, lastPrice: 0.99)
+            Quote(name: "Alphabet", stockSymbol: "GOOG1", bidPrice: 102, askPrice: 102, lastPrice: 102),
+            Quote(name: "Microsoft", stockSymbol: "MSFT1", bidPrice: 52, askPrice: 52, lastPrice: 52),
+            Quote(name: "Apple", stockSymbol: "AAPL1", bidPrice: 152, askPrice: 152, lastPrice: 152),
+            Quote(name: "TastyTrade", stockSymbol: "TT1", bidPrice: 902, askPrice: 999.92, lastPrice: 992),
+            Quote(name: "Meta", stockSymbol: "IDK1", bidPrice: 2, askPrice: 2, lastPrice: 2),
+            Quote(name: "Mycompany", stockSymbol: "MC1", bidPrice: 0.22, askPrice: 0.72, lastPrice: 0.52),
+            Quote(name: "Anothercompany", stockSymbol: "ABC1", bidPrice: 0.12, askPrice: 2, lastPrice: 0.92)
         ]),
         Watchlist(name: "Defaults12", quotes: [
             Quote(name: "Alphabet", stockSymbol: "GOOG2", bidPrice: 100, askPrice: 102, lastPrice: 101),

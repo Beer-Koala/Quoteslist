@@ -60,13 +60,14 @@ class WatchlistManagerViewController: UIViewController {
                                                 y: CGFloat.zero,
                                                 width: Constants.defaultRowHeight,
                                                 height: Constants.defaultRowHeight))
-            button.setImage(UIImage(systemName: "pencil"), for: .normal)
+            button.setImage(UIImage.editImage, for: .normal)
             button.addTarget(self, action: #selector(self.editTapped(_:)), for: .touchUpInside)
             cell.editingAccessoryView = button
 
             return cell
         }
 
+        // TODO: can I move this and next closures to EditEnabledDiffableDataSource?
         self.tableViewDataSource?.deleteClosure = { watchlist in
             self.presenter.remove(watchlist)
         }

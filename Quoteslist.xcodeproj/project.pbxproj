@@ -24,6 +24,7 @@
 		FDA702BF2A8CF220002E1DA1 /* WatchlistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA702BE2A8CF220002E1DA1 /* WatchlistPresenter.swift */; };
 		FDA702C12A8D78BA002E1DA1 /* QuoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA702C02A8D78BA002E1DA1 /* QuoteTableViewCell.swift */; };
 		FDA702C32A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA702C22A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift */; };
+		FDCC442A2A937D9E005C9CF5 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCC44292A937D9E005C9CF5 /* UIImage+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		FDA702BE2A8CF220002E1DA1 /* WatchlistPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistPresenter.swift; sourceTree = "<group>"; };
 		FDA702C02A8D78BA002E1DA1 /* QuoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteTableViewCell.swift; sourceTree = "<group>"; };
 		FDA702C22A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEnabledDiffableDataSource.swift; sourceTree = "<group>"; };
+		FDCC44292A937D9E005C9CF5 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		FD130C462A8E637400235B0B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FDA702C22A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift */,
 				FDA702BD2A8CF208002E1DA1 /* Watchlist */,
 				FD130C452A8E635D00235B0B /* WatchlistManager */,
 			);
@@ -137,6 +140,7 @@
 				FD51D11E2A92CA18005C34E7 /* String+Extension.swift */,
 				FD51D1202A92DD14005C34E7 /* Array+Extension.swift */,
 				FD51D1192A902F94005C34E7 /* UIAlertController+Extension.swift */,
+				FDCC44292A937D9E005C9CF5 /* UIImage+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -156,7 +160,6 @@
 				FD1F65F72A8BD943002893F7 /* WatchlistViewController.swift */,
 				FDA702BE2A8CF220002E1DA1 /* WatchlistPresenter.swift */,
 				FDA702C02A8D78BA002E1DA1 /* QuoteTableViewCell.swift */,
-				FDA702C22A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift */,
 			);
 			path = Watchlist;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDA702BF2A8CF220002E1DA1 /* WatchlistPresenter.swift in Sources */,
+				FDCC442A2A937D9E005C9CF5 /* UIImage+Extension.swift in Sources */,
 				FD130C492A8E670A00235B0B /* WatchlistManagerPresenter.swift in Sources */,
 				FDA702BA2A8BDA11002E1DA1 /* Quote.swift in Sources */,
 				FD1F65F82A8BD943002893F7 /* WatchlistViewController.swift in Sources */,

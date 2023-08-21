@@ -8,14 +8,10 @@
 import UIKit
 
 protocol WatchlistView: AnyObject {
-
+    func reloadTable(animating: Bool)
 }
 
-enum SectionModel: Hashable {
-    case main
-}
-
-class WatchlistViewController: UIViewController, WatchlistView {
+class WatchlistViewController: UIViewController {
 
     var presenter: WatchlistPresenterProtocol!
     var tableViewDataSource: EditEnabledDiffableDataSource<String>?
@@ -33,15 +29,43 @@ class WatchlistViewController: UIViewController, WatchlistView {
         self.setupTableView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        _ = 3
+    }
+
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         self.tableView?.setEditing(editing, animated: animated)
     }
 
-    func configureView() {
-        self.showAllWatchlistsButton?.titleLabel?.text = presenter.watchlistName()
+    private func configureView() {
+        self.setupPopUpButton()
 
         self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+
+    private func setupPopUpButton() {
+        let actions = self.presenter.watchlists.map { watchlist in
+            UIAction(title: watchlist.name,
+                     state: watchlist == self.presenter.currentWatchlist ? .on : .off) { [weak self] _ in
+
+                self?.presenter?.set(current: watchlist)
+                self?.setupPopUpButton()
+        } }
+
+        let actionsSubmenu = UIMenu(title: String.empty, options: .displayInline, children: actions)
+
+        let manageWatchlists = UIAction(title: "Manage watchlists", image: UIImage.editImage) { _ in
+            self.performSegue(withIdentifier: "showWatchlists", sender: nil)
+        }
+        let manageSubmenu = UIMenu(title: String.empty, options: .displayInline, children: [manageWatchlists])
+
+        let menu = UIMenu(children: [actionsSubmenu, manageSubmenu])
+
+        self.showAllWatchlistsButton?.setTitle(self.presenter.currentWatchlist.name, for: .normal)
+        self.showAllWatchlistsButton?.menu = menu
+
+        self.showAllWatchlistsButton?.showsMenuAsPrimaryAction = true
     }
 
     private func setupTableView() {
@@ -62,6 +86,7 @@ class WatchlistViewController: UIViewController, WatchlistView {
             return cell
         }
 
+        // TODO: can I move this and next closures to EditEnabledDiffableDataSource?
         self.tableViewDataSource?.deleteClosure = { stockSymbol in
             self.presenter.removeQuote(for: stockSymbol)
         }
@@ -70,12 +95,17 @@ class WatchlistViewController: UIViewController, WatchlistView {
             self.presenter.moveQuote(from: sourceIndex, to: destinationIndex)
         }
 
+        self.reloadTable(animating: false) // no need animation for initial showing
+    }
+
+}
+
+extension WatchlistViewController: WatchlistView {
+
+    func reloadTable(animating: Bool) {
         var snapshot = NSDiffableDataSourceSnapshot<SectionModel, String>()
         snapshot.appendSections([.main])
         snapshot.appendItems(self.presenter.showingQuotes.map(\.stockSymbol))
-        tableViewDataSource?.apply(snapshot, animatingDifferences: false)
-
-        // TODO: maybe at last stages if can - make adapter with datasource to avoid using model from presenter here.
+        tableViewDataSource?.apply(snapshot, animatingDifferences: animating)
     }
-
 }

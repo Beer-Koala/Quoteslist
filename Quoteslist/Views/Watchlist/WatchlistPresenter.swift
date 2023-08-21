@@ -9,8 +9,11 @@ import Foundation
 
 protocol WatchlistPresenterProtocol {
 
+    var watchlists: [Watchlist] { get }
+    var currentWatchlist: Watchlist { get }
     var showingQuotes: [Quote] { get }
 
+    func set(current watchlist: Watchlist)
     func removeQuote(for stockSymbol: String)
     func moveQuote(from sourceIndex: Int, to destinationIndex: Int)
     func watchlistName() -> String
@@ -20,33 +23,41 @@ class WatchlistPresenter {
 
     private weak var view: WatchlistView?
 
-    private var watchlist: Watchlist
+    private(set) var watchlists: [Watchlist]
+    var currentWatchlist: Watchlist
 
     var showingQuotes: [Quote] {
-        self.watchlist.quotes
+        self.currentWatchlist.quotes
     }
 
     init(view: WatchlistView) {
         self.view = view
-        self.watchlist = Watchlist.mock
+
+        self.watchlists = Watchlist.mockWatchlists
+        self.currentWatchlist = self.watchlists.first ?? Watchlist.mock
     }
 }
 
 extension WatchlistPresenter: WatchlistPresenterProtocol {
 
+    func set(current watchlist: Watchlist) {
+        self.currentWatchlist = watchlist
+        self.view?.reloadTable(animating: false)
+    }
+
     func removeQuote(for stockSymbol: String) {
-        self.watchlist.quotes.removeAll(where: { $0.stockSymbol == stockSymbol})
+        self.currentWatchlist.quotes.removeAll(where: { $0.stockSymbol == stockSymbol})
         // TODO: DB - remove from DB
     }
 
     func moveQuote(from sourceIndex: Int, to destinationIndex: Int) {
-        if let movedQuote = self.watchlist.quotes.safeRemove(at: sourceIndex) {
-            self.watchlist.quotes.safeInsert(movedQuote, at: destinationIndex)
+        if let movedQuote = self.currentWatchlist.quotes.safeRemove(at: sourceIndex) {
+            self.currentWatchlist.quotes.safeInsert(movedQuote, at: destinationIndex)
             // TODO: DB - save changes to DB
         }
     }
 
     func watchlistName() -> String {
-        self.watchlist.name
+        self.currentWatchlist.name
     }
 }

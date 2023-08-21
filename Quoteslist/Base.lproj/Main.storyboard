@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -64,7 +65,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9jC-du-M5g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1551.9083969465648" y="-458.45070422535213"/>
+            <point key="canvasLocation" x="1550" y="411"/>
         </scene>
         <!--Watchlist View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -74,15 +75,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T5w-je-foh">
+                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuX-wi-OK2">
                                 <rect key="frame" x="231" y="103" width="142" height="38"/>
-                                <state key="normal" title="Button"/>
+                                <menu key="menu" id="9ei-pE-eVe">
+                                    <children>
+                                        <command title="Item 1" id="OMb-2c-O7h"/>
+                                        <command title="Item 2" id="ezM-JU-uTS"/>
+                                    </children>
+                                </menu>
+                                <state key="normal" title="watchlist" image="arrow.up.and.down.text.horizontal" catalog="system"/>
                                 <buttonConfiguration key="configuration" style="plain" image="arrow.up.and.down.text.horizontal" catalog="system" imagePlacement="trailing" title="watchlist" imagePadding="7">
                                     <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle3"/>
                                 </buttonConfiguration>
-                                <connections>
-                                    <segue destination="UA9-gZ-oaq" kind="showDetail" id="a6Z-pr-Ivy"/>
-                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2Cp-3b-8nP">
                                 <rect key="frame" x="0.0" y="141" width="393" height="677"/>
@@ -161,18 +165,19 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2Cp-3b-8nP" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="3yp-Ar-vGZ"/>
+                            <constraint firstItem="2Cp-3b-8nP" firstAttribute="top" secondItem="wuX-wi-OK2" secondAttribute="bottom" id="H1i-YQ-PWe"/>
+                            <constraint firstItem="wuX-wi-OK2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="I3h-RU-KEg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wuX-wi-OK2" secondAttribute="trailing" constant="20" id="WaF-tQ-yk9"/>
                             <constraint firstItem="2Cp-3b-8nP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Zcz-bz-v1g"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2Cp-3b-8nP" secondAttribute="trailing" id="aba-lX-DdA"/>
-                            <constraint firstItem="T5w-je-foh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="kmA-Gx-23N"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="T5w-je-foh" secondAttribute="trailing" constant="20" id="oUR-cR-XRE"/>
-                            <constraint firstItem="T5w-je-foh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ot2-fl-Rgt"/>
-                            <constraint firstItem="2Cp-3b-8nP" firstAttribute="top" secondItem="T5w-je-foh" secondAttribute="bottom" id="vhg-Lw-8St"/>
+                            <constraint firstItem="wuX-wi-OK2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="u6n-xy-Isr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Iah-vX-ups"/>
                     <connections>
-                        <outlet property="showAllWatchlistsButton" destination="T5w-je-foh" id="RJZ-xD-C8a"/>
+                        <outlet property="showAllWatchlistsButton" destination="wuX-wi-OK2" id="lPo-xG-t0f"/>
                         <outlet property="tableView" destination="2Cp-3b-8nP" id="e8h-M8-DQD"/>
+                        <segue destination="UA9-gZ-oaq" kind="showDetail" identifier="showWatchlists" id="szK-0j-KSa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -193,7 +198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="suI-9u-XJg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1553" y="299"/>
+            <point key="canvasLocation" x="1550" y="-365"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tzk-qs-jbQ">

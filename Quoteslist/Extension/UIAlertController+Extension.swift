@@ -39,7 +39,7 @@ extension UIAlertController {
         }
 
         let saveAction = UIAlertAction(title: "Save", style: .default) { [weak alert] _ in
-            let newTitle = alert?.textFields?.first?.text ?? ""
+            let newTitle = alert?.textFields?.first?.text ?? String.empty
             saveCallback(newTitle)
         }
         saveAction.isEnabled = !(texts.fieldText.isEmpty)
