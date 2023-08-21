@@ -9,9 +9,14 @@ import UIKit
 
 protocol WatchlistManagerView: AnyObject {
     func reloadTable(animating: Bool)
+    func reload(items: [Watchlist])
 }
 
 class WatchlistManagerViewController: UIViewController {
+
+    struct Constants {
+        static let defaultRowHeight: CGFloat = 44
+    }
 
     var presenter: WatchlistManagerPresenterProtocol!
     var tableViewDataSource: EditEnabledDiffableDataSource<Watchlist>?
@@ -51,9 +56,13 @@ class WatchlistManagerViewController: UIViewController {
             cellContent.text = watchlist.name
             cell.contentConfiguration = cellContent
 
-            // Add a tap gesture to the cell for changing watchlist name
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.cellTapped(_:)))
-            cell.addGestureRecognizer(tapGesture)
+            let button = UIButton(frame: CGRect(x: CGFloat.zero,
+                                                y: CGFloat.zero,
+                                                width: Constants.defaultRowHeight,
+                                                height: Constants.defaultRowHeight))
+            button.setImage(UIImage(systemName: "pencil"), for: .normal)
+            button.addTarget(self, action: #selector(self.editTapped(_:)), for: .touchUpInside)
+            cell.editingAccessoryView = button
 
             return cell
         }
@@ -69,8 +78,8 @@ class WatchlistManagerViewController: UIViewController {
         self.reloadTable(animating: false) // no need animation for initial showing
     }
 
-    @objc func cellTapped(_ sender: UITapGestureRecognizer) {
-        if let cell = sender.view as? UITableViewCell,
+    @objc func editTapped(_ sender: UIButton) {
+        if let cell = sender.superview as? UITableViewCell,
            let indexPath = self.tableView?.indexPath(for: cell),
            let watchlist = self.presenter.watchlists[safe: indexPath.row] {
 
@@ -89,5 +98,13 @@ extension WatchlistManagerViewController: WatchlistManagerView {
         snapshot.appendSections([.main])
         snapshot.appendItems(self.presenter.watchlists)
         tableViewDataSource?.apply(snapshot, animatingDifferences: animating)
+    }
+
+    // reload all table not reload elements if hash not changed, so reload specified items
+    func reload(items: [Watchlist]) {
+        if var snapshot = self.tableViewDataSource?.snapshot() {
+            snapshot.reloadItems(items)
+            self.tableViewDataSource?.apply(snapshot)
+        }
     }
 }

@@ -12,7 +12,7 @@ protocol WatchlistManagerPresenterProtocol {
 
     func remove(_ watchlist: Watchlist)
     func moveWatchlist(from sourceIndex: Int, to destinationIndex: Int)
-    
+
     func createNewWatchlist(with name: String)
     func renameWatchlist(by index: Int, newName: String)
 }
@@ -33,8 +33,8 @@ class WatchlistManagerPresenter {
 }
 
 extension WatchlistManagerPresenter: WatchlistManagerPresenterProtocol {
-    func remove(_ watchlist: Watchlist) { // Check!!!!!! name?
-        //        self.watchlist.quotes.removeAll(where: { $0.stockSymbol == stockSymbol})
+    func remove(_ watchlist: Watchlist) {
+        self.watchlists.removeAll { $0 == watchlist }
         // TODO: DB - remove from DB
     }
 
@@ -61,9 +61,10 @@ extension WatchlistManagerPresenter: WatchlistManagerPresenterProtocol {
     }
 
     func renameWatchlist(by index: Int, newName: String) {
-        self.watchlists[safe: index]?.name = newName
-        // TODO: DB - save new name to DB
-        self.view?.reloadTable(animating: true)
+        if let watchlist = self.watchlists[safe: index] {
+            watchlist.name = newName
+            self.view?.reload(items: [watchlist])
+        }
     }
 
 }

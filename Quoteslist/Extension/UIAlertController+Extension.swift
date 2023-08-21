@@ -30,7 +30,7 @@ extension UIAlertController {
     ) -> UIAlertController {
         let texts = type.texts()
 
-        var alert = UIAlertController(title: texts.title, message: texts.message, preferredStyle: .alert)
+        let alert = UIAlertController(title: texts.title, message: texts.message, preferredStyle: .alert)
 
         alert.addTextField { [weak alert] textField in
             textField.placeholder = texts.fieldPlaceholder
