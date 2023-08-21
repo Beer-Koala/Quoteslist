@@ -1,0 +1,6 @@
+framework module Pods_Quoteslist {
+  umbrella header "Pods-Quoteslist-umbrella.h"
+
+  export *
+  module * { export * }
+}

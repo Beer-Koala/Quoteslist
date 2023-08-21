@@ -6,8 +6,9 @@
 //
 
 import Foundation
+//import RealmSwift
 
-class Watchlist {
+class Watchlist {//}: Object {
 
     var id: UUID = UUID()
     var name: String

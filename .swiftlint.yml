@@ -1,0 +1,5 @@
+included:
+  - AppName
+
+excluded:
+  - Pods
