@@ -29,10 +29,6 @@ class WatchlistViewController: UIViewController {
         self.setupTableView()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        _ = 3
-    }
-
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         self.tableView?.setEditing(editing, animated: animated)
@@ -41,6 +37,7 @@ class WatchlistViewController: UIViewController {
     private func configureView() {
         self.setupPopUpButton()
 
+        self.title = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 

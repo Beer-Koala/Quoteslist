@@ -444,6 +444,7 @@
 				DEVELOPMENT_TEAM = B6N47R8A8L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Quoteslist/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Quotelist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -474,6 +475,7 @@
 				DEVELOPMENT_TEAM = B6N47R8A8L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Quoteslist/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Quotelist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
