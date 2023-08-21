@@ -11,10 +11,18 @@ protocol WatchlistView: AnyObject {
     func reloadTable(animating: Bool)
 }
 
+class ResultVC: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .systemBlue
+    }
+}
+
 class WatchlistViewController: UIViewController {
 
     var presenter: WatchlistPresenterProtocol!
     var tableViewDataSource: EditEnabledDiffableDataSource<String>?
+    let searchController = UISearchController(searchResultsController: ResultVC())
 
     static let cellIdentifier = "quoteTableViewCell" // TODO: clear code - make it with constants
 
@@ -35,6 +43,7 @@ class WatchlistViewController: UIViewController {
     }
 
     private func configureView() {
+        self.navigationItem.searchController = self.searchController
         self.setupPopUpButton()
 
         self.title = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
