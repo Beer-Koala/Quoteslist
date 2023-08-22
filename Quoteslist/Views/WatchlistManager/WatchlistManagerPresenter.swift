@@ -21,27 +21,34 @@ class WatchlistManagerPresenter {
     private weak var view: WatchlistManagerView?
     private(set) var watchlists: [Watchlist]
 
-    //    var showingWatchlists: [Watchlist] {
-    //        self.watchlists
-    //    }
+    private var watchListsDataSource: WatchlistsDataSource
 
     init(view: WatchlistManagerView) {
         self.view = view
-        self.watchlists = Watchlist.mockWatchlists
-    }
+        let watchlistsDataSource = WatchlistsDataSourceImp()
+        self.watchlists = watchlistsDataSource.fetchWatchlists()
+        self.watchListsDataSource = watchlistsDataSource
 
+        watchlistsDataSource.observeWatchlistChanges(onChanging: { [weak self] watchlists in
+            self?.watchlists = watchlists
+            self?.view?.reloadTable(animating: true)
+        }, onDeleting: { [weak self] watchlists in
+            self?.watchlists = watchlists
+            // row was deleted from tableView in EditEnabledDiffableDataSource
+        })
+    }
 }
 
 extension WatchlistManagerPresenter: WatchlistManagerPresenterProtocol {
     func remove(_ watchlist: Watchlist) {
         self.watchlists.removeAll { $0 == watchlist }
-        // TODO: DB - remove from DB
+        watchlist.remove()
     }
 
     func moveWatchlist(from sourceIndex: Int, to destinationIndex: Int) {
         let movedQuote = self.watchlists.remove(at: sourceIndex)
         self.watchlists.insert(movedQuote, at: destinationIndex)
-        // TODO: DB - save changes to DB
+        self.watchListsDataSource.reorder(watchlists: self.watchlists)
     }
 
     func createNewWatchlist(with name: String) {
@@ -54,16 +61,11 @@ extension WatchlistManagerPresenter: WatchlistManagerPresenterProtocol {
         Quote(name: "new Quote \(randomInt2)", stockSymbol: "AA\(randomInt2)", bidPrice: Float.random(in: 1..<100), askPrice: Float.random(in: 1..<100), lastPrice: Float.random(in: 1..<100)),
         Quote(name: "new Quote \(randomInt3)", stockSymbol: "AA\(randomInt3)", bidPrice: Float.random(in: 1..<100), askPrice: Float.random(in: 1..<100), lastPrice: Float.random(in: 1..<100))
         ])
-
-        self.watchlists.append(newWatchlist)
-        // TODO: DB - save new watchlist to DB
-        self.view?.reloadTable(animating: true)
     }
 
     func renameWatchlist(by index: Int, newName: String) {
         if let watchlist = self.watchlists[safe: index] {
-            watchlist.name = newName
-            self.view?.reload(items: [watchlist])
+            watchlist.rename(to: newName)
         }
     }
 

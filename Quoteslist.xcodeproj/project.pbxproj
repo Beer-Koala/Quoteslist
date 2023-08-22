@@ -15,6 +15,8 @@
 		FD1F65FB2A8BD943002893F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65F92A8BD943002893F7 /* Main.storyboard */; };
 		FD1F65FD2A8BD944002893F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65FC2A8BD944002893F7 /* Assets.xcassets */; };
 		FD1F66002A8BD944002893F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65FE2A8BD944002893F7 /* LaunchScreen.storyboard */; };
+		FD4B808F2A93AA7D00D912E4 /* List+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4B808E2A93AA7D00D912E4 /* List+Extension.swift */; };
+		FD50B4452A940353004EBC0B /* WatchlistsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B4442A940353004EBC0B /* WatchlistsDataSource.swift */; };
 		FD51D11A2A902F94005C34E7 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD51D1192A902F94005C34E7 /* UIAlertController+Extension.swift */; };
 		FD51D11F2A92CA18005C34E7 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD51D11E2A92CA18005C34E7 /* String+Extension.swift */; };
 		FD51D1212A92DD14005C34E7 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD51D1202A92DD14005C34E7 /* Array+Extension.swift */; };
@@ -41,6 +43,8 @@
 		FD1F65FC2A8BD944002893F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD1F65FF2A8BD944002893F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FD1F66012A8BD944002893F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD4B808E2A93AA7D00D912E4 /* List+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+Extension.swift"; sourceTree = "<group>"; };
+		FD50B4442A940353004EBC0B /* WatchlistsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistsDataSource.swift; sourceTree = "<group>"; };
 		FD51D1192A902F94005C34E7 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		FD51D11E2A92CA18005C34E7 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		FD51D1202A92DD14005C34E7 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 				FD51D1202A92DD14005C34E7 /* Array+Extension.swift */,
 				FD51D1192A902F94005C34E7 /* UIAlertController+Extension.swift */,
 				FDCC44292A937D9E005C9CF5 /* UIImage+Extension.swift */,
+				FD4B808E2A93AA7D00D912E4 /* List+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -150,6 +155,7 @@
 			children = (
 				FDA702B92A8BDA11002E1DA1 /* Quote.swift */,
 				FDA702BB2A8BDA1A002E1DA1 /* Watchlist.swift */,
+				FD50B4442A940353004EBC0B /* WatchlistsDataSource.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -306,6 +312,8 @@
 				FD51D11F2A92CA18005C34E7 /* String+Extension.swift in Sources */,
 				FD1F65F42A8BD943002893F7 /* AppDelegate.swift in Sources */,
 				FDA702C12A8D78BA002E1DA1 /* QuoteTableViewCell.swift in Sources */,
+				FD4B808F2A93AA7D00D912E4 /* List+Extension.swift in Sources */,
+				FD50B4452A940353004EBC0B /* WatchlistsDataSource.swift in Sources */,
 				FD6E9EAF2A8E809300812C53 /* WatchlistManagerViewController.swift in Sources */,
 				FD51D11A2A902F94005C34E7 /* UIAlertController+Extension.swift in Sources */,
 				FDA702BC2A8BDA1A002E1DA1 /* Watchlist.swift in Sources */,

@@ -6,30 +6,22 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Quote {
-    var name: String // TODO: Check we realy need it
-    var stockSymbol: String
-    var bidPrice: Float
-    var askPrice: Float
-    var lastPrice: Float
+class Quote: Object {
+    @Persisted var name: String
+    @Persisted var stockSymbol: String
+    @Persisted var bidPrice: Float
+    @Persisted var askPrice: Float
+    @Persisted var lastPrice: Float
 
-    init(name: String, stockSymbol: String, bidPrice: Float, askPrice: Float, lastPrice: Float) {
+    convenience init(name: String, stockSymbol: String, bidPrice: Float, askPrice: Float, lastPrice: Float) {
+        self.init()
+
         self.name = name
         self.stockSymbol = stockSymbol
         self.bidPrice = bidPrice
         self.askPrice = askPrice
         self.lastPrice = lastPrice
-    }
-}
-
-extension Quote: Hashable {
-
-    static func == (lhs: Quote, rhs: Quote) -> Bool {
-        lhs.stockSymbol == rhs.stockSymbol
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(stockSymbol)
     }
 }

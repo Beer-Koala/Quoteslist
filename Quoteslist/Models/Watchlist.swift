@@ -6,17 +6,61 @@
 //
 
 import Foundation
-//import RealmSwift
+import RealmSwift
 
-class Watchlist {//}: Object {
+class Watchlist: Object {
 
-    var id: UUID = UUID()
-    var name: String
-    var quotes: [Quote]
+    // swiftlint:disable:next identifier_name
+    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted var name: String
+    @Persisted var order: Int
+    @Persisted var quotes: List<Quote>
 
-    init(name: String, quotes: [Quote]) {
+    convenience init(name: String, quotes: [Quote]) {
+        self.init()
+
         self.name = name
-        self.quotes = quotes
+        self.quotes = List<Quote>()
+        self.quotes.append(objectsIn: quotes)
+
+        if let realm = try? Realm() {
+            if let highestOrder = realm.objects(Watchlist.self).max(ofProperty: "order") as Int? {
+                self.order = highestOrder + 1
+            }
+
+            try? realm.write {
+                // Delete the object from the Realm
+                realm.add(self)
+            }
+        }
+    }
+
+    func rename(to newName: String) {
+        // Begin a write transaction
+        self.realm?.beginWrite()
+
+        self.name = newName
+
+        // Commit the transaction
+        try? self.realm?.commitWrite()
+    }
+
+    func remove() {
+        try? self.realm?.write {
+            // Delete the object from the Realm
+            self.realm?.delete(self)
+        }
+    }
+
+    func move(from sourceIndex: Int, to destinationIndex: Int) {
+
+        // Begin a write transaction
+        self.realm?.beginWrite()
+
+        self.quotes.move(from: sourceIndex, to: destinationIndex)
+
+        // Commit the transaction
+        try? self.realm?.commitWrite()
     }
 
     // TODO Remove mocking, when will be fetching data
@@ -60,18 +104,5 @@ class Watchlist {//}: Object {
             Quote(name: "Mycompany", stockSymbol: "MC3", bidPrice: 0.23, askPrice: 0.78, lastPrice: 0.55),
             Quote(name: "Anothercompany", stockSymbol: "ABC3", bidPrice: 0.12, askPrice: 1, lastPrice: 0.99)
         ])]
-
-}
-
-extension Watchlist: Hashable {
-
-    static func == (lhs: Watchlist, rhs: Watchlist) -> Bool {
-        lhs.id == rhs.id
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
-        hasher.combine(self.name)
-    }
 
 }

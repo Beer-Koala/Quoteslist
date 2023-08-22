@@ -35,12 +35,14 @@ where MyType: Hashable {
         guard let id = itemIdentifier(for: indexPath) else {
             return
         }
-        var currentSnapshot = self.snapshot()
-        currentSnapshot.deleteItems([id])
+        if editingStyle == .delete {
+            var currentSnapshot = self.snapshot()
+            currentSnapshot.deleteItems([id])
 
-        self.apply(currentSnapshot)
+            self.apply(currentSnapshot)
 
-        self.deleteClosure?(id)
+            self.deleteClosure?(id)
+        }
     }
 
     override func tableView(

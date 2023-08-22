@@ -14,7 +14,7 @@ protocol WatchlistPresenterProtocol {
     var showingQuotes: [Quote] { get }
 
     func set(current watchlist: Watchlist)
-    func removeQuote(for stockSymbol: String)
+    func removeQuote(for quote: Quote)
     func moveQuote(from sourceIndex: Int, to destinationIndex: Int)
     func watchlistName() -> String
 }
@@ -23,18 +23,26 @@ class WatchlistPresenter {
 
     private weak var view: WatchlistView?
 
-    private(set) var watchlists: [Watchlist]
+    private(set) var watchlists: [Watchlist] = []
     var currentWatchlist: Watchlist
 
     var showingQuotes: [Quote] {
-        self.currentWatchlist.quotes
+        return Array(self.currentWatchlist.quotes)
     }
+
+    private var watchListsDataSource: WatchlistsDataSource
 
     init(view: WatchlistView) {
         self.view = view
-
-        self.watchlists = Watchlist.mockWatchlists
+        let watchlistsDataSource = WatchlistsDataSourceImp()
+        self.watchlists = watchlistsDataSource.fetchWatchlists()
         self.currentWatchlist = self.watchlists.first ?? Watchlist.mock
+        self.watchListsDataSource = watchlistsDataSource
+
+        watchlistsDataSource.observeWatchlistChanges { [weak self] watchlists in
+            self?.watchlists = watchlists
+            self?.view?.setupPopUpButton()
+        }
     }
 }
 
@@ -45,16 +53,12 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
         self.view?.reloadTable(animating: false)
     }
 
-    func removeQuote(for stockSymbol: String) {
-        self.currentWatchlist.quotes.removeAll(where: { $0.stockSymbol == stockSymbol})
-        // TODO: DB - remove from DB
+    func removeQuote(for quote: Quote) {
+        self.currentWatchlist.quotes.removeAll(where: { $0 == quote})
     }
 
     func moveQuote(from sourceIndex: Int, to destinationIndex: Int) {
-        if let movedQuote = self.currentWatchlist.quotes.safeRemove(at: sourceIndex) {
-            self.currentWatchlist.quotes.safeInsert(movedQuote, at: destinationIndex)
-            // TODO: DB - save changes to DB
-        }
+        self.currentWatchlist.move(from: sourceIndex, to: destinationIndex)
     }
 
     func watchlistName() -> String {

@@ -8,6 +8,7 @@
 import UIKit
 
 protocol WatchlistView: AnyObject {
+    func setupPopUpButton()
     func reloadTable(animating: Bool)
 }
 
@@ -21,7 +22,7 @@ class ResultVC: UIViewController {
 class WatchlistViewController: UIViewController {
 
     var presenter: WatchlistPresenterProtocol!
-    var tableViewDataSource: EditEnabledDiffableDataSource<String>?
+    var tableViewDataSource: EditEnabledDiffableDataSource<Quote>?
     let searchController = UISearchController(searchResultsController: ResultVC())
 
     static let cellIdentifier = "quoteTableViewCell" // TODO: clear code - make it with constants
@@ -50,7 +51,35 @@ class WatchlistViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    private func setupPopUpButton() {
+    private func setupTableView() {
+        guard let tableView = self.tableView else { return }
+
+        self.tableViewDataSource = EditEnabledDiffableDataSource(
+            tableView: tableView
+        ) { tableView, _, quote in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier) as? QuoteTableViewCell
+            else { return UITableViewCell() }
+
+            cell.fill(with: quote)
+            return cell
+        }
+
+        self.tableViewDataSource?.deleteClosure = { quote in
+            self.presenter.removeQuote(for: quote)
+        }
+
+        self.tableViewDataSource?.moveClosure = { sourceIndex, destinationIndex in
+            self.presenter.moveQuote(from: sourceIndex, to: destinationIndex)
+        }
+
+        self.reloadTable(animating: false) // no need animation for initial showing
+    }
+
+}
+
+extension WatchlistViewController: WatchlistView {
+
+    func setupPopUpButton() {
         let actions = self.presenter.watchlists.map { watchlist in
             UIAction(title: watchlist.name,
                      state: watchlist == self.presenter.currentWatchlist ? .on : .off) { [weak self] _ in
@@ -68,50 +97,16 @@ class WatchlistViewController: UIViewController {
 
         let menu = UIMenu(children: [actionsSubmenu, manageSubmenu])
 
-        self.showAllWatchlistsButton?.setTitle(self.presenter.currentWatchlist.name, for: .normal)
+        self.showAllWatchlistsButton?.setTitle(self.presenter.watchlistName(), for: .normal)
         self.showAllWatchlistsButton?.menu = menu
 
         self.showAllWatchlistsButton?.showsMenuAsPrimaryAction = true
     }
 
-    private func setupTableView() {
-        guard let tableView = self.tableView else { return }
-
-        self.tableViewDataSource = EditEnabledDiffableDataSource(
-            tableView: tableView
-        ) { [weak self] tableView, _, stockSymbol in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier) as? QuoteTableViewCell
-            else {
-                return UITableViewCell()
-            }
-
-            if let quote = self?.presenter.showingQuotes.first(where: { $0.stockSymbol == stockSymbol }) {
-                cell.fill(with: quote)
-            }
-
-            return cell
-        }
-
-        // TODO: can I move this and next closures to EditEnabledDiffableDataSource?
-        self.tableViewDataSource?.deleteClosure = { stockSymbol in
-            self.presenter.removeQuote(for: stockSymbol)
-        }
-
-        self.tableViewDataSource?.moveClosure = { sourceIndex, destinationIndex in
-            self.presenter.moveQuote(from: sourceIndex, to: destinationIndex)
-        }
-
-        self.reloadTable(animating: false) // no need animation for initial showing
-    }
-
-}
-
-extension WatchlistViewController: WatchlistView {
-
     func reloadTable(animating: Bool) {
-        var snapshot = NSDiffableDataSourceSnapshot<SectionModel, String>()
+        var snapshot = NSDiffableDataSourceSnapshot<SectionModel, Quote>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(self.presenter.showingQuotes.map(\.stockSymbol))
+        snapshot.appendItems(self.presenter.showingQuotes)
         tableViewDataSource?.apply(snapshot, animatingDifferences: animating)
     }
 }

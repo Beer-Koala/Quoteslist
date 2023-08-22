@@ -9,7 +9,6 @@ import UIKit
 
 protocol WatchlistManagerView: AnyObject {
     func reloadTable(animating: Bool)
-    func reload(items: [Watchlist])
 }
 
 class WatchlistManagerViewController: UIViewController {
@@ -20,8 +19,6 @@ class WatchlistManagerViewController: UIViewController {
 
     var presenter: WatchlistManagerPresenterProtocol!
     var tableViewDataSource: EditEnabledDiffableDataSource<Watchlist>?
-
-    //    static let cellIdentifier = "quoteTableViewCell" // TODO: clear code - make it with constants
 
     @IBOutlet weak var tableView: UITableView?
 
@@ -67,7 +64,6 @@ class WatchlistManagerViewController: UIViewController {
             return cell
         }
 
-        // TODO: can I move this and next closures to EditEnabledDiffableDataSource?
         self.tableViewDataSource?.deleteClosure = { watchlist in
             self.presenter.remove(watchlist)
         }
@@ -95,17 +91,10 @@ class WatchlistManagerViewController: UIViewController {
 extension WatchlistManagerViewController: WatchlistManagerView {
 
     func reloadTable(animating: Bool) {
+
         var snapshot = NSDiffableDataSourceSnapshot<SectionModel, Watchlist>()
         snapshot.appendSections([.main])
         snapshot.appendItems(self.presenter.watchlists)
-        tableViewDataSource?.apply(snapshot, animatingDifferences: animating)
-    }
-
-    // reload all table not reload elements if hash not changed, so reload specified items
-    func reload(items: [Watchlist]) {
-        if var snapshot = self.tableViewDataSource?.snapshot() {
-            snapshot.reloadItems(items)
-            self.tableViewDataSource?.apply(snapshot)
-        }
+        tableViewDataSource?.apply(snapshot, animatingDifferences: false)
     }
 }
