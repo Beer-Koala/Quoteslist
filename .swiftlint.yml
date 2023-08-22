@@ -1,5 +1,5 @@
 included:
-  - AppName
+  - Quoteslist
 
 excluded:
   - Pods
