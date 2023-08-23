@@ -25,16 +25,14 @@ class QuoteChartViewController: UIViewController {
 
         self.chartView?.scaleXEnabled = false
         self.chartView?.scaleYEnabled = false
-
-        self.chartView?.delegate = self
     }
 
 }
 
 extension QuoteChartViewController: QuoteChartView {
     func updateChart() {
-        DispatchQueue.main.async {
-            self.setDataCount()
+        DispatchQueue.main.async { [weak self] in
+            self?.setDataCount()
         }
     }
 
@@ -75,11 +73,5 @@ extension QuoteChartViewController: QuoteChartView {
             // Return the order as a string, or an empty string if not found
             return self.dates[value] ?? String(value)
         }
-    }
-}
-
-extension QuoteChartViewController: ChartViewDelegate {
-    func chartView(_ chartView: ChartViewBase, animatorDidStop animator: Animator) {
-        _ = 3
     }
 }
