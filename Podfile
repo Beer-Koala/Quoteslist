@@ -11,6 +11,8 @@ target 'Quoteslist' do
   pod 'SwiftLint'
   # DB
   pod 'RealmSwift', '~>10'
+  # Charts
+  pod 'DGCharts'
 
 end
 

@@ -113,6 +113,7 @@
 		FD130C462A8E637400235B0B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FD1F65F92A8BD943002893F7 /* Main.storyboard */,
 				FDA702C22A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift */,
 				FDA702BD2A8CF208002E1DA1 /* Watchlist */,
 				FD130C452A8E635D00235B0B /* WatchlistManager */,
@@ -149,7 +150,6 @@
 				FD51D11D2A92CA02005C34E7 /* Extension */,
 				FDA702B82A8BDA04002E1DA1 /* Models */,
 				FD130C462A8E637400235B0B /* Views */,
-				FD1F65F92A8BD943002893F7 /* Main.storyboard */,
 				FD1F65FC2A8BD944002893F7 /* Assets.xcassets */,
 				FD1F65FE2A8BD944002893F7 /* LaunchScreen.storyboard */,
 				FD1F66012A8BD944002893F7 /* Info.plist */,

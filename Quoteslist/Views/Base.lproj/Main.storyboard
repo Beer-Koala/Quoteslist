@@ -184,21 +184,42 @@
             </objects>
             <point key="canvasLocation" x="617.55725190839689" y="-8.4507042253521139"/>
         </scene>
-        <!--View Controller-->
+        <!--Symbol Title-->
         <scene sceneID="NWw-Ch-jFX">
             <objects>
                 <viewController id="ToD-70-Cni" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nPi-aB-mkS">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bah-tN-ZTc">
+                                <rect key="frame" x="20.000000000000004" y="155" width="37.333333333333343" height="18"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kHO-ne-yyu" customClass="BarChartView" customModule="DGCharts">
+                                <rect key="frame" x="20" y="193" width="353" height="625"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="mIX-ip-940"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mIX-ip-940" firstAttribute="trailing" secondItem="kHO-ne-yyu" secondAttribute="trailing" constant="20" id="2lm-eK-JTV"/>
+                            <constraint firstItem="mIX-ip-940" firstAttribute="bottom" secondItem="kHO-ne-yyu" secondAttribute="bottom" id="Dpn-eP-6du"/>
+                            <constraint firstItem="kHO-ne-yyu" firstAttribute="top" secondItem="bah-tN-ZTc" secondAttribute="bottom" constant="20" id="EXv-jp-o8l"/>
+                            <constraint firstItem="kHO-ne-yyu" firstAttribute="leading" secondItem="mIX-ip-940" secondAttribute="leading" constant="20" id="Pjg-87-hjl"/>
+                            <constraint firstItem="bah-tN-ZTc" firstAttribute="leading" secondItem="mIX-ip-940" secondAttribute="leading" constant="20" id="Stn-1N-KLY"/>
+                            <constraint firstItem="mIX-ip-940" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bah-tN-ZTc" secondAttribute="trailing" constant="20" id="cgp-2b-Cwt"/>
+                            <constraint firstItem="bah-tN-ZTc" firstAttribute="top" secondItem="mIX-ip-940" secondAttribute="top" id="cu3-21-Fca"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="LwG-Gb-bmK"/>
+                    <navigationItem key="navigationItem" title="Symbol Title" id="LwG-Gb-bmK"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="suI-9u-XJg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1550" y="-365"/>
+            <point key="canvasLocation" x="1548.854961832061" y="-365.49295774647891"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tzk-qs-jbQ">
