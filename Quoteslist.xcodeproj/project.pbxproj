@@ -19,6 +19,12 @@
 		FD50B4452A940353004EBC0B /* WatchlistsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B4442A940353004EBC0B /* WatchlistsDataSource.swift */; };
 		FD50B4472A950CE6004EBC0B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B4462A950CE6004EBC0B /* NetworkManager.swift */; };
 		FD50B44A2A9558FA004EBC0B /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B4492A9558FA004EBC0B /* URL+Extension.swift */; };
+		FD50B44C2A95E480004EBC0B /* ErrorAlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B44B2A95E480004EBC0B /* ErrorAlertPresentable.swift */; };
+		FD50B44E2A95EBDA004EBC0B /* SearchQuotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B44D2A95EBDA004EBC0B /* SearchQuotesViewController.swift */; };
+		FD50B4512A95EC13004EBC0B /* SearchQuotesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B4502A95EC13004EBC0B /* SearchQuotesPresenter.swift */; };
+		FD50B4562A95EEB8004EBC0B /* SearchQuotesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B4552A95EEB8004EBC0B /* SearchQuotesResponse.swift */; };
+		FD50B4582A95EF66004EBC0B /* SearchQuotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD50B4572A95EF66004EBC0B /* SearchQuotesViewController.xib */; };
+		FD50B45A2A962A22004EBC0B /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B4592A962A22004EBC0B /* NotificationName+Extension.swift */; };
 		FD51D11A2A902F94005C34E7 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD51D1192A902F94005C34E7 /* UIAlertController+Extension.swift */; };
 		FD51D11F2A92CA18005C34E7 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD51D11E2A92CA18005C34E7 /* String+Extension.swift */; };
 		FD51D1212A92DD14005C34E7 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD51D1202A92DD14005C34E7 /* Array+Extension.swift */; };
@@ -49,6 +55,12 @@
 		FD50B4442A940353004EBC0B /* WatchlistsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistsDataSource.swift; sourceTree = "<group>"; };
 		FD50B4462A950CE6004EBC0B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		FD50B4492A9558FA004EBC0B /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
+		FD50B44B2A95E480004EBC0B /* ErrorAlertPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertPresentable.swift; sourceTree = "<group>"; };
+		FD50B44D2A95EBDA004EBC0B /* SearchQuotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuotesViewController.swift; sourceTree = "<group>"; };
+		FD50B4502A95EC13004EBC0B /* SearchQuotesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuotesPresenter.swift; sourceTree = "<group>"; };
+		FD50B4552A95EEB8004EBC0B /* SearchQuotesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuotesResponse.swift; sourceTree = "<group>"; };
+		FD50B4572A95EF66004EBC0B /* SearchQuotesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchQuotesViewController.xib; sourceTree = "<group>"; };
+		FD50B4592A962A22004EBC0B /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		FD51D1192A902F94005C34E7 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		FD51D11E2A92CA18005C34E7 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		FD51D1202A92DD14005C34E7 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
@@ -104,6 +116,7 @@
 				FDA702C22A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift */,
 				FDA702BD2A8CF208002E1DA1 /* Watchlist */,
 				FD130C452A8E635D00235B0B /* WatchlistManager */,
+				FD50B44F2A95EBE7004EBC0B /* SearchQuotes */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -131,6 +144,7 @@
 			children = (
 				FD1F65F32A8BD943002893F7 /* AppDelegate.swift */,
 				FD1F65F52A8BD943002893F7 /* SceneDelegate.swift */,
+				FD50B44B2A95E480004EBC0B /* ErrorAlertPresentable.swift */,
 				FD50B4482A9558BD004EBC0B /* Networking */,
 				FD51D11D2A92CA02005C34E7 /* Extension */,
 				FDA702B82A8BDA04002E1DA1 /* Models */,
@@ -148,8 +162,27 @@
 			children = (
 				FD50B4462A950CE6004EBC0B /* NetworkManager.swift */,
 				FD50B4492A9558FA004EBC0B /* URL+Extension.swift */,
+				FD50B4542A95EE9E004EBC0B /* NetworkModels */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		FD50B44F2A95EBE7004EBC0B /* SearchQuotes */ = {
+			isa = PBXGroup;
+			children = (
+				FD50B44D2A95EBDA004EBC0B /* SearchQuotesViewController.swift */,
+				FD50B4572A95EF66004EBC0B /* SearchQuotesViewController.xib */,
+				FD50B4502A95EC13004EBC0B /* SearchQuotesPresenter.swift */,
+			);
+			path = SearchQuotes;
+			sourceTree = "<group>";
+		};
+		FD50B4542A95EE9E004EBC0B /* NetworkModels */ = {
+			isa = PBXGroup;
+			children = (
+				FD50B4552A95EEB8004EBC0B /* SearchQuotesResponse.swift */,
+			);
+			path = NetworkModels;
 			sourceTree = "<group>";
 		};
 		FD51D11D2A92CA02005C34E7 /* Extension */ = {
@@ -160,6 +193,7 @@
 				FD51D1192A902F94005C34E7 /* UIAlertController+Extension.swift */,
 				FDCC44292A937D9E005C9CF5 /* UIImage+Extension.swift */,
 				FD4B808E2A93AA7D00D912E4 /* List+Extension.swift */,
+				FD50B4592A962A22004EBC0B /* NotificationName+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -247,6 +281,7 @@
 			files = (
 				FD1F66002A8BD944002893F7 /* LaunchScreen.storyboard in Resources */,
 				FD1F65FD2A8BD944002893F7 /* Assets.xcassets in Resources */,
+				FD50B4582A95EF66004EBC0B /* SearchQuotesViewController.xib in Resources */,
 				FD1F65FB2A8BD943002893F7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,21 +353,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD50B4512A95EC13004EBC0B /* SearchQuotesPresenter.swift in Sources */,
 				FDA702BF2A8CF220002E1DA1 /* WatchlistPresenter.swift in Sources */,
 				FDCC442A2A937D9E005C9CF5 /* UIImage+Extension.swift in Sources */,
+				FD50B44E2A95EBDA004EBC0B /* SearchQuotesViewController.swift in Sources */,
 				FD130C492A8E670A00235B0B /* WatchlistManagerPresenter.swift in Sources */,
 				FDA702BA2A8BDA11002E1DA1 /* Quote.swift in Sources */,
 				FD1F65F82A8BD943002893F7 /* WatchlistViewController.swift in Sources */,
 				FD50B44A2A9558FA004EBC0B /* URL+Extension.swift in Sources */,
 				FD51D11F2A92CA18005C34E7 /* String+Extension.swift in Sources */,
 				FD1F65F42A8BD943002893F7 /* AppDelegate.swift in Sources */,
+				FD50B44C2A95E480004EBC0B /* ErrorAlertPresentable.swift in Sources */,
 				FDA702C12A8D78BA002E1DA1 /* QuoteTableViewCell.swift in Sources */,
 				FD4B808F2A93AA7D00D912E4 /* List+Extension.swift in Sources */,
 				FD50B4452A940353004EBC0B /* WatchlistsDataSource.swift in Sources */,
+				FD50B45A2A962A22004EBC0B /* NotificationName+Extension.swift in Sources */,
 				FD50B4472A950CE6004EBC0B /* NetworkManager.swift in Sources */,
 				FD6E9EAF2A8E809300812C53 /* WatchlistManagerViewController.swift in Sources */,
 				FD51D11A2A902F94005C34E7 /* UIAlertController+Extension.swift in Sources */,
 				FDA702BC2A8BDA1A002E1DA1 /* Watchlist.swift in Sources */,
+				FD50B4562A95EEB8004EBC0B /* SearchQuotesResponse.swift in Sources */,
 				FD1F65F62A8BD943002893F7 /* SceneDelegate.swift in Sources */,
 				FD51D1212A92DD14005C34E7 /* Array+Extension.swift in Sources */,
 				FDA702C32A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift in Sources */,

@@ -12,30 +12,38 @@ protocol WatchlistView: AnyObject {
     func reloadTable(animating: Bool)
 }
 
-class ResultVC: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .systemBlue
-    }
-}
-
 class WatchlistViewController: UIViewController {
 
     var presenter: WatchlistPresenterProtocol!
     var tableViewDataSource: EditEnabledDiffableDataSource<Quote>?
-    let searchController = UISearchController(searchResultsController: ResultVC())
 
-    static let cellIdentifier = "quoteTableViewCell" // TODO: clear code - make it with constants
+    static let cellIdentifier = "quoteTableViewCell"
 
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var showAllWatchlistsButton: UIButton?
 
+    deinit {
+        // Remove the observer when the object is deallocated
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.presenter = WatchlistPresenter(view: self)
 
+        self.configureSearchView()
         self.configureView()
         self.setupTableView()
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleNotification),
+                                               name: .selectQuoteInSearchNotification,
+                                               object: nil)
+    }
+
+    @objc private func handleNotification() {
+        self.reloadTable(animating: false)
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -43,8 +51,15 @@ class WatchlistViewController: UIViewController {
         self.tableView?.setEditing(editing, animated: animated)
     }
 
+    private func configureSearchView() {
+        let searchQuotesVC = SearchQuotesViewController(presenter: self.presenter.setSearchQuotesPresenter())
+        let searchController = UISearchController(searchResultsController: searchQuotesVC)
+        searchController.searchResultsUpdater = searchQuotesVC
+        searchController.delegate = self
+        self.navigationItem.searchController = searchController
+    }
+
     private func configureView() {
-        self.navigationItem.searchController = self.searchController
         self.setupPopUpButton()
 
         self.title = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
@@ -84,8 +99,14 @@ extension WatchlistViewController: WatchlistView {
             UIAction(title: watchlist.name,
                      state: watchlist == self.presenter.currentWatchlist ? .on : .off) { [weak self] _ in
 
-                self?.presenter?.set(current: watchlist)
-                self?.setupPopUpButton()
+                guard let strongSelf = self else { return }
+
+                strongSelf.presenter?.set(current: watchlist)
+
+                (strongSelf.navigationItem.searchController?.searchResultsUpdater as? SearchQuotesView)?
+                    .setCurrent(watchlist)
+
+                strongSelf.setupPopUpButton()
         } }
 
         let actionsSubmenu = UIMenu(title: String.empty, options: .displayInline, children: actions)
@@ -103,10 +124,16 @@ extension WatchlistViewController: WatchlistView {
         self.showAllWatchlistsButton?.showsMenuAsPrimaryAction = true
     }
 
-    func reloadTable(animating: Bool) {
+    @objc func reloadTable(animating: Bool) {
         var snapshot = NSDiffableDataSourceSnapshot<SectionModel, Quote>()
         snapshot.appendSections([.main])
         snapshot.appendItems(self.presenter.showingQuotes)
-        tableViewDataSource?.apply(snapshot, animatingDifferences: animating)
+        self.tableViewDataSource?.apply(snapshot, animatingDifferences: animating)
+    }
+}
+
+extension WatchlistViewController: UISearchControllerDelegate {
+    func didDismissSearchController(_ searchController: UISearchController) {
+        self.reloadTable(animating: true)
     }
 }

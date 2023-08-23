@@ -95,6 +95,7 @@ extension WatchlistManagerViewController: WatchlistManagerView {
         var snapshot = NSDiffableDataSourceSnapshot<SectionModel, Watchlist>()
         snapshot.appendSections([.main])
         snapshot.appendItems(self.presenter.watchlists)
-        tableViewDataSource?.apply(snapshot, animatingDifferences: false)
+        snapshot.reloadSections([.main]) // force push to reload, cause not change name in view if changed in model
+        self.tableViewDataSource?.apply(snapshot, animatingDifferences: false)
     }
 }

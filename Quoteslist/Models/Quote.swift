@@ -24,4 +24,8 @@ class Quote: Object {
         self.askPrice = askPrice
         self.lastPrice = lastPrice
     }
+
+    static func == (lhs: Quote, rhs: Quote) -> Bool {
+        return lhs.stockSymbol == rhs.stockSymbol
+    }
 }

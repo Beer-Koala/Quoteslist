@@ -31,7 +31,7 @@ class NetworkManager {
     // MARK: -
     // MARK: Private
 
-    private func sendRequest(url: URL, completion: @escaping (Result<Any, Error>) -> Void) {
+    private func sendRequest(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {
                 completion(.failure(error))
@@ -44,12 +44,7 @@ class NetworkManager {
                 return
             }
 
-            do {
-                let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
-                completion(.success(jsonObject))
-            } catch {
-                completion(.failure(error))
-            }
+            completion(.success(data))
         }
         task.resume()
     }
@@ -57,17 +52,33 @@ class NetworkManager {
     // MARK: -
     // MARK: Public
 
-    func searchQuotes(by text: String, completion: @escaping (Result<Any, Error>) -> Void) {
+    func searchQuotes(by text: String,
+                      errorCompletion: ((Error) -> Void)? = nil,
+                      successCompletion: @escaping (SearchQuotesResponse) -> Void) {
         let url = URL.searchQuotes(by: text)
-        self.sendRequest(url: url, completion: completion)
+        self.sendRequest(url: url) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decoder = JSONDecoder()
+                    let response = try decoder.decode(SearchQuotesResponse.self, from: data)
+                    successCompletion(response)
+                } catch {
+                    errorCompletion?(error)
+                }
+
+            case .failure(let error):
+                errorCompletion?(error)
+            }
+        }
     }
 
-    func getHistory(for quote: Quote, completion: @escaping (Result<Any, Error>) -> Void) {
+    func getHistory(for quote: Quote, completion: @escaping (Result<Data, Error>) -> Void) {
         let url = URL.getHistory(for: quote)
         self.sendRequest(url: url, completion: completion)
     }
 
-    func startGettingPrices(for quotes: [Quote], completion: @escaping (Result<Any, Error>) -> Void) {
+    func startGettingPrices(for quotes: [Quote], completion: @escaping (Result<Data, Error>) -> Void) {
         stopGettingPrices() // Stop any ongoing requests
 
         self.lastProcessedResponseTimestamp = 0
@@ -79,7 +90,7 @@ class NetworkManager {
         self.getPriceTimer = Timer.scheduledTimer(withTimeInterval: Self.timeInterval, repeats: true) { [weak self] _ in
             if let url = self?.activeGetPriceURL {
                 self?.sendRequest(url: url) { [weak self] result in
-                    if currentRequestTimestamp > self?.lastProcessedResponseTimestamp ?? 0 {
+                    if currentRequestTimestamp > self?.lastProcessedResponseTimestamp ?? TimeInterval.zero {
                         self?.lastProcessedResponseTimestamp = currentRequestTimestamp
                         completion(result)
                     }

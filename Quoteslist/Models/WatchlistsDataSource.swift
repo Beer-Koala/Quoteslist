@@ -9,12 +9,12 @@ import RealmSwift
 
 protocol WatchlistsDataSource {
     func fetchWatchlists() -> [Watchlist]
-    func observeWatchlistChanges(onChanging: @escaping ([Watchlist]) -> Void)
+    func observeWatchlistsChanges(onChanging: @escaping ([Watchlist]) -> Void)
 
     // when moved, change var order and change order in watchlist. It's catched like deleting and moving work wromg
     // so made different processing of deleting rows
-    func observeWatchlistChanges(onChanging: @escaping ([Watchlist]) -> Void,
-                                 onDeleting: @escaping ([Watchlist]) -> Void)
+    func observeWatchlistsChanges(onChanging: @escaping ([Watchlist]) -> Void,
+                                  onDeleting: @escaping ([Watchlist]) -> Void)
     func reorder(watchlists: [Watchlist])
 }
 
@@ -33,20 +33,19 @@ class WatchlistsDataSourceImp: WatchlistsDataSource {
         } else {
             // realm can be nil if DB structure changes and no migrations.
             // In this case show just default watchlist
-            return [Watchlist.mock]
+            return [Watchlist.default]
         }
     }
 
-    func observeWatchlistChanges(onChanging: @escaping ([Watchlist]) -> Void) {
-        self.observeWatchlistChanges(onChanging: onChanging, onDeleting: onChanging)
+    func observeWatchlistsChanges(onChanging: @escaping ([Watchlist]) -> Void) {
+        self.observeWatchlistsChanges(onChanging: onChanging, onDeleting: onChanging)
     }
 
-    func observeWatchlistChanges(onChanging: @escaping ([Watchlist]) -> Void,
-                                 onDeleting: @escaping ([Watchlist]) -> Void) {
+    func observeWatchlistsChanges(onChanging: @escaping ([Watchlist]) -> Void,
+                                  onDeleting: @escaping ([Watchlist]) -> Void) {
         self.notificationToken = self.watchlistsResults?.observe { changes in
             switch changes {
             case .update(let watchlists, let deletingIndices, _, _):
-                onChanging(Array(watchlists))
                 if deletingIndices.isEmpty {
                     onChanging(Array(watchlists))
                 } else {
