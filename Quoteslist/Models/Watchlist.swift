@@ -84,6 +84,22 @@ class Watchlist: Object {
         try? self.realm?.commitWrite()
     }
 
+    func updatePrices(from priceDictionary: [String: QuotePriceResponse]) {
+        // Begin a write transaction
+        self.realm?.beginWrite()
+
+        self.quotes.forEach { quote in
+            if let price = priceDictionary[quote.stockSymbol] {
+                quote.askPrice = price.askPrice
+                quote.bidPrice = price.bidPrice
+                quote.lastPrice = price.latestPrice
+            }
+        }
+
+        // Commit the transaction
+        try? self.realm?.commitWrite()
+    }
+
     static var `default`: Watchlist = Watchlist(name: "Defaults", quotes: [
         Quote(name: "Apple", stockSymbol: "AAPL", bidPrice: 150, askPrice: 152, lastPrice: 151),
         Quote(name: "Microsoft", stockSymbol: "MSFT", bidPrice: 50, askPrice: 52, lastPrice: 51),

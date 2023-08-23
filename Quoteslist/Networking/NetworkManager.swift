@@ -94,21 +94,39 @@ class NetworkManager {
         }
     }
 
-    func startGettingPrices(for quotes: [Quote], completion: @escaping (Result<Data, Error>) -> Void) {
-        stopGettingPrices() // Stop any ongoing requests
+    func startGettingPrices(for quotes: [Quote],
+                            errorCompletion: ((Error) -> Void)? = nil,
+                            successCompletion: @escaping ([String: QuotePriceResponse]) -> Void) {
+        self.stopGettingPrices() // Stop any ongoing requests
 
         self.lastProcessedResponseTimestamp = 0
 
         self.activeGetPriceURL = URL.getPrices(for: quotes)
 
-        let currentRequestTimestamp = Date().timeIntervalSince1970
-
         self.getPriceTimer = Timer.scheduledTimer(withTimeInterval: Self.timeInterval, repeats: true) { [weak self] _ in
             if let url = self?.activeGetPriceURL {
+                let currentRequestTimestamp = Date().timeIntervalSince1970
                 self?.sendRequest(url: url) { [weak self] result in
-                    if currentRequestTimestamp > self?.lastProcessedResponseTimestamp ?? TimeInterval.zero {
-                        self?.lastProcessedResponseTimestamp = currentRequestTimestamp
-                        completion(result)
+                    guard currentRequestTimestamp > self?.lastProcessedResponseTimestamp ?? TimeInterval.zero else {
+                        return
+                    }
+                    self?.lastProcessedResponseTimestamp = currentRequestTimestamp
+                    // Double-checking timestamp
+                    guard currentRequestTimestamp >= self?.lastProcessedResponseTimestamp ?? TimeInterval.zero else {
+                        return
+                    }
+                    switch result {
+                    case .success(let data):
+                        do {
+                            let decoder = JSONDecoder()
+                            let response = try decoder.decode([String: QuotePriceResponse].self, from: data)
+                            successCompletion(response)
+                        } catch {
+                            errorCompletion?(error)
+                        }
+
+                    case .failure(let error):
+                        errorCompletion?(error)
                     }
                 }
             }

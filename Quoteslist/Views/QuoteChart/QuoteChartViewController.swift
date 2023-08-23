@@ -40,7 +40,7 @@ extension QuoteChartViewController: QuoteChartView {
         var dates = [Double: String]()
         let dataEntries = self.presenter?.historyQuotePrice.enumerated().map { (index, historyQuotePrice) in
             let doubleIndex = Double(index)
-            dates[doubleIndex] = historyQuotePrice.shortDate
+            dates[doubleIndex] = historyQuotePrice.shortDateString
             return BarChartDataEntry(
                 x: doubleIndex,
                 y: historyQuotePrice.closePrice)
@@ -48,7 +48,7 @@ extension QuoteChartViewController: QuoteChartView {
 
         guard let dataEntries = dataEntries else { return }
 
-        var set = BarChartDataSet(entries: dataEntries, label: "Previous month")
+        let set = BarChartDataSet(entries: dataEntries, label: "Previous month")
         set.colors = [.gray]
         set.drawValuesEnabled = false
         set.highlightEnabled = false

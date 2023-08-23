@@ -44,6 +44,7 @@ class WatchlistViewController: UIViewController {
 
     @objc private func handleNotification() {
         self.reloadTable(animating: false)
+        self.presenter.startGettingPrices()
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -150,7 +151,7 @@ extension WatchlistViewController: WatchlistView {
 
 extension WatchlistViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
-        self.reloadTable(animating: true)
+        self.reloadTable(animating: false)
     }
 }
 

@@ -18,6 +18,7 @@ protocol WatchlistPresenterProtocol {
     func moveQuote(from sourceIndex: Int, to destinationIndex: Int)
     func watchlistName() -> String
     func setSearchQuotesPresenter() -> SearchQuotesPresenter
+    func startGettingPrices()
 }
 
 class WatchlistPresenter {
@@ -46,6 +47,8 @@ class WatchlistPresenter {
             self?.watchlists = watchlists
             self?.view?.setupPopUpButton()
         }
+
+        self.startGettingPrices()
     }
 }
 
@@ -54,6 +57,8 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
     func set(current watchlist: Watchlist) {
         self.currentWatchlist = watchlist
         self.view?.reloadTable(animating: false)
+
+        self.startGettingPrices()
     }
 
     func removeQuote(for quote: Quote) {
@@ -72,5 +77,14 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
         let searchQuotesPresenter = SearchQuotesPresenter(currentWatchlist: self.currentWatchlist)
         self.searchQuotesPresenter = searchQuotesPresenter
         return searchQuotesPresenter
+    }
+
+    func startGettingPrices() {
+        NetworkManager.shared.startGettingPrices(for: self.showingQuotes) { priceDictionary in
+            DispatchQueue.main.async {
+                self.currentWatchlist.updatePrices(from: priceDictionary)
+                self.view?.reloadTable(animating: false)
+            }
+        }
     }
 }

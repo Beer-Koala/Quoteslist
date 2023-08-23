@@ -50,7 +50,9 @@ extension SearchQuotesPresenter: SearchQuotesPresenterProtocol {
         }
         NetworkManager.shared.searchQuotes(by: text) { response in
             self.findedQuotes = response.data.items
-            self.view?.reloadTable(animating: true)
+            DispatchQueue.main.async { [weak self] in
+                self?.view?.reloadTable(animating: true)
+            }
         }
     }
 

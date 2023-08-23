@@ -1,5 +1,5 @@
 //
-//  HistoricalPrice.swift
+//  HistoryQuotePrice.swift
 //  Quoteslist
 //
 //  Created by Beer Koala on 23.08.2023.
@@ -11,12 +11,7 @@ struct HistoryQuotePrice: Decodable {
     let closePrice: Double
     let date: Date
 
-//    var day: Int {
-//        let calendar = Calendar.current
-//        return calendar.component(.day, from: date)
-//    }
-
-    var shortDate: String {
+    var shortDateString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM"
         return dateFormatter.string(from: date)
