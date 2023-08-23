@@ -68,6 +68,7 @@ class WatchlistViewController: UIViewController {
 
     private func setupTableView() {
         guard let tableView = self.tableView else { return }
+        tableView.delegate = self
 
         self.tableViewDataSource = EditEnabledDiffableDataSource(
             tableView: tableView
@@ -90,6 +91,20 @@ class WatchlistViewController: UIViewController {
         self.reloadTable(animating: false) // no need animation for initial showing
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "openChart" {
+            if let destinationVC = segue.destination as? QuoteChartViewController {
+
+                if let cell = sender as? UITableViewCell,
+                   let indexPath = tableView?.indexPath(for: cell),
+                   let quote = self.presenter.showingQuotes[safe: indexPath.row] {
+                    let presenter = QuoteChartPresenter(view: destinationVC, currentQuote: quote)
+                    destinationVC.presenter = presenter
+                }
+            }
+        }
+    }
+
 }
 
 extension WatchlistViewController: WatchlistView {
@@ -107,7 +122,8 @@ extension WatchlistViewController: WatchlistView {
                     .setCurrent(watchlist)
 
                 strongSelf.setupPopUpButton()
-        } }
+            }
+        }
 
         let actionsSubmenu = UIMenu(title: String.empty, options: .displayInline, children: actions)
 
@@ -135,5 +151,11 @@ extension WatchlistViewController: WatchlistView {
 extension WatchlistViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         self.reloadTable(animating: true)
+    }
+}
+
+extension WatchlistViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

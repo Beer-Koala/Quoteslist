@@ -73,9 +73,25 @@ class NetworkManager {
         }
     }
 
-    func getHistory(for quote: Quote, completion: @escaping (Result<Data, Error>) -> Void) {
+    func getHistory(for quote: Quote,
+                      errorCompletion: ((Error) -> Void)? = nil,
+                      successCompletion: @escaping ([HistoryQuotePrice]) -> Void) {
         let url = URL.getHistory(for: quote)
-        self.sendRequest(url: url, completion: completion)
+        self.sendRequest(url: url) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decoder = JSONDecoder()
+                    let response = try decoder.decode([HistoryQuotePrice].self, from: data)
+                    successCompletion(response)
+                } catch {
+                    errorCompletion?(error)
+                }
+
+            case .failure(let error):
+                errorCompletion?(error)
+            }
+        }
     }
 
     func startGettingPrices(for quotes: [Quote], completion: @escaping (Result<Data, Error>) -> Void) {

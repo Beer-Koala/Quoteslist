@@ -155,7 +155,7 @@
                                             <outlet property="lastPriceLabel" destination="F3y-E3-mxf" id="pTb-zN-7dH"/>
                                             <outlet property="nameLabel" destination="0cE-Un-YeA" id="gff-r6-BvO"/>
                                             <outlet property="stockSymbolLabel" destination="ETQ-hc-2H1" id="lLg-Uu-gIs"/>
-                                            <segue destination="ToD-70-Cni" kind="show" id="vjd-eH-C3S"/>
+                                            <segue destination="ToD-70-Cni" kind="show" identifier="openChart" id="vjd-eH-C3S"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -187,13 +187,13 @@
         <!--Symbol Title-->
         <scene sceneID="NWw-Ch-jFX">
             <objects>
-                <viewController id="ToD-70-Cni" sceneMemberID="viewController">
+                <viewController id="ToD-70-Cni" customClass="QuoteChartViewController" customModule="Quoteslist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nPi-aB-mkS">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bah-tN-ZTc">
-                                <rect key="frame" x="20.000000000000004" y="155" width="37.333333333333343" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bah-tN-ZTc">
+                                <rect key="frame" x="20" y="155" width="78.666666666666671" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -216,6 +216,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Symbol Title" id="LwG-Gb-bmK"/>
+                    <connections>
+                        <outlet property="chartView" destination="kHO-ne-yyu" id="XnH-6G-UkY"/>
+                        <outlet property="descriptionLabel" destination="bah-tN-ZTc" id="x6v-n1-mD5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="suI-9u-XJg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
