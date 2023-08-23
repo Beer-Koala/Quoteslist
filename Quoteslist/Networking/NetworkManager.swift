@@ -74,8 +74,8 @@ class NetworkManager {
     }
 
     func getHistory(for quote: Quote,
-                      errorCompletion: ((Error) -> Void)? = nil,
-                      successCompletion: @escaping ([HistoryQuotePrice]) -> Void) {
+                    errorCompletion: ((Error) -> Void)? = nil,
+                    successCompletion: @escaping ([HistoryQuotePrice]) -> Void) {
         let url = URL.getHistory(for: quote)
         self.sendRequest(url: url) { result in
             switch result {

@@ -7,12 +7,46 @@
 
 import Foundation
 
-struct HistoryQuotePrice: Codable {
-    let close: Double
+struct HistoryQuotePrice: Decodable {
+    let closePrice: Double
+    let date: Date
+
+//    var day: Int {
+//        let calendar = Calendar.current
+//        return calendar.component(.day, from: date)
+//    }
+
+    var shortDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM"
+        return dateFormatter.string(from: date)
+    }
+
+    // Custom initializer for decoding
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.closePrice = try container.decode(Double.self, forKey: .closePrice)
+        let dateString = try container.decode(String.self, forKey: .priceDate)
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if let parsedDate = dateFormatter.date(from: dateString) {
+            self.date = parsedDate
+        } else {
+            self.date = Date()
+        }
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case closePrice = "close"
+        case priceDate
+    }
+}
+
+// here is unused properties from response:
 //    let high: Double
 //    let low: Double
 //    let open: Double
-    let priceDate: String
 //    let symbol: String
 //    let volume: Int
 //    let id: String
@@ -35,4 +69,3 @@ struct HistoryQuotePrice: Codable {
 //    let label: String
 //    let change: Double
 //    let changePercent: Double
-}

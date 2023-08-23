@@ -22,12 +22,64 @@ class QuoteChartViewController: UIViewController {
     override func viewDidLoad() {
         self.title = presenter?.currentQuote.stockSymbol
         self.descriptionLabel?.text = presenter?.currentQuote.name
+
+        self.chartView?.scaleXEnabled = false
+        self.chartView?.scaleYEnabled = false
+
+        self.chartView?.delegate = self
     }
 
 }
 
 extension QuoteChartViewController: QuoteChartView {
     func updateChart() {
+        DispatchQueue.main.async {
+            self.setDataCount()
+        }
+    }
 
+    func setDataCount() {
+        var dates = [Double: String]()
+        let dataEntries = self.presenter?.historyQuotePrice.enumerated().map { (index, historyQuotePrice) in
+            let doubleIndex = Double(index)
+            dates[doubleIndex] = historyQuotePrice.shortDate
+            return BarChartDataEntry(
+                x: doubleIndex,
+                y: historyQuotePrice.closePrice)
+        }
+
+        guard let dataEntries = dataEntries else { return }
+
+        var set = BarChartDataSet(entries: dataEntries, label: "Previous month")
+        set.colors = [.gray]
+        set.drawValuesEnabled = false
+        set.highlightEnabled = false
+
+        let data = BarChartData(dataSet: set)
+        self.chartView?.data = data
+
+        let formatter = CustomFormatter(using: dates)
+        self.chartView?.xAxis.valueFormatter = formatter
+    }
+
+    class CustomFormatter: AxisValueFormatter {
+
+        let dates: [Double: String]
+
+        init(using dates: [Double: String]) {
+            self.dates = dates
+        }
+
+        // A function that returns the formatted value for a given x value
+        func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+            // Return the order as a string, or an empty string if not found
+            return self.dates[value] ?? String(value)
+        }
+    }
+}
+
+extension QuoteChartViewController: ChartViewDelegate {
+    func chartView(_ chartView: ChartViewBase, animatorDidStop animator: Animator) {
+        _ = 3
     }
 }
