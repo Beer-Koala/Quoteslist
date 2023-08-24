@@ -22,4 +22,12 @@ class QuoteTableViewCell: UITableViewCell {
         self.askPriceLabel?.text = String(quote.askPrice)
         self.lastPriceLabel?.text = String(quote.lastPrice)
     }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+
+        bidPriceLabel?.isHidden = editing
+        askPriceLabel?.isHidden = editing
+        lastPriceLabel?.isHidden = editing
+    }
 }

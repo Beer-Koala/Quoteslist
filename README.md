@@ -43,7 +43,6 @@ However, for demonstration purposes, one screen has been developed using an XIB 
 
 #### Code-related
 
-0. Hide prices in edit mode, or debug a way to handle the fact that they do not fit on the screen.
 1. Used SwiftGen for texts.
 2. Review the names of ViewControllers, as there are currently too many occurrences of the word "Watchlist," leading to confusion.
 3. Migrate from CocoaPods to SwiftPackageManager.
