@@ -7,9 +7,15 @@
 
 import UIKit
 
+// MARK: -
+// MARK: WatchlistManagerView
+
 protocol WatchlistManagerView: AnyObject {
     func reloadTable(animating: Bool)
 }
+
+// MARK: -
+// MARK: WatchlistManagerViewController
 
 class WatchlistManagerViewController: UIViewController {
 
@@ -88,6 +94,9 @@ class WatchlistManagerViewController: UIViewController {
         }
     }
 }
+
+// MARK: -
+// MARK: extension WatchlistManagerView
 
 extension WatchlistManagerViewController: WatchlistManagerView {
 

@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: -
-// MARK: protocol SearchQuotesView
+// MARK: SearchQuotesView
 
 protocol SearchQuotesView: UIViewController {
     func setCurrent(_ watchlist: Watchlist)
@@ -73,7 +73,7 @@ class SearchQuotesViewController: UIViewController {
 }
 
 // MARK: -
-// MARK: UISearchResultsUpdating
+// MARK: extension UISearchResultsUpdating
 
 extension SearchQuotesViewController: UISearchResultsUpdating {
 
@@ -84,7 +84,7 @@ extension SearchQuotesViewController: UISearchResultsUpdating {
 }
 
 // MARK: -
-// MARK: SearchQuotesView
+// MARK: extension SearchQuotesView
 
 extension SearchQuotesViewController: SearchQuotesView {
 
@@ -98,7 +98,7 @@ extension SearchQuotesViewController: SearchQuotesView {
 }
 
 // MARK: -
-// MARK: UITableViewDelegate
+// MARK: extension UITableViewDelegate
 
 extension SearchQuotesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

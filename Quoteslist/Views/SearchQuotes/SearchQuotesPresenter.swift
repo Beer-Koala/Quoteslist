@@ -35,7 +35,7 @@ class SearchQuotesPresenter {
 }
 
 // MARK: -
-// MARK: Extension for SearchQuotesPresenterProtocol
+// MARK: extension SearchQuotesPresenterProtocol
 
 extension SearchQuotesPresenter: SearchQuotesPresenterProtocol {
 

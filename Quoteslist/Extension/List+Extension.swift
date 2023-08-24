@@ -17,15 +17,12 @@ extension List {
             // Create a list of indices to remove
             let indicesToRemove = (0..<count).filter { predicate(self[$0]) }
 
-            // Begin a write transaction
             self.realm?.beginWrite()
 
-            // Remove the objects at the specified indices
             indicesToRemove.forEach { index in
                 self.remove(at: index)
             }
 
-            // Commit the transaction
             try? self.realm?.commitWrite()
         }
 }

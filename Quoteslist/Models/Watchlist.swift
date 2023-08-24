@@ -8,6 +8,9 @@
 import Foundation
 import RealmSwift
 
+// MARK: -
+// MARK: Watchlist
+
 class Watchlist: Object {
 
     // swiftlint:disable:next identifier_name
@@ -15,6 +18,9 @@ class Watchlist: Object {
     @Persisted var name: String
     @Persisted var order: Int
     @Persisted var quotes: List<Quote>
+
+    // MARK: -
+    // MARK: Init
 
     @discardableResult
     convenience init(name: String, quotes: [Quote]) {
@@ -36,13 +42,14 @@ class Watchlist: Object {
         }
     }
 
+    // MARK: -
+    // MARK: Public
+
     func rename(to newName: String) {
-        // Begin a write transaction
         self.realm?.beginWrite()
 
         self.name = newName
 
-        // Commit the transaction
         try? self.realm?.commitWrite()
     }
 
@@ -55,37 +62,30 @@ class Watchlist: Object {
 
     func move(from sourceIndex: Int, to destinationIndex: Int) {
 
-        // Begin a write transaction
         self.realm?.beginWrite()
 
         self.quotes.move(from: sourceIndex, to: destinationIndex)
 
-        // Commit the transaction
         try? self.realm?.commitWrite()
     }
 
     func append(quote: Quote) {
-        // Begin a write transaction
         self.realm?.beginWrite()
 
         self.quotes.append(quote)
 
-        // Commit the transaction
         try? self.realm?.commitWrite()
     }
 
     func removeQuote(at index: Int) {
-        // Begin a write transaction
         self.realm?.beginWrite()
 
         self.quotes.remove(at: index)
 
-        // Commit the transaction
         try? self.realm?.commitWrite()
     }
 
     func updatePrices(from priceDictionary: [String: QuotePriceResponse]) {
-        // Begin a write transaction
         self.realm?.beginWrite()
 
         self.quotes.forEach { quote in
@@ -96,9 +96,11 @@ class Watchlist: Object {
             }
         }
 
-        // Commit the transaction
         try? self.realm?.commitWrite()
     }
+
+    // MARK: -
+    // MARK: Default Wathclist
 
     static var `default`: Watchlist = Watchlist(name: "Defaults", quotes: [
         Quote(name: "Apple", stockSymbol: "AAPL", bidPrice: 150, askPrice: 152, lastPrice: 151),

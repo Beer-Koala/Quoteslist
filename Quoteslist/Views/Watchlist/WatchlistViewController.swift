@@ -7,10 +7,16 @@
 
 import UIKit
 
+// MARK: -
+// MARK: WatchlistView
+
 protocol WatchlistView: AnyObject {
     func setupPopUpButton()
     func reloadTable(animating: Bool)
 }
+
+// MARK: -
+// MARK: WatchlistViewController
 
 class WatchlistViewController: UIViewController {
 
@@ -109,6 +115,9 @@ class WatchlistViewController: UIViewController {
 
 }
 
+// MARK: -
+// MARK: extension WatchlistView
+
 extension WatchlistViewController: WatchlistView {
 
     func setupPopUpButton() {
@@ -151,11 +160,17 @@ extension WatchlistViewController: WatchlistView {
     }
 }
 
+// MARK: -
+// MARK: extension UISearchControllerDelegate
+
 extension WatchlistViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         self.reloadTable(animating: false)
     }
 }
+
+// MARK: -
+// MARK: extension UITableViewDelegate
 
 extension WatchlistViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

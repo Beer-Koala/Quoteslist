@@ -7,6 +7,9 @@
 
 import Foundation
 
+// MARK: -
+// MARK: WatchlistPresenterProtocol
+
 protocol WatchlistPresenterProtocol {
 
     var watchlists: [Watchlist] { get }
@@ -20,6 +23,9 @@ protocol WatchlistPresenterProtocol {
     func setSearchQuotesPresenter() -> SearchQuotesPresenter
     func startGettingPrices()
 }
+
+// MARK: -
+// MARK: WatchlistPresenter
 
 class WatchlistPresenter {
 
@@ -51,6 +57,9 @@ class WatchlistPresenter {
         self.startGettingPrices()
     }
 }
+
+// MARK: -
+// MARK: extension WatchlistPresenterProtocol
 
 extension WatchlistPresenter: WatchlistPresenterProtocol {
 

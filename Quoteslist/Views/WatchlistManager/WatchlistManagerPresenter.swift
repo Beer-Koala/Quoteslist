@@ -7,6 +7,9 @@
 
 import Foundation
 
+// MARK: -
+// MARK: WatchlistManagerPresenterProtocol
+
 protocol WatchlistManagerPresenterProtocol {
     var watchlists: [Watchlist] { get }
 
@@ -16,6 +19,9 @@ protocol WatchlistManagerPresenterProtocol {
     func createNewWatchlist(with name: String)
     func renameWatchlist(by index: Int, newName: String)
 }
+
+// MARK: -
+// MARK: WatchlistManagerPresenter
 
 class WatchlistManagerPresenter {
     private weak var view: WatchlistManagerView?
@@ -38,6 +44,9 @@ class WatchlistManagerPresenter {
         })
     }
 }
+
+// MARK: -
+// MARK: extension WatchlistManagerPresenterProtocol
 
 extension WatchlistManagerPresenter: WatchlistManagerPresenterProtocol {
     func remove(_ watchlist: Watchlist) {

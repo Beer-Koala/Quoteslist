@@ -25,11 +25,9 @@ where MyType: Hashable {
     var deleteClosure: ((MyType) -> Void)?
     var moveClosure: ((_ from: Int, _ to: Int) -> Void)?
 
-    override func tableView(
-        _ tableView: UITableView,
-        commit editingStyle: UITableViewCell.EditingStyle,
-        forRowAt indexPath: IndexPath
-    ) {
+    override func tableView(_ tableView: UITableView,
+                            commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
         super.tableView(tableView, commit: editingStyle, forRowAt: indexPath)
 
         guard let id = itemIdentifier(for: indexPath) else {
@@ -45,11 +43,9 @@ where MyType: Hashable {
         }
     }
 
-    override func tableView(
-        _ tableView: UITableView,
-        moveRowAt sourceIndexPath: IndexPath,
-        to destinationIndexPath: IndexPath
-    ) {
+    override func tableView(_ tableView: UITableView,
+                            moveRowAt sourceIndexPath: IndexPath,
+                            to destinationIndexPath: IndexPath) {
         super.tableView(tableView, moveRowAt: sourceIndexPath, to: destinationIndexPath)
 
         self.moveClosure?(sourceIndexPath.row, destinationIndexPath.row)

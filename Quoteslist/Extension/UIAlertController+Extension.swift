@@ -24,10 +24,8 @@ extension UIAlertController {
         }
     }
 
-    static func nameWatchlistAlert(
-        for type: NameWatchlistAlertType,
-        saveCallback: @escaping ((String) -> Void)
-    ) -> UIAlertController {
+    static func nameWatchlistAlert(for type: NameWatchlistAlertType,
+                                   saveCallback: @escaping ((String) -> Void)) -> UIAlertController {
         let texts = type.texts()
 
         let alert = UIAlertController(title: texts.title, message: texts.message, preferredStyle: .alert)

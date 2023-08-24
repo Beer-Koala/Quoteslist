@@ -7,10 +7,16 @@
 
 import Foundation
 
+// MARK: -
+// MARK: QuoteChartPresenterProtocol
+
 protocol QuoteChartPresenterProtocol {
     var currentQuote: Quote { get }
     var historyQuotePrice: [HistoryQuotePrice] { get }
 }
+
+// MARK: -
+// MARK: QuoteChartPresenter
 
 class QuoteChartPresenter {
 
@@ -29,11 +35,10 @@ class QuoteChartPresenter {
             self.historyQuotePrice = historyQuotePrice
             self.view?.updateChart()
         }
-
     }
-
 }
 
-extension QuoteChartPresenter: QuoteChartPresenterProtocol {
+// MARK: -
+// MARK: extension QuoteChartPresenterProtocol
 
-}
+extension QuoteChartPresenter: QuoteChartPresenterProtocol { }
