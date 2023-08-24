@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  WatchlistViewController.swift
 //  Quoteslist
 //
 //  Created by Beer Koala on 15.08.2023.
