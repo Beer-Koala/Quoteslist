@@ -111,9 +111,9 @@ extension Watchlist {
     }
 
     fileprivate static var `default`: Watchlist = Watchlist(name: "Defaults", quotes: [
-        Quote(name: "Apple", stockSymbol: "AAPL", bidPrice: 150, askPrice: 152, lastPrice: 151),
-        Quote(name: "Microsoft", stockSymbol: "MSFT", bidPrice: 50, askPrice: 52, lastPrice: 51),
-        Quote(name: "Alphabet", stockSymbol: "GOOG", bidPrice: 100, askPrice: 102, lastPrice: 101)
+        Quote(name: "Apple", stockSymbol: "AAPL", bidPrice: 0, askPrice: 0, lastPrice: 0),
+        Quote(name: "Microsoft", stockSymbol: "MSFT", bidPrice: 0, askPrice: 0, lastPrice: 0),
+        Quote(name: "Alphabet", stockSymbol: "GOOG", bidPrice: 0, askPrice: 0, lastPrice: 0)
     ])
 
 }
