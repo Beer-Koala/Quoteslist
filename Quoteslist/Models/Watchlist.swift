@@ -8,8 +8,7 @@
 import Foundation
 import RealmSwift
 
-// MARK: -
-// MARK: Watchlist
+// MARK: - Watchlist
 
 class Watchlist: Object {
 
@@ -19,8 +18,7 @@ class Watchlist: Object {
     @Persisted var order: Int
     @Persisted var quotes: List<Quote>
 
-    // MARK: -
-    // MARK: Init
+    // MARK: - Init
 
     @discardableResult
     convenience init(name: String, quotes: [Quote]) {
@@ -37,8 +35,7 @@ class Watchlist: Object {
         }
     }
 
-    // MARK: -
-    // MARK: Public
+    // MARK: - Public
 
     func save() {
         try? realm?.write {
@@ -101,8 +98,7 @@ class Watchlist: Object {
     }
 }
 
-    // MARK: -
-    // MARK: Default Wathclist
+    // MARK: - Default Wathclist
 
 extension Watchlist {
 

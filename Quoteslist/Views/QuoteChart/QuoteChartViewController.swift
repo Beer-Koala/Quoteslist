@@ -8,16 +8,14 @@
 import UIKit
 import DGCharts
 
-// MARK: -
-// MARK: QuoteChartView
+// MARK: - QuoteChartView
 
 protocol QuoteChartView: ErrorAlertPresentable, AnyObject {
 
     func updateChart()
 }
 
-// MARK: -
-// MARK: QuoteChartViewController
+// MARK: - QuoteChartViewController
 
 class QuoteChartViewController: UIViewController {
 
@@ -38,8 +36,7 @@ class QuoteChartViewController: UIViewController {
 
 }
 
-// MARK: -
-// MARK: extension QuoteChartView
+// MARK: - extension QuoteChartView
 
 extension QuoteChartViewController: QuoteChartView {
 

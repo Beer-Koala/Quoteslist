@@ -7,8 +7,7 @@
 
 import Foundation
 
-// MARK: -
-// MARK: SearchQuotesPresenterProtocol
+// MARK: - SearchQuotesPresenterProtocol
 
 protocol SearchQuotesPresenterProtocol {
 
@@ -20,8 +19,7 @@ protocol SearchQuotesPresenterProtocol {
     func setCurrent(_ watchlist: Watchlist)
 }
 
-// MARK: -
-// MARK: SearchQuotesPresenter
+// MARK: - SearchQuotesPresenter
 
 class SearchQuotesPresenter {
 
@@ -35,8 +33,7 @@ class SearchQuotesPresenter {
     }
 }
 
-// MARK: -
-// MARK: extension SearchQuotesPresenterProtocol
+// MARK: - extension SearchQuotesPresenterProtocol
 
 extension SearchQuotesPresenter: SearchQuotesPresenterProtocol {
 
@@ -49,8 +46,8 @@ extension SearchQuotesPresenter: SearchQuotesPresenterProtocol {
             self.foundQuotes = []
             return
         }
-        NetworkManager.shared.searchQuotes(by: text) { response in
-            self.foundQuotes = response.data.items
+        NetworkManager.shared.searchQuotes(by: text) { [weak self] response in
+            self?.foundQuotes = response.data.items
             DispatchQueue.main.async { [weak self] in
                 self?.view?.reloadTable(animating: true)
             }

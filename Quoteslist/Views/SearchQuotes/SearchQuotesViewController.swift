@@ -7,8 +7,7 @@
 
 import UIKit
 
-// MARK: -
-// MARK: SearchQuotesView
+// MARK: - SearchQuotesView
 
 protocol SearchQuotesView: UIViewController {
 
@@ -16,8 +15,7 @@ protocol SearchQuotesView: UIViewController {
     func reloadTable(animating: Bool)
 }
 
-// MARK: -
-// MARK: SearchQuotesViewController
+// MARK: - SearchQuotesViewController
 
 // Others VC made in storyboard cause it is quicker. Here I made using XIB to show another (better?) way.
 class SearchQuotesViewController: UIViewController {
@@ -43,6 +41,9 @@ class SearchQuotesViewController: UIViewController {
 
         self.setupTableView()
     }
+
+    // MARK: -
+    // MARK: Private
 
     private func setupTableView() {
         guard let tableView = self.tableView else { return }
@@ -73,8 +74,7 @@ class SearchQuotesViewController: UIViewController {
 
 }
 
-// MARK: -
-// MARK: extension UISearchResultsUpdating
+// MARK: - extension UISearchResultsUpdating
 
 extension SearchQuotesViewController: UISearchResultsUpdating {
 
@@ -84,8 +84,7 @@ extension SearchQuotesViewController: UISearchResultsUpdating {
     }
 }
 
-// MARK: -
-// MARK: extension SearchQuotesView
+// MARK: - extension SearchQuotesView
 
 extension SearchQuotesViewController: SearchQuotesView {
 
@@ -98,8 +97,7 @@ extension SearchQuotesViewController: SearchQuotesView {
     }
 }
 
-// MARK: -
-// MARK: extension UITableViewDelegate
+// MARK: - extension UITableViewDelegate
 
 extension SearchQuotesViewController: UITableViewDelegate {
 

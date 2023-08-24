@@ -7,8 +7,7 @@
 
 import Foundation
 
-// MARK: -
-// MARK: WatchlistManagerPresenterProtocol
+// MARK: - WatchlistManagerPresenterProtocol
 
 protocol WatchlistManagerPresenterProtocol {
 
@@ -21,8 +20,7 @@ protocol WatchlistManagerPresenterProtocol {
     func renameWatchlist(by index: Int, newName: String)
 }
 
-// MARK: -
-// MARK: WatchlistManagerPresenter
+// MARK: - WatchlistManagerPresenter
 
 class WatchlistManagerPresenter {
 
@@ -37,18 +35,17 @@ class WatchlistManagerPresenter {
         self.watchlists = watchlistsDataSource.fetchWatchlists()
         self.watchListsDataSource = watchlistsDataSource
 
-        watchlistsDataSource.observeWatchlistsChanges(onChanging: { [weak self] watchlists in
+        watchlistsDataSource.observeWatchlistsChanges { [weak self] watchlists in
             self?.watchlists = watchlists
             self?.view?.reloadTable(animating: true)
-        }, onDeleting: { [weak self] watchlists in
+        } onDeleting: { [weak self] watchlists in
             self?.watchlists = watchlists
             // row was deleted from tableView in EditEnabledDiffableDataSource
-        })
+        }
     }
 }
 
-// MARK: -
-// MARK: extension WatchlistManagerPresenterProtocol
+// MARK: - extension WatchlistManagerPresenterProtocol
 
 extension WatchlistManagerPresenter: WatchlistManagerPresenterProtocol {
 

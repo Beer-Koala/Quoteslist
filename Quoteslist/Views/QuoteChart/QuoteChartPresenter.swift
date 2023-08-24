@@ -8,8 +8,7 @@
 import Foundation
 import DGCharts
 
-// MARK: -
-// MARK: QuoteChartPresenterProtocol
+// MARK: - QuoteChartPresenterProtocol
 
 protocol QuoteChartPresenterProtocol {
 
@@ -18,8 +17,7 @@ protocol QuoteChartPresenterProtocol {
     func getChartDataAndFormatter() -> (chartData: ChartData, xAxisFormatter: QuoteChartPresenter.CustomFormatter)
 }
 
-// MARK: -
-// MARK: QuoteChartPresenter
+// MARK: - QuoteChartPresenter
 
 class QuoteChartPresenter {
 
@@ -34,15 +32,14 @@ class QuoteChartPresenter {
 
         NetworkManager.shared.getHistory(for: self.currentQuote) { [weak self] error in
             self?.view?.showErrorAlert(error: error.localizedDescription)
-        } successCompletion: { historyQuotePrice in
-            self.historyQuotePrice = historyQuotePrice
-            self.view?.updateChart()
+        } successCompletion: { [weak self] historyQuotePrice in
+            self?.historyQuotePrice = historyQuotePrice
+            self?.view?.updateChart()
         }
     }
 }
 
-// MARK: -
-// MARK: extension CustomFormatter
+// MARK: - extension CustomFormatter
 
 extension QuoteChartPresenter {
 
@@ -62,8 +59,7 @@ extension QuoteChartPresenter {
     }
 }
 
-// MARK: -
-// MARK: extension QuoteChartPresenterProtocol
+// MARK: - extension QuoteChartPresenterProtocol
 
 extension QuoteChartPresenter: QuoteChartPresenterProtocol {
 

@@ -7,8 +7,7 @@
 
 import Foundation
 
-// MARK: -
-// MARK: WatchlistPresenterProtocol
+// MARK: - WatchlistPresenterProtocol
 
 protocol WatchlistPresenterProtocol {
 
@@ -25,8 +24,7 @@ protocol WatchlistPresenterProtocol {
     func startGettingPrices()
 }
 
-// MARK: -
-// MARK: WatchlistPresenter
+// MARK: - WatchlistPresenter
 
 class WatchlistPresenter {
 
@@ -63,8 +61,7 @@ class WatchlistPresenter {
     }
 }
 
-// MARK: -
-// MARK: extension WatchlistPresenterProtocol
+// MARK: - extension WatchlistPresenterProtocol
 
 extension WatchlistPresenter: WatchlistPresenterProtocol {
 

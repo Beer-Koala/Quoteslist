@@ -9,15 +9,13 @@ import Foundation
 
 class NetworkManager {
 
-    // MARK: -
-    // MARK: Constants
+    // MARK: - Constants
 
     private enum Constants {
         static let timeInterval = 5.0
     }
 
-    // MARK: -
-    // MARK: Singleton
+    // MARK: - Singleton
 
     // Usualy it better pass NetworkManager through coordinator, but now architecture without coordinator,
     //      so done using singleton
@@ -26,37 +24,14 @@ class NetworkManager {
     static let shared = NetworkManager()
     private init() {}
 
-    // MARK: -
-    // MARK: Properties
+    // MARK: - Properties
 
     private var getPriceTimer: Timer?
     private var activeGetPriceURL: URL?
 
     private var lastProcessedResponseTimestamp: TimeInterval = 0
 
-    // MARK: -
-    // MARK: Private
-
-    private func sendRequest(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-
-            guard let data = data else {
-                let error = NSError(domain: "NoDataError", code: 0, userInfo: nil)
-                completion(.failure(error))
-                return
-            }
-
-            completion(.success(data))
-        }
-        task.resume()
-    }
-
-    // MARK: -
-    // MARK: Public
+    // MARK: - Public
 
     func searchQuotes(by text: String,
                       errorCompletion: ((Error) -> Void)? = nil,
@@ -145,5 +120,25 @@ class NetworkManager {
         self.getPriceTimer?.invalidate()
         self.getPriceTimer = nil
         self.activeGetPriceURL = nil
+    }
+
+    // MARK: - Private
+
+    private func sendRequest(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data = data else {
+                let error = NSError(domain: "NoDataError", code: 0, userInfo: nil)
+                completion(.failure(error))
+                return
+            }
+
+            completion(.success(data))
+        }
+        task.resume()
     }
 }

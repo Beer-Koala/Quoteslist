@@ -7,8 +7,7 @@
 
 import UIKit
 
-// MARK: -
-// MARK: WatchlistView
+// MARK: - WatchlistView
 
 protocol WatchlistView: AnyObject {
 
@@ -16,8 +15,7 @@ protocol WatchlistView: AnyObject {
     func reloadTable(animating: Bool)
 }
 
-// MARK: -
-// MARK: WatchlistViewController
+// MARK: - WatchlistViewController
 
 class WatchlistViewController: UIViewController {
 
@@ -49,14 +47,30 @@ class WatchlistViewController: UIViewController {
                                                object: nil)
     }
 
-    @objc private func handleNotification() {
-        self.reloadTable(animating: false)
-        self.presenter?.startGettingPrices()
-    }
-
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         self.tableView?.setEditing(editing, animated: animated)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "openChart" {
+            if let destinationVC = segue.destination as? QuoteChartViewController {
+
+                if let cell = sender as? UITableViewCell,
+                   let indexPath = tableView?.indexPath(for: cell),
+                   let quote = self.presenter?.displayedQuotes[safe: indexPath.row] {
+                    let presenter = QuoteChartPresenter(view: destinationVC, currentQuote: quote)
+                    destinationVC.presenter = presenter
+                }
+            }
+        }
+    }
+
+    // MARK: - Private
+
+    @objc private func handleNotification() {
+        self.reloadTable(animating: false)
+        self.presenter?.startGettingPrices()
     }
 
     private func configureSearchView() {
@@ -100,24 +114,9 @@ class WatchlistViewController: UIViewController {
         self.reloadTable(animating: false) // no need animation for initial showing
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "openChart" {
-            if let destinationVC = segue.destination as? QuoteChartViewController {
-
-                if let cell = sender as? UITableViewCell,
-                   let indexPath = tableView?.indexPath(for: cell),
-                   let quote = self.presenter?.displayedQuotes[safe: indexPath.row] {
-                    let presenter = QuoteChartPresenter(view: destinationVC, currentQuote: quote)
-                    destinationVC.presenter = presenter
-                }
-            }
-        }
-    }
-
 }
 
-// MARK: -
-// MARK: extension WatchlistView
+// MARK: - extension WatchlistView
 
 extension WatchlistViewController: WatchlistView {
 
@@ -161,8 +160,7 @@ extension WatchlistViewController: WatchlistView {
     }
 }
 
-// MARK: -
-// MARK: extension UISearchControllerDelegate
+// MARK: - extension UISearchControllerDelegate
 
 extension WatchlistViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
@@ -170,8 +168,7 @@ extension WatchlistViewController: UISearchControllerDelegate {
     }
 }
 
-// MARK: -
-// MARK: extension UITableViewDelegate
+// MARK: - extension UITableViewDelegate
 
 extension WatchlistViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

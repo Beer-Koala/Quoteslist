@@ -7,21 +7,19 @@
 
 import UIKit
 
-// MARK: -
-// MARK: WatchlistManagerView
+// MARK: - WatchlistManagerView
 
 protocol WatchlistManagerView: AnyObject, ErrorAlertPresentable {
 
     func reloadTable(animating: Bool)
 }
 
-// MARK: -
-// MARK: WatchlistManagerViewController
+// MARK: - WatchlistManagerViewController
 
 class WatchlistManagerViewController: UIViewController {
 
     struct Constants {
-        static let defaultRowHeight: CGFloat = 44
+        static let defaultEditButtonHeight: CGFloat = 44
     }
 
     var presenter: WatchlistManagerPresenterProtocol?
@@ -46,6 +44,8 @@ class WatchlistManagerViewController: UIViewController {
 
     func configureView() { }
 
+    // MARK: - Private
+
     private func setupTableView() {
         guard let tableView = self.tableView else { return }
 
@@ -65,8 +65,8 @@ class WatchlistManagerViewController: UIViewController {
 
             let button = UIButton(frame: CGRect(x: CGFloat.zero,
                                                 y: CGFloat.zero,
-                                                width: Constants.defaultRowHeight,
-                                                height: Constants.defaultRowHeight))
+                                                width: Constants.defaultEditButtonHeight,
+                                                height: Constants.defaultEditButtonHeight))
             button.setImage(UIImage.edit, for: .normal)
             button.addTarget(self, action: #selector(self.editTapped(_:)), for: .touchUpInside)
             cell.editingAccessoryView = button
@@ -85,7 +85,7 @@ class WatchlistManagerViewController: UIViewController {
         self.reloadTable(animating: false) // no need animation for initial showing
     }
 
-    @objc func editTapped(_ sender: UIButton) {
+    @objc private func editTapped(_ sender: UIButton) {
         if let cell = sender.superview as? UITableViewCell,
            let indexPath = self.tableView?.indexPath(for: cell),
            let presenter = self.presenter,
@@ -99,8 +99,7 @@ class WatchlistManagerViewController: UIViewController {
     }
 }
 
-// MARK: -
-// MARK: extension WatchlistManagerView
+// MARK: - extension WatchlistManagerView
 
 extension WatchlistManagerViewController: WatchlistManagerView {
 
