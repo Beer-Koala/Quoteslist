@@ -44,8 +44,7 @@ However, for demonstration purposes, one screen has been developed using an XIB 
 #### Code-related
 
 1. Used SwiftGen for texts.
-2. Review the names of ViewControllers, as there are currently too many occurrences of the word "Watchlist," leading to confusion.
-3. Migrate from CocoaPods to SwiftPackageManager.
-4. Add a coordinator and manage screens through it.
-5. Use SnapKit for UI layout.
-6. Introduce base classes for View and Presenter.
+2. Migrate from CocoaPods to SwiftPackageManager.
+3. Add a coordinator and manage screens through it.
+4. Use SnapKit for UI layout.
+5. Introduce base classes for View and Presenter.
