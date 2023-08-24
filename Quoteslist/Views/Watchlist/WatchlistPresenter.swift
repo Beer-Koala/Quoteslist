@@ -53,7 +53,12 @@ class WatchlistPresenter {
         self.view = view
         let watchlistsDataSource = WatchlistsDataSourceImp()
         self.watchlists = watchlistsDataSource.fetchWatchlists()
-        self.currentWatchlist = self.watchlists.first ?? Watchlist.getDefault()
+
+        // setting initial currentWatchlist
+        let selectedWatchlistID = UserDefaultsContainer.selectedWatchlist
+        let selectedWatchlist = self.watchlists.first { $0._id.stringValue == selectedWatchlistID }
+        self.currentWatchlist = selectedWatchlist ?? self.watchlists.first ?? Watchlist.getDefault()
+
         self.searchQuotesPresenter?.currentWatchlist = self.currentWatchlist
         self.watchListsDataSource = watchlistsDataSource
 
@@ -62,6 +67,7 @@ class WatchlistPresenter {
             self.watchlists = watchlists
             if !watchlists.contains(self.currentWatchlist) {
                 currentWatchlist = watchlists.first ?? Watchlist.getDefault()
+                UserDefaultsContainer.selectedWatchlist = currentWatchlist._id.stringValue
                 self.view?.reloadTable(animating: false)
                 self.view?.updateSearchQuotesPresenter(watchlist: currentWatchlist)
             }
@@ -78,6 +84,8 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
 
     func set(current watchlist: Watchlist) {
         self.currentWatchlist = watchlist
+        UserDefaultsContainer.selectedWatchlist = currentWatchlist._id.stringValue
+
         self.view?.reloadTable(animating: false)
 
         self.startGettingPrices()

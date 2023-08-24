@@ -16,6 +16,7 @@
 		FD1F65FD2A8BD944002893F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65FC2A8BD944002893F7 /* Assets.xcassets */; };
 		FD1F66002A8BD944002893F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65FE2A8BD944002893F7 /* LaunchScreen.storyboard */; };
 		FD269F7C2A97BF9200FFBD8C /* ActivityIndicatorPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD269F7B2A97BF9200FFBD8C /* ActivityIndicatorPresentable.swift */; };
+		FD269F812A97C50B00FFBD8C /* UserDefaultsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD269F802A97C50B00FFBD8C /* UserDefaultsContainer.swift */; };
 		FD4B808F2A93AA7D00D912E4 /* List+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4B808E2A93AA7D00D912E4 /* List+Extension.swift */; };
 		FD50B4452A940353004EBC0B /* WatchlistsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B4442A940353004EBC0B /* WatchlistsDataSource.swift */; };
 		FD50B4472A950CE6004EBC0B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B4462A950CE6004EBC0B /* NetworkManager.swift */; };
@@ -58,6 +59,7 @@
 		FD1F66012A8BD944002893F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD269F7A2A978E6700FFBD8C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FD269F7B2A97BF9200FFBD8C /* ActivityIndicatorPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorPresentable.swift; sourceTree = "<group>"; };
+		FD269F802A97C50B00FFBD8C /* UserDefaultsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsContainer.swift; sourceTree = "<group>"; };
 		FD4B808E2A93AA7D00D912E4 /* List+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+Extension.swift"; sourceTree = "<group>"; };
 		FD50B4442A940353004EBC0B /* WatchlistsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistsDataSource.swift; sourceTree = "<group>"; };
 		FD50B4462A950CE6004EBC0B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			children = (
 				FD1F65F32A8BD943002893F7 /* AppDelegate.swift */,
 				FD1F65F52A8BD943002893F7 /* SceneDelegate.swift */,
+				FD269F802A97C50B00FFBD8C /* UserDefaultsContainer.swift */,
 				FD50B4482A9558BD004EBC0B /* Networking */,
 				FD51D11D2A92CA02005C34E7 /* Extension */,
 				FDA702B82A8BDA04002E1DA1 /* Models */,
@@ -396,6 +399,7 @@
 				FD130C492A8E670A00235B0B /* WatchlistManagerPresenter.swift in Sources */,
 				FDA702BA2A8BDA11002E1DA1 /* Quote.swift in Sources */,
 				FD1F65F82A8BD943002893F7 /* WatchlistViewController.swift in Sources */,
+				FD269F812A97C50B00FFBD8C /* UserDefaultsContainer.swift in Sources */,
 				FD50B44A2A9558FA004EBC0B /* URL+API.swift in Sources */,
 				FD51D11F2A92CA18005C34E7 /* String+Empty.swift in Sources */,
 				FD1F65F42A8BD943002893F7 /* AppDelegate.swift in Sources */,
