@@ -23,10 +23,15 @@ protocol SearchQuotesPresenterProtocol {
 
 class SearchQuotesPresenter {
 
+    enum Constants {
+        static let timerForSearchingText: TimeInterval = 1
+    }
+
     weak var view: SearchQuotesView?
 
     var currentWatchlist: Watchlist
     private(set) var foundQuotes: [SearchQuotesResponse.Item] = []
+    var searchTimer: Timer?
 
     init(currentWatchlist: Watchlist) {
         self.currentWatchlist = currentWatchlist
@@ -42,14 +47,23 @@ extension SearchQuotesPresenter: SearchQuotesPresenterProtocol {
     }
 
     func searchQuotes(by text: String) {
+        // Invalidate the existing timer to reset the delay for new search
+        searchTimer?.invalidate()
+
+        self.foundQuotes = []
+        self.view?.reloadTable(animating: true)
         guard !text.isEmpty else {
-            self.foundQuotes = []
             return
         }
-        NetworkManager.shared.searchQuotes(by: text) { [weak self] response in
-            self?.foundQuotes = response.data.items
-            DispatchQueue.main.async { [weak self] in
-                self?.view?.reloadTable(animating: true)
+
+        // Schedule a timer to call the search function after delay
+        searchTimer = Timer.scheduledTimer(withTimeInterval: Constants.timerForSearchingText,
+                                           repeats: false) { [weak self] _ in
+            NetworkManager.shared.searchQuotes(by: text) { [weak self] response in
+                self?.foundQuotes = response.data.items
+                DispatchQueue.main.async { [weak self] in
+                    self?.view?.reloadTable(animating: true)
+                }
             }
         }
     }
