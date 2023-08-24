@@ -16,13 +16,14 @@ final class EditEnabledDiffableDataSource<MyType>: UITableViewDiffableDataSource
 where MyType: Hashable {
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        return canEditRow?() ?? true
     }
 
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 
+    var canEditRow: (() -> Bool)?
     var deleteClosure: ((MyType) -> Void)?
     var moveClosure: ((_ from: Int, _ to: Int) -> Void)?
 

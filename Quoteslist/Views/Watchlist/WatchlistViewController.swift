@@ -11,6 +11,7 @@ import UIKit
 
 protocol WatchlistView: AnyObject {
 
+    func updateSearchQuotesPresenter(watchlist: Watchlist)
     func setupPopUpButton()
     func reloadTable(animating: Bool)
 }
@@ -120,6 +121,11 @@ class WatchlistViewController: UIViewController {
 
 extension WatchlistViewController: WatchlistView {
 
+    func updateSearchQuotesPresenter(watchlist: Watchlist) {
+        (self.navigationItem.searchController?.searchResultsUpdater as? SearchQuotesView)?
+            .setCurrent(watchlist)
+    }
+
     func setupPopUpButton() {
         guard let presenter = self.presenter else { return }
 
@@ -128,9 +134,7 @@ extension WatchlistViewController: WatchlistView {
                      state: watchlist == presenter.currentWatchlist ? .on : .off) { [weak self] _ in
 
                 self?.presenter?.set(current: watchlist)
-
-                (self?.navigationItem.searchController?.searchResultsUpdater as? SearchQuotesView)?
-                    .setCurrent(watchlist)
+                self?.updateSearchQuotesPresenter(watchlist: watchlist)
 
                 self?.setupPopUpButton()
             }

@@ -38,8 +38,10 @@ class Watchlist: Object {
     // MARK: - Public
 
     func save() {
-        try? realm?.write {
-            realm?.add(self)
+        if let realm = try? Realm() {
+            try? realm.write {
+                realm.add(self)
+            }
         }
     }
 

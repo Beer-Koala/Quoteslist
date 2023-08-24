@@ -74,6 +74,10 @@ class WatchlistManagerViewController: UIViewController {
             return cell
         }
 
+        self.tableViewDataSource?.canEditRow = { [weak self] in
+            self?.presenter?.watchlists.count != 1
+        }
+
         self.tableViewDataSource?.deleteClosure = { [weak self] watchlist in
             self?.presenter?.remove(watchlist)
         }

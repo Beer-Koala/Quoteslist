@@ -53,8 +53,14 @@ class WatchlistPresenter {
         self.watchListsDataSource = watchlistsDataSource
 
         watchlistsDataSource.observeWatchlistsChanges(onChanging: { [weak self] watchlists in
-            self?.watchlists = watchlists
-            self?.view?.setupPopUpButton()
+            guard let self = self else { return }
+            self.watchlists = watchlists
+            if !watchlists.contains(self.currentWatchlist) {
+                currentWatchlist = watchlists.first ?? Watchlist.getDefault()
+                self.view?.reloadTable(animating: false)
+                self.view?.updateSearchQuotesPresenter(watchlist: currentWatchlist)
+            }
+            self.view?.setupPopUpButton()
         }, onDeleting: nil)
 
         self.startGettingPrices()
