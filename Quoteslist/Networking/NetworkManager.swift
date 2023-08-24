@@ -34,7 +34,7 @@ class NetworkManager {
     // MARK: - Public
 
     func searchQuotes(by text: String,
-                      errorCompletion: ((Error) -> Void)? = nil,
+                      errorCompletion: ((Error) -> Void)? = nil, // optional is @escaping
                       successCompletion: @escaping (SearchQuotesResponse) -> Void) {
         guard let url = URL.searchQuotes(by: text) else { return }
         self.sendRequest(url: url) { result in

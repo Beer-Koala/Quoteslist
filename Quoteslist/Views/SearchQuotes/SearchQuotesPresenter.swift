@@ -56,12 +56,17 @@ extension SearchQuotesPresenter: SearchQuotesPresenterProtocol {
             return
         }
 
+        self.view?.showActivityIndicator()
+
         // Schedule a timer to call the search function after delay
         searchTimer = Timer.scheduledTimer(withTimeInterval: Constants.timerForSearchingText,
                                            repeats: false) { [weak self] _ in
-            NetworkManager.shared.searchQuotes(by: text) { [weak self] response in
+            NetworkManager.shared.searchQuotes(by: text) { [weak self] _ in
+                self?.view?.hideActivityIndicator()
+            } successCompletion: { [weak self] response in
                 self?.foundQuotes = response.data.items
                 DispatchQueue.main.async { [weak self] in
+                    self?.view?.hideActivityIndicator()
                     self?.view?.reloadTable(animating: true)
                 }
             }

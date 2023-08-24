@@ -15,6 +15,7 @@
 		FD1F65FB2A8BD943002893F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65F92A8BD943002893F7 /* Main.storyboard */; };
 		FD1F65FD2A8BD944002893F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65FC2A8BD944002893F7 /* Assets.xcassets */; };
 		FD1F66002A8BD944002893F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD1F65FE2A8BD944002893F7 /* LaunchScreen.storyboard */; };
+		FD269F7C2A97BF9200FFBD8C /* ActivityIndicatorPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD269F7B2A97BF9200FFBD8C /* ActivityIndicatorPresentable.swift */; };
 		FD4B808F2A93AA7D00D912E4 /* List+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4B808E2A93AA7D00D912E4 /* List+Extension.swift */; };
 		FD50B4452A940353004EBC0B /* WatchlistsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B4442A940353004EBC0B /* WatchlistsDataSource.swift */; };
 		FD50B4472A950CE6004EBC0B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD50B4462A950CE6004EBC0B /* NetworkManager.swift */; };
@@ -56,6 +57,7 @@
 		FD1F65FF2A8BD944002893F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FD1F66012A8BD944002893F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD269F7A2A978E6700FFBD8C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		FD269F7B2A97BF9200FFBD8C /* ActivityIndicatorPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorPresentable.swift; sourceTree = "<group>"; };
 		FD4B808E2A93AA7D00D912E4 /* List+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+Extension.swift"; sourceTree = "<group>"; };
 		FD50B4442A940353004EBC0B /* WatchlistsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistsDataSource.swift; sourceTree = "<group>"; };
 		FD50B4462A950CE6004EBC0B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -124,6 +126,8 @@
 			children = (
 				FD1F65F92A8BD943002893F7 /* Main.storyboard */,
 				FDA702C22A8E11C0002E1DA1 /* EditEnabledDiffableDataSource.swift */,
+				FD269F7B2A97BF9200FFBD8C /* ActivityIndicatorPresentable.swift */,
+				FD269F7F2A97BFAC00FFBD8C /* Protocols */,
 				FD50B45D2A96418C004EBC0B /* QuoteChart */,
 				FDA702BD2A8CF208002E1DA1 /* Watchlist */,
 				FD130C452A8E635D00235B0B /* WatchlistManager */,
@@ -156,7 +160,6 @@
 			children = (
 				FD1F65F32A8BD943002893F7 /* AppDelegate.swift */,
 				FD1F65F52A8BD943002893F7 /* SceneDelegate.swift */,
-				FD50B44B2A95E480004EBC0B /* ErrorAlertPresentable.swift */,
 				FD50B4482A9558BD004EBC0B /* Networking */,
 				FD51D11D2A92CA02005C34E7 /* Extension */,
 				FDA702B82A8BDA04002E1DA1 /* Models */,
@@ -166,6 +169,14 @@
 				FD1F66012A8BD944002893F7 /* Info.plist */,
 			);
 			path = Quoteslist;
+			sourceTree = "<group>";
+		};
+		FD269F7F2A97BFAC00FFBD8C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				FD50B44B2A95E480004EBC0B /* ErrorAlertPresentable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		FD50B4482A9558BD004EBC0B /* Networking */ = {
@@ -379,6 +390,7 @@
 				FDA702BF2A8CF220002E1DA1 /* WatchlistPresenter.swift in Sources */,
 				FD50B4612A9641B6004EBC0B /* QuoteChartPresenter.swift in Sources */,
 				FDCC442A2A937D9E005C9CF5 /* UIImage+Extension.swift in Sources */,
+				FD269F7C2A97BF9200FFBD8C /* ActivityIndicatorPresentable.swift in Sources */,
 				FD50B4652A96A3D2004EBC0B /* QuotePriceResponse.swift in Sources */,
 				FD50B44E2A95EBDA004EBC0B /* SearchQuotesViewController.swift in Sources */,
 				FD130C492A8E670A00235B0B /* WatchlistManagerPresenter.swift in Sources */,

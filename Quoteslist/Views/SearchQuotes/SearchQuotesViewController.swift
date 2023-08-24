@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - SearchQuotesView
 
-protocol SearchQuotesView: UIViewController {
+protocol SearchQuotesView: UIViewController, ActivityIndicatorPresentable {
 
     func setCurrent(_ watchlist: Watchlist)
     func reloadTable(animating: Bool)
@@ -23,6 +23,8 @@ class SearchQuotesViewController: UIViewController {
     var presenter: SearchQuotesPresenterProtocol
 
     @IBOutlet private var tableView: UITableView?
+    var activityIndicatorView: UIActivityIndicatorView? = UIActivityIndicatorView()
+
     var tableViewDataSource: UITableViewDiffableDataSource<SectionModel, SearchQuotesResponse.Item>?
 
     init(presenter: SearchQuotesPresenter) {
