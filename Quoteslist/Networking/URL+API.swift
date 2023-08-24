@@ -1,5 +1,5 @@
 //
-//  URL+Extension.swift
+//  URL+API.swift
 //  Quoteslist
 //
 //  Created by Beer Koala on 22.08.2023.
@@ -8,6 +8,9 @@
 import Foundation
 
 extension URL {
+
+    // Token hardcoded for demonstration purposes, real project would have it injected from environment
+    // during the build phase or in another appropriate way
     private static let apiToken = URLQueryItem(name: "token", value: "pk_224712be9b5b4fcd8bc457202e8ab2f3")
 
     private static let baseTastyworksURL = URL(string: "https://api.tastyworks.com/")

@@ -11,6 +11,7 @@ import Foundation
 // MARK: WatchlistManagerPresenterProtocol
 
 protocol WatchlistManagerPresenterProtocol {
+
     var watchlists: [Watchlist] { get }
 
     func remove(_ watchlist: Watchlist)
@@ -24,6 +25,7 @@ protocol WatchlistManagerPresenterProtocol {
 // MARK: WatchlistManagerPresenter
 
 class WatchlistManagerPresenter {
+
     private weak var view: WatchlistManagerView?
     private(set) var watchlists: [Watchlist]
 
@@ -49,6 +51,7 @@ class WatchlistManagerPresenter {
 // MARK: extension WatchlistManagerPresenterProtocol
 
 extension WatchlistManagerPresenter: WatchlistManagerPresenterProtocol {
+
     func remove(_ watchlist: Watchlist) {
         self.watchlists.removeAll { $0 == watchlist }
         watchlist.remove()
@@ -61,7 +64,7 @@ extension WatchlistManagerPresenter: WatchlistManagerPresenterProtocol {
     }
 
     func createNewWatchlist(with name: String) {
-        Watchlist(name: name, quotes: [])
+        Watchlist(name: name, quotes: []).save()
     }
 
     func renameWatchlist(by index: Int, newName: String) {

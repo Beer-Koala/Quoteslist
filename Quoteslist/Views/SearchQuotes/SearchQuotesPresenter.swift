@@ -11,7 +11,8 @@ import Foundation
 // MARK: SearchQuotesPresenterProtocol
 
 protocol SearchQuotesPresenterProtocol {
-    var findedQuotes: [SearchQuotesResponse.Item] { get }
+
+    var foundQuotes: [SearchQuotesResponse.Item] { get }
 
     func selectedQuotes() -> [Quote]
     func searchQuotes(by text: String)
@@ -27,7 +28,7 @@ class SearchQuotesPresenter {
     weak var view: SearchQuotesView?
 
     var currentWatchlist: Watchlist
-    private(set) var findedQuotes: [SearchQuotesResponse.Item] = []
+    private(set) var foundQuotes: [SearchQuotesResponse.Item] = []
 
     init(currentWatchlist: Watchlist) {
         self.currentWatchlist = currentWatchlist
@@ -45,11 +46,11 @@ extension SearchQuotesPresenter: SearchQuotesPresenterProtocol {
 
     func searchQuotes(by text: String) {
         guard !text.isEmpty else {
-            self.findedQuotes = []
+            self.foundQuotes = []
             return
         }
         NetworkManager.shared.searchQuotes(by: text) { response in
-            self.findedQuotes = response.data.items
+            self.foundQuotes = response.data.items
             DispatchQueue.main.async { [weak self] in
                 self?.view?.reloadTable(animating: true)
             }
@@ -57,13 +58,13 @@ extension SearchQuotesPresenter: SearchQuotesPresenterProtocol {
     }
 
     func selectQuote(for index: Int) {
-        if let selectedFindedQuote = self.findedQuotes[safe: index] {
+        if let selectedFoundQuote = self.foundQuotes[safe: index] {
             if let index = self.currentWatchlist.quotes.firstIndex(where: {
-                $0.stockSymbol == selectedFindedQuote.symbol
+                $0.stockSymbol == selectedFoundQuote.symbol
             }) {
                 self.currentWatchlist.removeQuote(at: index)
             } else {
-                self.currentWatchlist.append(quote: selectedFindedQuote.quote())
+                self.currentWatchlist.append(quote: selectedFoundQuote.quote)
             }
             self.view?.reloadTable(animating: true)
         }

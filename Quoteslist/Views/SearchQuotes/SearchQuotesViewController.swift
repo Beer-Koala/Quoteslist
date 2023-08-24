@@ -11,6 +11,7 @@ import UIKit
 // MARK: SearchQuotesView
 
 protocol SearchQuotesView: UIViewController {
+
     func setCurrent(_ watchlist: Watchlist)
     func reloadTable(animating: Bool)
 }
@@ -23,7 +24,7 @@ class SearchQuotesViewController: UIViewController {
 
     var presenter: SearchQuotesPresenterProtocol
 
-    @IBOutlet var tableView: UITableView?
+    @IBOutlet private var tableView: UITableView?
     var tableViewDataSource: UITableViewDiffableDataSource<SectionModel, SearchQuotesResponse.Item>?
 
     init(presenter: SearchQuotesPresenter) {
@@ -50,7 +51,7 @@ class SearchQuotesViewController: UIViewController {
 
         self.tableViewDataSource = EditEnabledDiffableDataSource(
             tableView: tableView
-        ) { _, _, quote in
+        ) { [weak self] _, _, quote in
 
             let cell = UITableViewCell()
             var cellContent = cell.defaultContentConfiguration()
@@ -58,7 +59,7 @@ class SearchQuotesViewController: UIViewController {
             cellContent.secondaryText = quote.description
             cell.contentConfiguration = cellContent
 
-            if self.presenter.selectedQuotes().contains(where: { $0.stockSymbol == quote.symbol }) {
+            if self?.presenter.selectedQuotes().contains(where: { $0.stockSymbol == quote.symbol }) ?? false {
                 // Create an image view for the checkmark
                 let checkmarkImageView = UIImageView(image: UIImage(systemName: "checkmark"))
                 cell.accessoryView = checkmarkImageView
@@ -91,7 +92,7 @@ extension SearchQuotesViewController: SearchQuotesView {
     func reloadTable(animating: Bool) {
         var snapshot = NSDiffableDataSourceSnapshot<SectionModel, SearchQuotesResponse.Item>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(self.presenter.findedQuotes)
+        snapshot.appendItems(self.presenter.foundQuotes)
         snapshot.reloadSections([.main]) // force push to reload, cause hash not changed if changed selection
         self.tableViewDataSource?.apply(snapshot, animatingDifferences: animating)
     }
@@ -101,9 +102,10 @@ extension SearchQuotesViewController: SearchQuotesView {
 // MARK: extension UITableViewDelegate
 
 extension SearchQuotesViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.presenter.selectQuote(for: indexPath.row)
-        NotificationCenter.default.post(name: .selectQuoteInSearchNotification, object: nil)
+        NotificationCenter.default.post(name: .quoteInSearchSelected, object: nil)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 

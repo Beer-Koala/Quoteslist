@@ -10,7 +10,8 @@ import UIKit
 // MARK: -
 // MARK: WatchlistManagerView
 
-protocol WatchlistManagerView: AnyObject {
+protocol WatchlistManagerView: AnyObject, ErrorAlertPresentable {
+
     func reloadTable(animating: Bool)
 }
 
@@ -26,9 +27,9 @@ class WatchlistManagerViewController: UIViewController {
     var presenter: WatchlistManagerPresenterProtocol?
     var tableViewDataSource: EditEnabledDiffableDataSource<Watchlist>?
 
-    @IBOutlet weak var tableView: UITableView?
+    @IBOutlet private weak var tableView: UITableView?
 
-    @IBAction func createWatchlistAction(_ sender: UIButton) {
+    @IBAction private func createWatchlistAction(_ sender: UIButton) {
         let alert = UIAlertController.nameWatchlistAlert(for: .create) { [weak self] newTitle in
             self?.presenter?.createNewWatchlist(with: newTitle)
         }
@@ -52,9 +53,12 @@ class WatchlistManagerViewController: UIViewController {
 
         self.tableViewDataSource = EditEnabledDiffableDataSource(
             tableView: tableView
-        ) { _, _, watchlist in
+        ) { [weak self] _, _, watchlist in
 
             let cell = UITableViewCell()
+
+            guard let self = self else { return cell }
+
             var cellContent = cell.defaultContentConfiguration()
             cellContent.text = watchlist.name
             cell.contentConfiguration = cellContent
@@ -63,19 +67,19 @@ class WatchlistManagerViewController: UIViewController {
                                                 y: CGFloat.zero,
                                                 width: Constants.defaultRowHeight,
                                                 height: Constants.defaultRowHeight))
-            button.setImage(UIImage.editImage, for: .normal)
+            button.setImage(UIImage.edit, for: .normal)
             button.addTarget(self, action: #selector(self.editTapped(_:)), for: .touchUpInside)
             cell.editingAccessoryView = button
 
             return cell
         }
 
-        self.tableViewDataSource?.deleteClosure = { watchlist in
-            self.presenter?.remove(watchlist)
+        self.tableViewDataSource?.deleteClosure = { [weak self] watchlist in
+            self?.presenter?.remove(watchlist)
         }
 
-        self.tableViewDataSource?.moveClosure = { sourceIndex, destinationIndex in
-            self.presenter?.moveWatchlist(from: sourceIndex, to: destinationIndex)
+        self.tableViewDataSource?.moveClosure = { [weak self] sourceIndex, destinationIndex in
+            self?.presenter?.moveWatchlist(from: sourceIndex, to: destinationIndex)
         }
 
         self.reloadTable(animating: false) // no need animation for initial showing

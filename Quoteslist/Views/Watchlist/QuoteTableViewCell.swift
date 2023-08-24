@@ -9,11 +9,11 @@ import UIKit
 
 class QuoteTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var stockSymbolLabel: UILabel?
-    @IBOutlet weak var nameLabel: UILabel?
-    @IBOutlet weak var bidPriceLabel: UILabel?
-    @IBOutlet weak var askPriceLabel: UILabel?
-    @IBOutlet weak var lastPriceLabel: UILabel?
+    @IBOutlet private weak var stockSymbolLabel: UILabel?
+    @IBOutlet private weak var nameLabel: UILabel?
+    @IBOutlet private weak var bidPriceLabel: UILabel?
+    @IBOutlet private weak var askPriceLabel: UILabel?
+    @IBOutlet private weak var lastPriceLabel: UILabel?
 
     func fill(with quote: Quote) {
         self.nameLabel?.text = quote.name

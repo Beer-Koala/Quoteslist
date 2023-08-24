@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import DGCharts
 
 // MARK: -
 // MARK: QuoteChartPresenterProtocol
 
 protocol QuoteChartPresenterProtocol {
+
     var currentQuote: Quote { get }
-    var historyQuotePrice: [HistoryQuotePrice] { get }
+
+    func getChartDataAndFormatter() -> (chartData: ChartData, xAxisFormatter: QuoteChartPresenter.CustomFormatter)
 }
 
 // MARK: -
@@ -39,6 +42,49 @@ class QuoteChartPresenter {
 }
 
 // MARK: -
+// MARK: extension CustomFormatter
+
+extension QuoteChartPresenter {
+
+    class CustomFormatter: AxisValueFormatter {
+
+        let dates: [Double: String]
+
+        init(using dates: [Double: String]) {
+            self.dates = dates
+        }
+
+        // A function that returns the formatted value for a given x value
+        func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+            // Return the order as a string, or an empty string if not found
+            return self.dates[value] ?? String(value)
+        }
+    }
+}
+
+// MARK: -
 // MARK: extension QuoteChartPresenterProtocol
 
-extension QuoteChartPresenter: QuoteChartPresenterProtocol { }
+extension QuoteChartPresenter: QuoteChartPresenterProtocol {
+
+    func getChartDataAndFormatter() -> (chartData: ChartData, xAxisFormatter: QuoteChartPresenter.CustomFormatter) {
+        var dates = [Double: String]()
+        let dataEntries = historyQuotePrice.enumerated().map { (index, historyQuotePrice) in
+            let doubleIndex = Double(index)
+            dates[doubleIndex] = historyQuotePrice.shortDateString
+            return BarChartDataEntry(
+                x: doubleIndex,
+                y: historyQuotePrice.closePrice)
+        }
+
+        let set = BarChartDataSet(entries: dataEntries, label: "Previous month")
+        set.colors = [.gray]
+        set.drawValuesEnabled = false
+        set.highlightEnabled = false
+
+        let data = BarChartData(dataSet: set)
+        let formatter = CustomFormatter(using: dates)
+
+        return (data, formatter)
+    }
+}

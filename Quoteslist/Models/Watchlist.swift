@@ -34,16 +34,17 @@ class Watchlist: Object {
             if let highestOrder = realm.objects(Watchlist.self).max(ofProperty: "order") as Int? {
                 self.order = highestOrder + 1
             }
-
-            try? realm.write {
-                // Delete the object from the Realm
-                realm.add(self)
-            }
         }
     }
 
     // MARK: -
     // MARK: Public
+
+    func save() {
+        try? realm?.write {
+            realm?.add(self)
+        }
+    }
 
     func rename(to newName: String) {
         self.realm?.beginWrite()
@@ -98,11 +99,20 @@ class Watchlist: Object {
 
         try? self.realm?.commitWrite()
     }
+}
 
     // MARK: -
     // MARK: Default Wathclist
 
-    static var `default`: Watchlist = Watchlist(name: "Defaults", quotes: [
+extension Watchlist {
+
+    static func getDefault() -> Watchlist {
+        let watchlist = Watchlist.default
+        watchlist.save()
+        return watchlist
+    }
+
+    fileprivate static var `default`: Watchlist = Watchlist(name: "Defaults", quotes: [
         Quote(name: "Apple", stockSymbol: "AAPL", bidPrice: 150, askPrice: 152, lastPrice: 151),
         Quote(name: "Microsoft", stockSymbol: "MSFT", bidPrice: 50, askPrice: 52, lastPrice: 51),
         Quote(name: "Alphabet", stockSymbol: "GOOG", bidPrice: 100, askPrice: 102, lastPrice: 101)

@@ -8,17 +8,17 @@
 import RealmSwift
 
 protocol WatchlistsDataSource {
-    func fetchWatchlists() -> [Watchlist]
-    func observeWatchlistsChanges(onChanging: @escaping ([Watchlist]) -> Void)
 
-    // when moved, change var order and change order in watchlist. It's catched like deleting and moving work wromg
+    func fetchWatchlists() -> [Watchlist]
+    // when moved, change var order and change order in watchlist. It's catched like deleting and moving work wrong
     // so made different processing of deleting rows
     func observeWatchlistsChanges(onChanging: @escaping ([Watchlist]) -> Void,
-                                  onDeleting: @escaping ([Watchlist]) -> Void)
+                                  onDeleting: (([Watchlist]) -> Void)?) // optional closure is escaping
     func reorder(watchlists: [Watchlist])
 }
 
 class WatchlistsDataSourceImp: WatchlistsDataSource {
+
     private var notificationToken: NotificationToken?
     private let watchlistsResults: Results<Watchlist>?
 
@@ -33,23 +33,19 @@ class WatchlistsDataSourceImp: WatchlistsDataSource {
         } else {
             // realm can be nil if DB structure changes and no migrations.
             // In this case show just default watchlist
-            return [Watchlist.default]
+            return [Watchlist.getDefault()]
         }
     }
 
-    func observeWatchlistsChanges(onChanging: @escaping ([Watchlist]) -> Void) {
-        self.observeWatchlistsChanges(onChanging: onChanging, onDeleting: onChanging)
-    }
-
     func observeWatchlistsChanges(onChanging: @escaping ([Watchlist]) -> Void,
-                                  onDeleting: @escaping ([Watchlist]) -> Void) {
+                                  onDeleting: (([Watchlist]) -> Void)?) {
         self.notificationToken = self.watchlistsResults?.observe { changes in
             switch changes {
             case .update(let watchlists, let deletingIndices, _, _):
                 if deletingIndices.isEmpty {
                     onChanging(Array(watchlists))
                 } else {
-                    onDeleting(Array(watchlists))
+                    onDeleting?(Array(watchlists)) ?? onChanging(Array(watchlists))
                 }
             default:
                 break

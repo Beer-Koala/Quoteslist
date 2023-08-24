@@ -8,5 +8,6 @@
 import UIKit
 
 extension UIImage {
-    static let editImage = UIImage(systemName: "pencil")
+
+    static let edit = UIImage(systemName: "pencil")
 }

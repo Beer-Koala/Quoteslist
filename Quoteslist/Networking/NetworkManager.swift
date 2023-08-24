@@ -10,6 +10,13 @@ import Foundation
 class NetworkManager {
 
     // MARK: -
+    // MARK: Constants
+
+    private enum Constants {
+        static let timeInterval = 5.0
+    }
+
+    // MARK: -
     // MARK: Singleton
 
     // Usualy it better pass NetworkManager through coordinator, but now architecture without coordinator,
@@ -22,7 +29,6 @@ class NetworkManager {
     // MARK: -
     // MARK: Properties
 
-    private static let timeInterval = 5.0
     private var getPriceTimer: Timer?
     private var activeGetPriceURL: URL?
 
@@ -103,7 +109,8 @@ class NetworkManager {
 
         self.activeGetPriceURL = URL.getPrices(for: quotes)
 
-        self.getPriceTimer = Timer.scheduledTimer(withTimeInterval: Self.timeInterval, repeats: true) { [weak self] _ in
+        self.getPriceTimer = Timer.scheduledTimer(withTimeInterval: Constants.timeInterval,
+                                                  repeats: true) { [weak self] _ in
             if let url = self?.activeGetPriceURL {
                 let currentRequestTimestamp = Date().timeIntervalSince1970
                 self?.sendRequest(url: url) { [weak self] result in

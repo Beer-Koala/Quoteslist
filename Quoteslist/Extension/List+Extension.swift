@@ -14,15 +14,15 @@ extension List {
     }
 
     func removeAll(where predicate: (Element) -> Bool) {
-            // Create a list of indices to remove
-            let indicesToRemove = (0..<count).filter { predicate(self[$0]) }
+        // Create a list of indices to remove
+        let indicesToRemove = (0..<count).filter { predicate(self[$0]) }
 
-            self.realm?.beginWrite()
+        self.realm?.beginWrite()
 
-            indicesToRemove.forEach { index in
-                self.remove(at: index)
-            }
-
-            try? self.realm?.commitWrite()
+        indicesToRemove.forEach { index in
+            self.remove(at: index)
         }
+
+        try? self.realm?.commitWrite()
+    }
 }

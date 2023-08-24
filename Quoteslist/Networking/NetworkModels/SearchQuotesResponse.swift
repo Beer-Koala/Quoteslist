@@ -8,6 +8,16 @@
 import Foundation
 
 struct SearchQuotesResponse: Codable {
+
+    let data: Data
+}
+
+extension SearchQuotesResponse {
+
+    struct Data: Codable {
+        let items: [Item]
+    }
+
     struct Item: Codable, Hashable {
         let symbol: String
         let description: String
@@ -18,14 +28,8 @@ struct SearchQuotesResponse: Codable {
             hasher.combine(description)
         }
 
-        func quote() -> Quote {
-            return Quote(name: self.description, stockSymbol: self.symbol, bidPrice: 0, askPrice: 0, lastPrice: 0)
+        var quote: Quote {
+            Quote(name: description, stockSymbol: symbol, bidPrice: 0, askPrice: 0, lastPrice: 0)
         }
-    }
-
-    let data: Data
-
-    struct Data: Codable {
-        let items: [Item]
     }
 }

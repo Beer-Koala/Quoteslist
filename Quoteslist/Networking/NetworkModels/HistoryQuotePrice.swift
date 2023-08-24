@@ -8,6 +8,7 @@
 import Foundation
 
 struct HistoryQuotePrice: Decodable {
+
     let closePrice: Double
     let date: Date
 

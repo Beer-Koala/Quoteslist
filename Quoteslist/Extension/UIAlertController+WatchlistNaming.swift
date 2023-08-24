@@ -1,5 +1,5 @@
 //
-//  UIAlertController+Extension.swift
+//  UIAlertController+WatchlistNaming.swift
 //  Quoteslist
 //
 //  Created by Beer Koala on 19.08.2023.
@@ -13,13 +13,18 @@ extension UIAlertController {
         case create
         case edit(String)
 
-        // swiftlint:disable:next large_tuple
-        func texts() -> (title: String, message: String, fieldPlaceholder: String, fieldText: String) {
+        fileprivate func texts() -> PresetAlertText {
             switch self {
             case .create:
-                return ("New Watchlist", "Enter a name for new watchlist", "New watchlist", String.empty)
+                return PresetAlertText(title: "New Watchlist",
+                                       message: "Enter a name for new watchlist",
+                                       fieldPlaceholder: "New watchlist",
+                                       fieldText: String.empty)
             case .edit(let fieldText):
-                return ("Edit Watchlist Name", "Enter a new name for this watchlist", "New name", fieldText)
+                return PresetAlertText(title: "Edit Watchlist Name",
+                                       message: "Enter a new name for this watchlist",
+                                       fieldPlaceholder: "New name",
+                                       fieldText: fieldText)
             }
         }
     }
@@ -56,4 +61,10 @@ extension UIAlertController {
         self.actions.first { $0.title == "Save" }?.isEnabled = !(sender.text?.isEmpty ?? true)
     }
 
+    fileprivate struct PresetAlertText {
+        var title: String
+        var message: String
+        var fieldPlaceholder: String
+        var fieldText: String
+    }
 }

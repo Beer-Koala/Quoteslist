@@ -12,9 +12,10 @@ import Foundation
 
 protocol WatchlistPresenterProtocol {
 
+    var appTitle: String? { get }
     var watchlists: [Watchlist] { get }
     var currentWatchlist: Watchlist { get }
-    var showingQuotes: [Quote] { get }
+    var displayedQuotes: [Quote] { get }
 
     func set(current watchlist: Watchlist)
     func removeQuote(for quote: Quote)
@@ -29,12 +30,16 @@ protocol WatchlistPresenterProtocol {
 
 class WatchlistPresenter {
 
+    var appTitle: String? {
+        Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
+    }
+
     private weak var view: WatchlistView?
 
     private(set) var watchlists: [Watchlist] = []
     var currentWatchlist: Watchlist
 
-    var showingQuotes: [Quote] {
+    var displayedQuotes: [Quote] {
         return Array(self.currentWatchlist.quotes)
     }
 
@@ -45,14 +50,14 @@ class WatchlistPresenter {
         self.view = view
         let watchlistsDataSource = WatchlistsDataSourceImp()
         self.watchlists = watchlistsDataSource.fetchWatchlists()
-        self.currentWatchlist = self.watchlists.first ?? Watchlist.default
+        self.currentWatchlist = self.watchlists.first ?? Watchlist.getDefault()
         self.searchQuotesPresenter?.currentWatchlist = self.currentWatchlist
         self.watchListsDataSource = watchlistsDataSource
 
-        watchlistsDataSource.observeWatchlistsChanges { [weak self] watchlists in
+        watchlistsDataSource.observeWatchlistsChanges(onChanging: { [weak self] watchlists in
             self?.watchlists = watchlists
             self?.view?.setupPopUpButton()
-        }
+        }, onDeleting: nil)
 
         self.startGettingPrices()
     }
@@ -89,10 +94,10 @@ extension WatchlistPresenter: WatchlistPresenterProtocol {
     }
 
     func startGettingPrices() {
-        NetworkManager.shared.startGettingPrices(for: self.showingQuotes) { priceDictionary in
-            DispatchQueue.main.async {
-                self.currentWatchlist.updatePrices(from: priceDictionary)
-                self.view?.reloadTable(animating: false)
+        NetworkManager.shared.startGettingPrices(for: self.displayedQuotes) { priceDictionary in
+            DispatchQueue.main.async { [weak self] in
+                self?.currentWatchlist.updatePrices(from: priceDictionary)
+                self?.view?.reloadTable(animating: false)
             }
         }
     }

@@ -11,6 +11,7 @@ import UIKit
 // MARK: WatchlistView
 
 protocol WatchlistView: AnyObject {
+
     func setupPopUpButton()
     func reloadTable(animating: Bool)
 }
@@ -25,8 +26,8 @@ class WatchlistViewController: UIViewController {
 
     static let cellIdentifier = "quoteTableViewCell"
 
-    @IBOutlet weak var tableView: UITableView?
-    @IBOutlet weak var showAllWatchlistsButton: UIButton?
+    @IBOutlet private weak var tableView: UITableView?
+    @IBOutlet private weak var showAllWatchlistsButton: UIButton?
 
     deinit {
         // Remove the observer when the object is deallocated
@@ -44,7 +45,7 @@ class WatchlistViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleNotification),
-                                               name: .selectQuoteInSearchNotification,
+                                               name: .quoteInSearchSelected,
                                                object: nil)
     }
 
@@ -70,7 +71,7 @@ class WatchlistViewController: UIViewController {
     private func configureView() {
         self.setupPopUpButton()
 
-        self.title = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
+        self.title = self.presenter?.appTitle
         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
@@ -88,12 +89,12 @@ class WatchlistViewController: UIViewController {
             return cell
         }
 
-        self.tableViewDataSource?.deleteClosure = { quote in
-            self.presenter?.removeQuote(for: quote)
+        self.tableViewDataSource?.deleteClosure = { [weak self] quote in
+            self?.presenter?.removeQuote(for: quote)
         }
 
-        self.tableViewDataSource?.moveClosure = { sourceIndex, destinationIndex in
-            self.presenter?.moveQuote(from: sourceIndex, to: destinationIndex)
+        self.tableViewDataSource?.moveClosure = { [weak self] sourceIndex, destinationIndex in
+            self?.presenter?.moveQuote(from: sourceIndex, to: destinationIndex)
         }
 
         self.reloadTable(animating: false) // no need animation for initial showing
@@ -105,7 +106,7 @@ class WatchlistViewController: UIViewController {
 
                 if let cell = sender as? UITableViewCell,
                    let indexPath = tableView?.indexPath(for: cell),
-                   let quote = self.presenter?.showingQuotes[safe: indexPath.row] {
+                   let quote = self.presenter?.displayedQuotes[safe: indexPath.row] {
                     let presenter = QuoteChartPresenter(view: destinationVC, currentQuote: quote)
                     destinationVC.presenter = presenter
                 }
@@ -137,7 +138,7 @@ extension WatchlistViewController: WatchlistView {
         }
         let actionsSubmenu = UIMenu(title: String.empty, options: .displayInline, children: actions)
 
-        let manageWatchlists = UIAction(title: "Manage watchlists", image: UIImage.editImage) { [weak self] _ in
+        let manageWatchlists = UIAction(title: "Manage watchlists", image: UIImage.edit) { [weak self] _ in
             self?.performSegue(withIdentifier: "showWatchlists", sender: nil)
         }
         let manageSubmenu = UIMenu(title: String.empty, options: .displayInline, children: [manageWatchlists])
@@ -155,7 +156,7 @@ extension WatchlistViewController: WatchlistView {
 
         var snapshot = NSDiffableDataSourceSnapshot<SectionModel, Quote>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(presenter.showingQuotes)
+        snapshot.appendItems(presenter.displayedQuotes)
         self.tableViewDataSource?.apply(snapshot, animatingDifferences: animating)
     }
 }

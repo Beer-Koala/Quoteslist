@@ -8,10 +8,12 @@
 import UIKit
 
 protocol ErrorAlertPresentable where Self: UIViewController {
+
     func showErrorAlert(error: String)
 }
 
 extension ErrorAlertPresentable {
+
     func showErrorAlert(error: String) {
         let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)

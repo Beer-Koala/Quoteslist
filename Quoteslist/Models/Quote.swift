@@ -9,6 +9,7 @@ import Foundation
 import RealmSwift
 
 class Quote: Object {
+
     @Persisted var name: String
     @Persisted var stockSymbol: String
     @Persisted var bidPrice: Float
