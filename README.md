@@ -1,49 +1,52 @@
 # Quotelist
 
-Тестовое задание для TastyTrade, соответствует [описанию](2023-MobileEngineerCodeChallenge.pdf).
-Проект готов и соответсвует техническим требованиям. Но поскольку идеала не существует, я также вижу некоторые [доработки и улучшения](#доработки-и-улучшения), которые можно еще добавить в проекте.
+This app is result of technical assignment from TastyTrade, corresponds to the [code challenge description](2023-MobileEngineerCodeChallenge.pdf).
 
-### Особенности и Функциональности
+An application for tracking the prices of quotes, where quotes saved in watchlists.
 
-- В проекте установлена минимальная поддерживаемая версия iOS 16.0.
-- Поскольку требований по дизайну не было - основной ориентир был на приложение Stock от Apple.
-- Для сторонних библиотек были использованы CocoaPods.
-- Для хранения данных была использована библиотека Realms.
-- Также в проекте используеся Swiftlint.
+The project done and meets the technical requirements. However, as there is no perfection, I also see some [improvements and enhancements](#improvements-and-enhancements) that could be added to the project.
 
-### Установка
+### Features and Functionalities
 
-Папка Pods включена в репозиторий, потому, скорее всего, не требует дополнительной установки.
+- The project is set with a minimum supported iOS version of 16.0.
+- Since there were no design requirements, the main reference was the Stock app by Apple.
+- CocoaPods was used for third-party libraries.
+- The Realms library was used for data storage.
+- Swiftlint is also used in the project.
 
-Но в случае возникновения сложностей, рекомендуется выполнить следующие команды в Терминале:
-- Для установки CocoaPods: 
-> brew install cocoapods
-- Перейти в папку проекта используя команды cd и ls 
-- Для установки подсов в проекте:
-> pod install
+### Installation
 
-### Архитектура
+The Pods folder is included in the repository, so it probably does not require additional installation. Just build and run app.
 
-В качестве основной архитектуры использовано MVP.
-Эта архитектура подходит небольшим проектам, но имеет достаточное разделение ответственности.
+However, in case of difficulties, it is recommended to execute the following commands in the Terminal:
+- For installing CocoaPods:
+  > brew install cocoapods
+- Navigate to the project folder using the commands cd and ls
+- For installing pods in the project:
+  > pod install
 
-Большая часть UI нарисована в storyboard.
-Но так же для демонстрации один экран написан с использованием XIB-файла.
+### Architecture
 
-### Доработки и Улучшения
+MVP (Model-View-Presenter) has been used as the main architecture.
+This architecture is suitable for small projects while providing sufficient separation of responsibilities.
 
-#### Функциональные
+The majority of the UI is designed in storyboards for the sake of speed.
+However, for demonstration purposes, one screen has been developed using an XIB file.
 
-1. ActivityIndicator при загрузке (через протокол)
-2. Сохранять выбранный пользователем список и отображать его при открытии (сейчас открывается первый список)
-3. Если в списке еще не выбрано ни одной акции - показывать текст(картинку)-плейсхолдер
+### Improvements and Enhancements
 
-#### Кодовые
+#### Functional
 
-0. Прятать цены в edit-режиме или другим способом отладить то, что они не помещаются на экране
-1. Вынести текстовые константы, используемые в приложении в отдельный файл. Возможно, стоит заиспользовать SwiftGen
-2. Пересмотреть имена ViewController-ов, так как сейчас слишком много слов Watchlist, что вводит в заблуждение
-3. Мигрировать с CocoaPods на SwiftPackageManager
-4. Добавить координатор и управлять экранами через него
-5. Для UI использовать SnapKit
-6. Добавить базовые классы для View и Presenter
+1. ActivityIndicator during loading (via protocol)
+2. Save the user's selected list and display it upon opening (currently, the first list is opened)
+3. Display a text (or image) placeholder if no stocks have been selected in the list
+
+#### Code-related
+
+0. Hide prices in edit mode, or debug a way to handle the fact that they do not fit on the screen.
+1. Extract text constants used in the application into a separate file. Consider using SwiftGen.
+2. Review the names of ViewControllers, as there are currently too many occurrences of the word "Watchlist," leading to confusion.
+3. Migrate from CocoaPods to SwiftPackageManager.
+4. Add a coordinator and manage screens through it.
+5. Use SnapKit for UI layout.
+6. Introduce base classes for View and Presenter.
