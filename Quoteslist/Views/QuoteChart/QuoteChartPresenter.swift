@@ -35,11 +35,14 @@ class QuoteChartPresenter {
         self.view = view
         self.currentQuote = currentQuote
 
+        self.view?.showActivityIndicator()
         NetworkManager.shared.getHistory(for: self.currentQuote) { [weak self] error in
+            self?.view?.hideActivityIndicator()
             self?.view?.showErrorAlert(error: error.localizedDescription)
         } successCompletion: { [weak self] historyQuotePrice in
             self?.historyQuotePrice = historyQuotePrice
             self?.view?.updateChart()
+            self?.view?.hideActivityIndicator()
         }
     }
 }

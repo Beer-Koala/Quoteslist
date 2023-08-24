@@ -10,7 +10,7 @@ import DGCharts
 
 // MARK: - QuoteChartView
 
-protocol QuoteChartView: ErrorAlertPresentable, AnyObject {
+protocol QuoteChartView: ErrorAlertPresentable, ActivityIndicatorPresentable, AnyObject {
 
     func updateChart()
 }
@@ -23,6 +23,7 @@ class QuoteChartViewController: UIViewController {
 
     @IBOutlet private weak var descriptionLabel: UILabel?
     @IBOutlet private weak var chartView: BarChartView?
+    var activityIndicatorView: UIActivityIndicatorView? = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()

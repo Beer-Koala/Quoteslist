@@ -18,17 +18,26 @@ protocol ActivityIndicatorPresentable where Self: UIViewController {
 }
 
 extension ActivityIndicatorPresentable {
+
     func showActivityIndicator() {
         if let activityIndicatorView = self.activityIndicatorView {
-            activityIndicatorView.style = .large
-            activityIndicatorView.center = view.center
-            activityIndicatorView.startAnimating()
-            view.addSubview(activityIndicatorView)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+
+                activityIndicatorView.style = .large
+                activityIndicatorView.center = self.view.center
+                activityIndicatorView.startAnimating()
+                self.view.addSubview(activityIndicatorView)
+            }
         }
     }
 
     func hideActivityIndicator() {
-        self.activityIndicatorView?.stopAnimating()
-        self.activityIndicatorView?.removeFromSuperview()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+
+            self.activityIndicatorView?.stopAnimating()
+            self.activityIndicatorView?.removeFromSuperview()
+        }
     }
 }

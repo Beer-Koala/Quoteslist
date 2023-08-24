@@ -37,9 +37,8 @@ However, for demonstration purposes, one screen has been developed using an XIB 
 
 #### Functional
 
-1. ActivityIndicator during loading (via protocol)
-2. Save the user's selected list and display it upon opening (currently, the first list is opened)
-3. Display a text (or image) placeholder if no stocks have been selected in the list
+1. Save the user's selected list and display it upon opening (currently, the first list is opened)
+2. Display a text (or image) placeholder if no stocks have been selected in the list
 
 #### Code-related
 
