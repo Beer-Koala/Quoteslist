@@ -24,7 +24,7 @@ class QuoteChartPresenter {
         self.currentQuote = currentQuote
 
         NetworkManager.shared.getHistory(for: self.currentQuote) { [weak self] error in
-            //self?.view.showErrorAlert(error: <#T##String#>)
+            self?.view?.showErrorAlert(error: error.localizedDescription)
         } successCompletion: { historyQuotePrice in
             self.historyQuotePrice = historyQuotePrice
             self.view?.updateChart()

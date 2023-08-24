@@ -8,7 +8,7 @@
 import UIKit
 import DGCharts
 
-protocol QuoteChartView: AnyObject {
+protocol QuoteChartView: ErrorAlertPresentable, AnyObject {
     func updateChart()
 }
 
