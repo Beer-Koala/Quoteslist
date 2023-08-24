@@ -19,11 +19,20 @@ protocol WatchlistManagerView: AnyObject, ErrorAlertPresentable {
 class WatchlistManagerViewController: UIViewController {
 
     struct Constants {
+
         static let defaultEditButtonHeight: CGFloat = 44
+
+        static let manageWatchlists = "Manage Watchlists"
+        static let description = "Create, rename, reorder and delete watchlists."
+        static let newWatchlist = "New Watchlist"
     }
 
     var presenter: WatchlistManagerPresenterProtocol?
     var tableViewDataSource: EditEnabledDiffableDataSource<Watchlist>?
+
+    @IBOutlet private weak var titleLabel: UILabel?
+    @IBOutlet private weak var descriptionLabel: UILabel?
+    @IBOutlet private weak var newWatchlistButton: UIButton?
 
     @IBOutlet private weak var tableView: UITableView?
 
@@ -42,7 +51,11 @@ class WatchlistManagerViewController: UIViewController {
         self.setupTableView()
     }
 
-    func configureView() { }
+    func configureView() {
+        self.titleLabel?.text = Constants.manageWatchlists
+        self.descriptionLabel?.text = Constants.description
+        self.newWatchlistButton?.setTitle(Constants.newWatchlist, for: .normal)
+    }
 
     // MARK: - Private
 

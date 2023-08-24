@@ -60,7 +60,10 @@
                     </view>
                     <size key="freeformSize" width="393" height="852"/>
                     <connections>
+                        <outlet property="descriptionLabel" destination="xwi-Pc-gVP" id="hjA-Ak-ylG"/>
+                        <outlet property="newWatchlistButton" destination="9hv-Od-TnA" id="ums-zc-Ydy"/>
                         <outlet property="tableView" destination="oFU-oU-voZ" id="4Da-GF-l5n"/>
+                        <outlet property="titleLabel" destination="Ywh-o6-4Fv" id="wJz-Sr-e5e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9jC-du-M5g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

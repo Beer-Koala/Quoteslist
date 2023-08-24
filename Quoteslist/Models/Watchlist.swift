@@ -12,6 +12,10 @@ import RealmSwift
 
 class Watchlist: Object {
 
+    enum Constants {
+        static var orderPropertyName = "order"
+    }
+
     // swiftlint:disable:next identifier_name
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var name: String
@@ -29,7 +33,7 @@ class Watchlist: Object {
         self.quotes.append(objectsIn: quotes)
 
         if let realm = try? Realm() {
-            if let highestOrder = realm.objects(Watchlist.self).max(ofProperty: "order") as Int? {
+            if let highestOrder = realm.objects(Watchlist.self).max(ofProperty: Constants.orderPropertyName) as Int? {
                 self.order = highestOrder + 1
             }
         }

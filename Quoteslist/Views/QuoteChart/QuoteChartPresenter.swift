@@ -21,6 +21,11 @@ protocol QuoteChartPresenterProtocol {
 
 class QuoteChartPresenter {
 
+    enum Constants {
+
+        static let previousMonth = "Previous month"
+    }
+
     private(set) var currentQuote: Quote
     private(set) var historyQuotePrice: [HistoryQuotePrice] = []
 
@@ -73,7 +78,7 @@ extension QuoteChartPresenter: QuoteChartPresenterProtocol {
                 y: historyQuotePrice.closePrice)
         }
 
-        let set = BarChartDataSet(entries: dataEntries, label: "Previous month")
+        let set = BarChartDataSet(entries: dataEntries, label: Constants.previousMonth)
         set.colors = [.gray]
         set.drawValuesEnabled = false
         set.highlightEnabled = false

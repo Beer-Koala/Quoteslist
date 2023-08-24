@@ -27,7 +27,7 @@ class SearchQuotesViewController: UIViewController {
 
     init(presenter: SearchQuotesPresenter) {
         self.presenter = presenter
-        super.init(nibName: "SearchQuotesViewController", bundle: nil)
+        super.init(nibName: String(describing: Self.self), bundle: nil)
 
         presenter.view = self
     }
@@ -62,7 +62,7 @@ class SearchQuotesViewController: UIViewController {
 
             if self?.presenter.selectedQuotes().contains(where: { $0.stockSymbol == quote.symbol }) ?? false {
                 // Create an image view for the checkmark
-                let checkmarkImageView = UIImageView(image: UIImage(systemName: "checkmark"))
+                let checkmarkImageView = UIImageView(image: UIImage.checkmark)
                 cell.accessoryView = checkmarkImageView
             }
 

@@ -20,10 +20,16 @@ protocol WatchlistView: AnyObject {
 
 class WatchlistViewController: UIViewController {
 
+    enum Constants {
+
+        static let cellIdentifier = "quoteTableViewCell"
+        static let segueIdentifier = "showWatchlists"
+
+        static let manageWatchlists = "Manage watchlists"
+    }
+
     var presenter: WatchlistPresenterProtocol?
     var tableViewDataSource: EditEnabledDiffableDataSource<Quote>?
-
-    static let cellIdentifier = "quoteTableViewCell"
 
     @IBOutlet private weak var tableView: UITableView?
     @IBOutlet private weak var showAllWatchlistsButton: UIButton?
@@ -97,7 +103,8 @@ class WatchlistViewController: UIViewController {
         self.tableViewDataSource = EditEnabledDiffableDataSource(
             tableView: tableView
         ) { tableView, _, quote in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier) as? QuoteTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier)
+                    as? QuoteTableViewCell
             else { return UITableViewCell() }
 
             cell.fill(with: quote)
@@ -141,8 +148,8 @@ extension WatchlistViewController: WatchlistView {
         }
         let actionsSubmenu = UIMenu(title: String.empty, options: .displayInline, children: actions)
 
-        let manageWatchlists = UIAction(title: "Manage watchlists", image: UIImage.edit) { [weak self] _ in
-            self?.performSegue(withIdentifier: "showWatchlists", sender: nil)
+        let manageWatchlists = UIAction(title: Constants.manageWatchlists, image: UIImage.edit) { [weak self] _ in
+            self?.performSegue(withIdentifier: Constants.segueIdentifier, sender: nil)
         }
         let manageSubmenu = UIMenu(title: String.empty, options: .displayInline, children: [manageWatchlists])
 

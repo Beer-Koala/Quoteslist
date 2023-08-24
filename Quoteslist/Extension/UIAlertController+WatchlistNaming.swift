@@ -9,6 +9,17 @@ import UIKit
 
 extension UIAlertController {
 
+    enum Constants {
+
+        static let newWatchlist = "New Watchlist"
+        static let enterName = "Enter a name for new watchlist"
+        static let editWatchlist = "Edit Watchlist Name"
+        static let enterNewName = "Enter a new name for this watchlist"
+        static let newName = "New name"
+        static let save = "Save"
+        static let cancel = "Cancel"
+    }
+
     enum NameWatchlistAlertType {
         case create
         case edit(String)
@@ -16,14 +27,14 @@ extension UIAlertController {
         fileprivate func texts() -> PresetAlertText {
             switch self {
             case .create:
-                return PresetAlertText(title: "New Watchlist",
-                                       message: "Enter a name for new watchlist",
-                                       fieldPlaceholder: "New watchlist",
+                return PresetAlertText(title: Constants.newWatchlist,
+                                       message: Constants.enterName,
+                                       fieldPlaceholder: Constants.newWatchlist,
                                        fieldText: String.empty)
             case .edit(let fieldText):
-                return PresetAlertText(title: "Edit Watchlist Name",
-                                       message: "Enter a new name for this watchlist",
-                                       fieldPlaceholder: "New name",
+                return PresetAlertText(title: Constants.editWatchlist,
+                                       message: Constants.enterNewName,
+                                       fieldPlaceholder: Constants.newName,
                                        fieldText: fieldText)
             }
         }
@@ -41,13 +52,13 @@ extension UIAlertController {
             textField.addTarget(alert, action: #selector(alert?.textFieldDidChange(_:)), for: .editingChanged)
         }
 
-        let saveAction = UIAlertAction(title: "Save", style: .default) { [weak alert] _ in
+        let saveAction = UIAlertAction(title: Constants.save, style: .default) { [weak alert] _ in
             let newTitle = alert?.textFields?.first?.text ?? String.empty
             saveCallback(newTitle)
         }
         saveAction.isEnabled = !(texts.fieldText.isEmpty)
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+        let cancelAction = UIAlertAction(title: Constants.cancel, style: .cancel) { _ in
             // There's nothing to see here
         }
 
@@ -58,7 +69,7 @@ extension UIAlertController {
     }
 
     @objc fileprivate func textFieldDidChange(_ sender: UITextField) {
-        self.actions.first { $0.title == "Save" }?.isEnabled = !(sender.text?.isEmpty ?? true)
+        self.actions.first { $0.title == Constants.save }?.isEnabled = !(sender.text?.isEmpty ?? true)
     }
 
     fileprivate struct PresetAlertText {

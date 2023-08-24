@@ -24,7 +24,7 @@ class WatchlistsDataSourceImp: WatchlistsDataSource {
 
     init() {
         let realm = try? Realm()
-        self.watchlistsResults = realm?.objects(Watchlist.self).sorted(byKeyPath: "order")
+        self.watchlistsResults = realm?.objects(Watchlist.self).sorted(byKeyPath: Watchlist.Constants.orderPropertyName)
     }
 
     func fetchWatchlists() -> [Watchlist] {

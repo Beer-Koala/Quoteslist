@@ -28,8 +28,13 @@ protocol WatchlistPresenterProtocol {
 
 class WatchlistPresenter {
 
+    enum Constants {
+
+        static let bundleDisplayName = "CFBundleDisplayName"
+    }
+
     var appTitle: String? {
-        Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String
+        Bundle.main.infoDictionary?[Constants.bundleDisplayName] as? String
     }
 
     private weak var view: WatchlistView?
