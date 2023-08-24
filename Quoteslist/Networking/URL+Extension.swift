@@ -10,17 +10,17 @@ import Foundation
 extension URL {
     private static let apiToken = URLQueryItem(name: "token", value: "pk_224712be9b5b4fcd8bc457202e8ab2f3")
 
-    private static let baseTastyworksURL = URL(string: "https://api.tastyworks.com/")!
-    private static let baseIEXCloudURL = URL(string: "https://cloud.iexapis.com/stable/stock/")!
+    private static let baseTastyworksURL = URL(string: "https://api.tastyworks.com/")
+    private static let baseIEXCloudURL = URL(string: "https://cloud.iexapis.com/stable/stock/")
 
-    static func searchQuotes(by text: String) -> URL {
+    static func searchQuotes(by text: String) -> URL? {
 
-        return baseTastyworksURL
+        return baseTastyworksURL?
             .appending(path: "symbols/search")
             .appending(path: text)
     }
 
-    static func getPrices(for quotes: [Quote]) -> URL {
+    static func getPrices(for quotes: [Quote]) -> URL? {
 
         let symbolsQueryParam = quotes.map { $0.stockSymbol }.joined(separator: ",")
         let queryItems =
@@ -31,14 +31,14 @@ extension URL {
             apiToken
         ]
 
-        return baseIEXCloudURL
+        return baseIEXCloudURL?
             .appending(path: "market/batch")
             .appending(queryItems: queryItems)
     }
 
-    static func getHistory(for quote: Quote) -> URL {
+    static func getHistory(for quote: Quote) -> URL? {
 
-        return baseIEXCloudURL
+        return baseIEXCloudURL?
             .appending(path: quote.stockSymbol)
             .appending(path: "chart/1m")
             .appending(queryItems: [apiToken])

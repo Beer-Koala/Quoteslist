@@ -14,7 +14,7 @@ protocol WatchlistView: AnyObject {
 
 class WatchlistViewController: UIViewController {
 
-    var presenter: WatchlistPresenterProtocol!
+    var presenter: WatchlistPresenterProtocol?
     var tableViewDataSource: EditEnabledDiffableDataSource<Quote>?
 
     static let cellIdentifier = "quoteTableViewCell"
@@ -44,7 +44,7 @@ class WatchlistViewController: UIViewController {
 
     @objc private func handleNotification() {
         self.reloadTable(animating: false)
-        self.presenter.startGettingPrices()
+        self.presenter?.startGettingPrices()
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -53,7 +53,8 @@ class WatchlistViewController: UIViewController {
     }
 
     private func configureSearchView() {
-        let searchQuotesVC = SearchQuotesViewController(presenter: self.presenter.setSearchQuotesPresenter())
+        guard let searchQuotesPresenter = self.presenter?.setSearchQuotesPresenter() else { return }
+        let searchQuotesVC = SearchQuotesViewController(presenter: searchQuotesPresenter)
         let searchController = UISearchController(searchResultsController: searchQuotesVC)
         searchController.searchResultsUpdater = searchQuotesVC
         searchController.delegate = self
@@ -82,11 +83,11 @@ class WatchlistViewController: UIViewController {
         }
 
         self.tableViewDataSource?.deleteClosure = { quote in
-            self.presenter.removeQuote(for: quote)
+            self.presenter?.removeQuote(for: quote)
         }
 
         self.tableViewDataSource?.moveClosure = { sourceIndex, destinationIndex in
-            self.presenter.moveQuote(from: sourceIndex, to: destinationIndex)
+            self.presenter?.moveQuote(from: sourceIndex, to: destinationIndex)
         }
 
         self.reloadTable(animating: false) // no need animation for initial showing
@@ -98,7 +99,7 @@ class WatchlistViewController: UIViewController {
 
                 if let cell = sender as? UITableViewCell,
                    let indexPath = tableView?.indexPath(for: cell),
-                   let quote = self.presenter.showingQuotes[safe: indexPath.row] {
+                   let quote = self.presenter?.showingQuotes[safe: indexPath.row] {
                     let presenter = QuoteChartPresenter(view: destinationVC, currentQuote: quote)
                     destinationVC.presenter = presenter
                 }
@@ -111,40 +112,41 @@ class WatchlistViewController: UIViewController {
 extension WatchlistViewController: WatchlistView {
 
     func setupPopUpButton() {
-        let actions = self.presenter.watchlists.map { watchlist in
+        guard let presenter = self.presenter else { return }
+
+        let actions = presenter.watchlists.map { watchlist in
             UIAction(title: watchlist.name,
-                     state: watchlist == self.presenter.currentWatchlist ? .on : .off) { [weak self] _ in
+                     state: watchlist == presenter.currentWatchlist ? .on : .off) { [weak self] _ in
 
-                guard let strongSelf = self else { return }
+                self?.presenter?.set(current: watchlist)
 
-                strongSelf.presenter?.set(current: watchlist)
-
-                (strongSelf.navigationItem.searchController?.searchResultsUpdater as? SearchQuotesView)?
+                (self?.navigationItem.searchController?.searchResultsUpdater as? SearchQuotesView)?
                     .setCurrent(watchlist)
 
-                strongSelf.setupPopUpButton()
+                self?.setupPopUpButton()
             }
         }
-
         let actionsSubmenu = UIMenu(title: String.empty, options: .displayInline, children: actions)
 
-        let manageWatchlists = UIAction(title: "Manage watchlists", image: UIImage.editImage) { _ in
-            self.performSegue(withIdentifier: "showWatchlists", sender: nil)
+        let manageWatchlists = UIAction(title: "Manage watchlists", image: UIImage.editImage) { [weak self] _ in
+            self?.performSegue(withIdentifier: "showWatchlists", sender: nil)
         }
         let manageSubmenu = UIMenu(title: String.empty, options: .displayInline, children: [manageWatchlists])
 
         let menu = UIMenu(children: [actionsSubmenu, manageSubmenu])
 
-        self.showAllWatchlistsButton?.setTitle(self.presenter.watchlistName(), for: .normal)
+        self.showAllWatchlistsButton?.setTitle(presenter.watchlistName(), for: .normal)
         self.showAllWatchlistsButton?.menu = menu
 
         self.showAllWatchlistsButton?.showsMenuAsPrimaryAction = true
     }
 
     @objc func reloadTable(animating: Bool) {
+        guard let presenter = self.presenter else { return }
+
         var snapshot = NSDiffableDataSourceSnapshot<SectionModel, Quote>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(self.presenter.showingQuotes)
+        snapshot.appendItems(presenter.showingQuotes)
         self.tableViewDataSource?.apply(snapshot, animatingDifferences: animating)
     }
 }

@@ -17,7 +17,7 @@ class WatchlistManagerViewController: UIViewController {
         static let defaultRowHeight: CGFloat = 44
     }
 
-    var presenter: WatchlistManagerPresenterProtocol!
+    var presenter: WatchlistManagerPresenterProtocol?
     var tableViewDataSource: EditEnabledDiffableDataSource<Watchlist>?
 
     @IBOutlet weak var tableView: UITableView?
@@ -65,11 +65,11 @@ class WatchlistManagerViewController: UIViewController {
         }
 
         self.tableViewDataSource?.deleteClosure = { watchlist in
-            self.presenter.remove(watchlist)
+            self.presenter?.remove(watchlist)
         }
 
         self.tableViewDataSource?.moveClosure = { sourceIndex, destinationIndex in
-            self.presenter.moveWatchlist(from: sourceIndex, to: destinationIndex)
+            self.presenter?.moveWatchlist(from: sourceIndex, to: destinationIndex)
         }
 
         self.reloadTable(animating: false) // no need animation for initial showing
@@ -78,7 +78,8 @@ class WatchlistManagerViewController: UIViewController {
     @objc func editTapped(_ sender: UIButton) {
         if let cell = sender.superview as? UITableViewCell,
            let indexPath = self.tableView?.indexPath(for: cell),
-           let watchlist = self.presenter.watchlists[safe: indexPath.row] {
+           let presenter = self.presenter,
+           let watchlist = presenter.watchlists[safe: indexPath.row] {
 
             let alert = UIAlertController.nameWatchlistAlert(for: .edit(watchlist.name)) { [weak self] newTitle in
                 self?.presenter?.renameWatchlist(by: indexPath.row, newName: newTitle)
@@ -91,10 +92,11 @@ class WatchlistManagerViewController: UIViewController {
 extension WatchlistManagerViewController: WatchlistManagerView {
 
     func reloadTable(animating: Bool) {
+        guard let presenter = self.presenter else { return }
 
         var snapshot = NSDiffableDataSourceSnapshot<SectionModel, Watchlist>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(self.presenter.watchlists)
+        snapshot.appendItems(presenter.watchlists)
         snapshot.reloadSections([.main]) // force push to reload, cause not change name in view if changed in model
         self.tableViewDataSource?.apply(snapshot, animatingDifferences: false)
     }

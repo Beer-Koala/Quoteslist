@@ -55,7 +55,7 @@ class NetworkManager {
     func searchQuotes(by text: String,
                       errorCompletion: ((Error) -> Void)? = nil,
                       successCompletion: @escaping (SearchQuotesResponse) -> Void) {
-        let url = URL.searchQuotes(by: text)
+        guard let url = URL.searchQuotes(by: text) else { return }
         self.sendRequest(url: url) { result in
             switch result {
             case .success(let data):
@@ -76,7 +76,7 @@ class NetworkManager {
     func getHistory(for quote: Quote,
                     errorCompletion: ((Error) -> Void)? = nil,
                     successCompletion: @escaping ([HistoryQuotePrice]) -> Void) {
-        let url = URL.getHistory(for: quote)
+        guard let url = URL.getHistory(for: quote) else { return }
         self.sendRequest(url: url) { result in
             switch result {
             case .success(let data):
