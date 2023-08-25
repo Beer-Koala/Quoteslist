@@ -37,7 +37,7 @@ However, for demonstration purposes, one screen has been developed using an XIB 
 
 #### Functional
 
-1. Display a text (or image) placeholder if no stocks have been selected in the list
+1. Display a text (or image) placeholder if watchlist is empty
 
 #### Code-related
 
