@@ -35,14 +35,8 @@ However, for demonstration purposes, one screen has been developed using an XIB 
 
 ### Improvements and Enhancements
 
-#### Functional
-
-1. Display a text (or image) placeholder if watchlist is empty
-
-#### Code-related
-
-2. Used SwiftGen for texts.
-3. Migrate from CocoaPods to SwiftPackageManager.
-4. Add a coordinator and manage screens through it.
-5. Use SnapKit for UI layout.
-6. Introduce base classes for View and Presenter.
+1. Used SwiftGen for texts.
+2. Migrate from CocoaPods to SwiftPackageManager.
+3. Add a coordinator and manage screens through it.
+4. Use SnapKit for UI layout.
+5. Introduce base classes for View and Presenter.

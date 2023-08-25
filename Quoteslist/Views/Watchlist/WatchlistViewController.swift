@@ -26,6 +26,8 @@ class WatchlistViewController: UIViewController {
         static let segueIdentifier = "showWatchlists"
 
         static let manageWatchlists = "Manage watchlists"
+        static let goToSearch = "Go to search"
+        static let forAddingStocks = "for adding stocks"
     }
 
     var presenter: WatchlistPresenterProtocol?
@@ -33,6 +35,13 @@ class WatchlistViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView?
     @IBOutlet private weak var showAllWatchlistsButton: UIButton?
+    @IBOutlet private weak var goToSearchButton: UIButton?
+    @IBOutlet private weak var emptyWatchlistLabel: UILabel?
+    @IBOutlet private weak var emptyWatchlistPlaceholder: UIView?
+
+    @IBAction func goToSearchButtonAction(_ sender: Any) {
+        self.navigationItem.searchController?.searchBar.becomeFirstResponder()
+    }
 
     deinit {
         // Remove the observer when the object is deallocated
@@ -93,6 +102,8 @@ class WatchlistViewController: UIViewController {
         self.setupPopUpButton()
 
         self.title = self.presenter?.appTitle
+        self.goToSearchButton?.setTitle(Constants.goToSearch, for: .normal)
+        self.emptyWatchlistLabel?.text = Constants.forAddingStocks
         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
@@ -113,6 +124,7 @@ class WatchlistViewController: UIViewController {
 
         self.tableViewDataSource?.deleteClosure = { [weak self] quote in
             self?.presenter?.removeQuote(for: quote)
+            self?.emptyWatchlistPlaceholder?.isHidden = !(self?.presenter?.displayedQuotes.isEmpty ?? false)
         }
 
         self.tableViewDataSource?.moveClosure = { [weak self] sourceIndex, destinationIndex in
@@ -168,6 +180,8 @@ extension WatchlistViewController: WatchlistView {
         snapshot.appendSections([.main])
         snapshot.appendItems(presenter.displayedQuotes)
         self.tableViewDataSource?.apply(snapshot, animatingDifferences: animating)
+
+        self.emptyWatchlistPlaceholder?.isHidden = !(self.presenter?.displayedQuotes.isEmpty ?? false)
     }
 }
 

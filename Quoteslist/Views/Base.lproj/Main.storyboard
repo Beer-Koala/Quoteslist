@@ -163,14 +163,44 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUg-K5-0cy">
+                                <rect key="frame" x="130.66666666666669" y="459.33333333333331" width="131.66666666666669" height="54.666666666666686"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBl-Hx-yPq">
+                                        <rect key="frame" x="0.0" y="0.0" width="131.66666666666666" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Go to search"/>
+                                        <connections>
+                                            <action selector="goToSearchButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gwD-sz-XAi"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="for adding stocks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alB-KD-djp">
+                                        <rect key="frame" x="0.0" y="34.333333333333371" width="131.66666666666666" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ZBl-Hx-yPq" firstAttribute="top" secondItem="eUg-K5-0cy" secondAttribute="top" id="CIh-TQ-a2V"/>
+                                    <constraint firstAttribute="bottom" secondItem="alB-KD-djp" secondAttribute="bottom" id="N8n-5l-Xge"/>
+                                    <constraint firstItem="ZBl-Hx-yPq" firstAttribute="bottom" secondItem="alB-KD-djp" secondAttribute="top" id="ZPr-IJ-oBf"/>
+                                    <constraint firstAttribute="trailing" secondItem="alB-KD-djp" secondAttribute="trailing" id="bbC-ZK-5gW"/>
+                                    <constraint firstItem="alB-KD-djp" firstAttribute="leading" secondItem="eUg-K5-0cy" secondAttribute="leading" id="mra-dY-hlS"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZBl-Hx-yPq" secondAttribute="trailing" id="vIc-pv-flt"/>
+                                    <constraint firstItem="ZBl-Hx-yPq" firstAttribute="leading" secondItem="eUg-K5-0cy" secondAttribute="leading" id="vgL-E3-wtV"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2Cp-3b-8nP" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="3yp-Ar-vGZ"/>
+                            <constraint firstItem="eUg-K5-0cy" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="AO1-A6-sJ1"/>
                             <constraint firstItem="2Cp-3b-8nP" firstAttribute="top" secondItem="wuX-wi-OK2" secondAttribute="bottom" id="H1i-YQ-PWe"/>
                             <constraint firstItem="wuX-wi-OK2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="I3h-RU-KEg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wuX-wi-OK2" secondAttribute="trailing" constant="20" id="WaF-tQ-yk9"/>
+                            <constraint firstItem="eUg-K5-0cy" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="XDi-WE-Vp1"/>
                             <constraint firstItem="2Cp-3b-8nP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Zcz-bz-v1g"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2Cp-3b-8nP" secondAttribute="trailing" id="aba-lX-DdA"/>
                             <constraint firstItem="wuX-wi-OK2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="u6n-xy-Isr"/>
@@ -178,6 +208,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="Iah-vX-ups"/>
                     <connections>
+                        <outlet property="emptyWatchlistLabel" destination="alB-KD-djp" id="J7Q-hV-H57"/>
+                        <outlet property="emptyWatchlistPlaceholder" destination="eUg-K5-0cy" id="cqU-VC-Mro"/>
+                        <outlet property="goToSearchButton" destination="ZBl-Hx-yPq" id="4WL-vZ-p7R"/>
                         <outlet property="showAllWatchlistsButton" destination="wuX-wi-OK2" id="lPo-xG-t0f"/>
                         <outlet property="tableView" destination="2Cp-3b-8nP" id="e8h-M8-DQD"/>
                         <segue destination="UA9-gZ-oaq" kind="showDetail" identifier="showWatchlists" id="szK-0j-KSa"/>
