@@ -5,13 +5,12 @@
 //  Created by Beer Koala on 24.08.2023.
 //
 
-import Foundation
-
 import UIKit
 
 protocol ActivityIndicatorPresentable where Self: UIViewController {
 
-    var activityIndicatorView: UIActivityIndicatorView? { get set }
+    var activityIndicatorView: UIActivityIndicatorView { get set }
+    var activityIndicatorDisplayed: Bool { get set }
 
     func showActivityIndicator()
     func hideActivityIndicator()
@@ -20,15 +19,14 @@ protocol ActivityIndicatorPresentable where Self: UIViewController {
 extension ActivityIndicatorPresentable {
 
     func showActivityIndicator() {
-        if let activityIndicatorView = self.activityIndicatorView {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
 
-                activityIndicatorView.style = .large
-                activityIndicatorView.center = self.view.center
-                activityIndicatorView.startAnimating()
-                self.view.addSubview(activityIndicatorView)
-            }
+            self.activityIndicatorView.style = .large
+            self.activityIndicatorView.center = self.view.center
+            self.activityIndicatorView.startAnimating()
+            self.view.addSubview(activityIndicatorView)
+            self.activityIndicatorDisplayed = true
         }
     }
 
@@ -36,8 +34,9 @@ extension ActivityIndicatorPresentable {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
-            self.activityIndicatorView?.stopAnimating()
-            self.activityIndicatorView?.removeFromSuperview()
+            self.activityIndicatorView.stopAnimating()
+            self.activityIndicatorView.removeFromSuperview()
+            self.activityIndicatorDisplayed = false
         }
     }
 }

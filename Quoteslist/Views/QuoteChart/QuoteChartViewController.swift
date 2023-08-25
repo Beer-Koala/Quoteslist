@@ -23,7 +23,8 @@ class QuoteChartViewController: UIViewController {
 
     @IBOutlet private weak var descriptionLabel: UILabel?
     @IBOutlet private weak var chartView: BarChartView?
-    var activityIndicatorView: UIActivityIndicatorView? = UIActivityIndicatorView()
+    var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
+    var activityIndicatorDisplayed: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()

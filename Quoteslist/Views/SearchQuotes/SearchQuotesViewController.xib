@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchQuotesViewController">
             <connections>
+                <outlet property="noFoundLabel" destination="Ww6-Cy-y85" id="YFq-fY-4pN"/>
                 <outlet property="tableView" destination="3Qo-jp-kF8" id="2Gl-od-gTJ"/>
                 <outlet property="view" destination="iN0-l3-epB" id="FEn-gX-V1C"/>
             </connections>
@@ -24,11 +25,19 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ww6-Cy-y85">
+                    <rect key="frame" x="161" y="428" width="71" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="Ww6-Cy-y85" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="KkQ-e1-iTZ"/>
                 <constraint firstItem="3Qo-jp-kF8" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="bzm-qr-ilg"/>
+                <constraint firstItem="Ww6-Cy-y85" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="gRg-Nc-3kS"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="3Qo-jp-kF8" secondAttribute="trailing" id="lrs-Rn-JRq"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="3Qo-jp-kF8" secondAttribute="bottom" id="nc6-7H-oPq"/>
                 <constraint firstItem="3Qo-jp-kF8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="yAs-Go-fDI"/>

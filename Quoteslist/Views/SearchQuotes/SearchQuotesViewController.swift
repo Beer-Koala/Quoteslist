@@ -20,10 +20,20 @@ protocol SearchQuotesView: UIViewController, ActivityIndicatorPresentable {
 // Others VC made in storyboard cause it is quicker. Here I made using XIB to show another (better?) way.
 class SearchQuotesViewController: UIViewController {
 
+    enum Constants {
+        static let noQuotesFound = "No stocks found"
+    }
+
     var presenter: SearchQuotesPresenterProtocol
 
     @IBOutlet private var tableView: UITableView?
-    var activityIndicatorView: UIActivityIndicatorView? = UIActivityIndicatorView()
+    @IBOutlet private var noFoundLabel: UILabel?
+    var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView()
+    var activityIndicatorDisplayed: Bool = false {
+        didSet {
+            self.noFoundLabel?.isHidden = !self.presenter.foundQuotes.isEmpty || self.activityIndicatorDisplayed
+        }
+    }
 
     var tableViewDataSource: UITableViewDiffableDataSource<SectionModel, SearchQuotesResponse.Item>?
 
@@ -41,11 +51,16 @@ class SearchQuotesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.configureView()
         self.setupTableView()
     }
 
     // MARK: -
     // MARK: Private
+
+    private func configureView() {
+        self.noFoundLabel?.text = Constants.noQuotesFound
+    }
 
     private func setupTableView() {
         guard let tableView = self.tableView else { return }
