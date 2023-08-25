@@ -18,9 +18,9 @@ struct QuotePriceResponse: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let nestedContainer = try container.nestedContainer(keyedBy: NestedCodingKeys.self, forKey: .quote)
 
-        self.bidPrice = try nestedContainer.decode(Float.self, forKey: .iexBidPrice)
-        self.askPrice = try nestedContainer.decode(Float.self, forKey: .iexAskPrice)
-        self.latestPrice = try nestedContainer.decode(Float.self, forKey: .latestPrice)
+        self.bidPrice = (try? nestedContainer.decode(Float.self, forKey: .iexBidPrice)) ?? 0
+        self.askPrice = (try? nestedContainer.decode(Float.self, forKey: .iexAskPrice)) ?? 0
+        self.latestPrice = (try? nestedContainer.decode(Float.self, forKey: .latestPrice)) ?? 0
     }
 
     enum NestedCodingKeys: String, CodingKey {
